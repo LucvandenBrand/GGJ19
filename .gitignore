@@ -1,0 +1,35 @@
+# Object files
+*.o
+*.ko
+*.obj
+*.elf
+*.bin
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
+
+# GBA files
+*.gba
+*.elf
+*.sav
+*.gbfs
+
+# Generated sources
+source/app/main.test.c
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.*.sw[op]
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Editor files
+.idea
+.vscode
