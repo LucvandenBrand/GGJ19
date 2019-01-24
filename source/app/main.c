@@ -3,6 +3,7 @@
 #include "tonc.h"
 #include "audio.h"
 #include "gbfs.h"
+#include "simple_rng/simple_rng.h"
 
 Audio createEmptyAudio() {
     Audio audio;
@@ -23,15 +24,35 @@ Audio loadAudio() {
     return loadAudioFromROM(audioData);
 }
 
+void seedRNGByKeyPress() {
+  /* fake seeding by just fetching numbers until key is pressed. */
+  while(1) {
+    vid_vsync();
+    SimpleRNG_rand();
+    key_poll();
+    if(key_hit(KEY_ANY)){
+      break;
+    }
+  }
+}
+
 int main()
 {
-    REG_DISPCNT= DCNT_MODE0 | DCNT_BG0;
-    tte_init_se_default(0, BG_CBB(0)|BG_SBB(31));
-    tte_init_con();
+
+
+  REG_DISPCNT= DCNT_MODE0 | DCNT_BG0;
+  tte_init_se_default(0, BG_CBB(0)|BG_SBB(31));
+  tte_init_con();
+
+
 
     initAudioSystem();
     irq_init(NULL);
     irq_add(II_VBLANK, tickAudioSystem);
+
+    tte_printf("Press any key\n");
+    seedRNGByKeyPress();
+    tte_printf("Using seed: %lu\n", SimpleRNG_rand());
 
     tte_printf("Hello, World!\n\n");
 
@@ -39,11 +60,15 @@ int main()
     result += bar(3, 2);
     tte_printf("The result = %d.\n", result);
 
-    tte_printf("Now playing audio.\n");
-    Audio audio = loadAudio();
-    setCurrentAudio(&audio);
+    /* tte_printf("Now playing audio.\n"); */
+    /* Audio audio = loadAudio(); */
+    /* setCurrentAudio(&audio); */
 
-    tte_printf("\nKind regards,\nLuc van den Brand.");
+    tte_printf("\nKind regards,\nSnappy Cobra");
 
-    while(1);
+
+    while(1){
+      /* tte_erase_screen(); */
+      /* tte_printf("%8lu      ", SimpleRNG_rand()); */
+    };
 }
