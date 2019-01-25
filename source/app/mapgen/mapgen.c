@@ -16,13 +16,13 @@
 
 typedef enum { North = 0, East = 1, South = 2, West = 3 } Direction;
 
-void makeRoom(Map *map, int pos) {
+void makeRoom(Map *map, int pos, int minsize, int maxsize) {
     int x = pos % MAP_WIDTH;
     int y = pos / MAP_WIDTH;
-    int xmin = x - RAND(2) - 1;
-    int ymin = y - RAND(2) - 1;
-    int xmax = x + RAND(2) + 1;
-    int ymax = y + RAND(2) + 1;
+    int xmin = x - (RAND(maxsize-minsize) - minsize)/2;
+    int ymin = y - (RAND(maxsize-minsize) - minsize)/2;
+    int xmax = x + (RAND(maxsize-minsize) + minsize)/2;
+    int ymax = y + (RAND(maxsize-minsize) + minsize)/2;
     xmin = MAX(1, xmin);
     ymin = MAX(1, ymin);
     xmax = MIN(MAP_WIDTH - 2, xmax);
@@ -67,11 +67,14 @@ void worm(Map *map, int pos, int life) {
             worms[nworms++] = pos;
         }
         if (RAND(15) == 0) {
-            makeRoom(map, pos);
+            makeRoom(map, pos, 4, 8);
         }
     }
     map->ground[worms[0]] = Toilet;
 }
+
+// void wallFeatures(Map *map) {
+//     int start = INDEX(MAP_WIDTH / 2, MAP_HEIGHT / 2);
 
 Map generateMap() {
     Map map;
