@@ -24,7 +24,7 @@ void playLevel() {
     StateMode stateMode = IDLE;
     TimeInFrames currentFrame = 0;
     TimeInFrames transitionFrame = 0;
-    while (1) {
+    while (true) {
         ++currentFrame;
         switch (stateMode) {
             case IDLE:
