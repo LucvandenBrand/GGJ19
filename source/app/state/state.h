@@ -17,8 +17,8 @@ typedef enum {
 } StateMode;
 
 typedef struct {
-    u8 tileX;
-    u8 tileY;
+    s8 tileX;
+    s8 tileY;
 } TilePosition;
 
 typedef struct {

@@ -12,6 +12,7 @@ OBJ_ATTR playerToSpriteObject(Player player) {
     position.x = player.position.tileX * 16;
     position.y = player.position.tileY * 16;
     setSpriteObjectPosition(&spriteObject, position);
+    return spriteObject;
 }
 
 void initializeStateRenderer(State state) {
@@ -23,5 +24,6 @@ void initializeStateRenderer(State state) {
 }
 
 void renderState(State oldState, State currentState, u32 transitionFrame, u32 currentFrame) {
-
+    sprites[0] = playerToSpriteObject(currentState.player);
+    copySpriteObjectsToMemory(sprites, 1);
 }

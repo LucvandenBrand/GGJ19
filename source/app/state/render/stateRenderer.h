@@ -4,7 +4,7 @@
 #include "../state.h"
 #include "../../rendering/sprite/sprite.h"
 
-#define NUM_SPRITES 1
+#define NUM_SPRITES 128
 OBJ_ATTR sprites[NUM_SPRITES];
 
 OBJ_ATTR playerToSpriteObject(Player player);
