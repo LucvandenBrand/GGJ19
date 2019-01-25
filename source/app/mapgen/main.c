@@ -8,7 +8,7 @@
 #include "mapgen.h"
 #include "../simple_rng/simple_rng.h"
 
-char chars[] = ".#??????????";
+char chars[] = ".#bt????????";
 
 void printMap(Map map){
     for (int i=0; i<MAP_SIZE; i++){
@@ -23,7 +23,7 @@ void printMap(Map map){
 
 int main(int argc, char *argv[]){
     
-    SimpleRNG_seed(103);
+    SimpleRNG_seed(104);
     
     Map map = generateMap();
     
