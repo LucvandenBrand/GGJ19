@@ -1,9 +1,9 @@
 #include "./main.h"
 #include <stdio.h>
-#include "tonc.h"
 #include "audio.h"
 #include "gbfs.h"
 #include "simple_rng/simple_rng.h"
+#include "tonc.h"
 
 Audio createEmptyAudio() {
     Audio audio;
@@ -13,8 +13,9 @@ Audio createEmptyAudio() {
 
 Audio loadAudio() {
     u32 audioDataSize = 0;
-    const GBFS_FILE * audioFile = find_first_gbfs_file(find_first_gbfs_file);
-    const u16 * audioData = gbfs_get_obj(audioFile, "Test00.bin", &audioDataSize);
+    const GBFS_FILE* audioFile = find_first_gbfs_file(find_first_gbfs_file);
+    const u16* audioData =
+        gbfs_get_obj(audioFile, "Test00.bin", &audioDataSize);
 
     if (audioData == NULL) {
         tte_printf("No GBFS audio found.\n");
@@ -25,26 +26,21 @@ Audio loadAudio() {
 }
 
 void seedRNGByKeyPress() {
-  /* fake seeding by just fetching numbers until key is pressed. */
-  while(1) {
-    vid_vsync();
-    SimpleRNG_rand();
-    key_poll();
-    if(key_hit(KEY_ANY)){
-      break;
+    /* fake seeding by just fetching numbers until key is pressed. */
+    while (1) {
+        vid_vsync();
+        SimpleRNG_rand();
+        key_poll();
+        if (key_hit(KEY_ANY)) {
+            break;
+        }
     }
-  }
 }
 
-int main()
-{
-
-
-  REG_DISPCNT= DCNT_MODE0 | DCNT_BG0;
-  tte_init_se_default(0, BG_CBB(0)|BG_SBB(31));
-  tte_init_con();
-
-
+int main() {
+    REG_DISPCNT = DCNT_MODE0 | DCNT_BG0;
+    tte_init_se_default(0, BG_CBB(0) | BG_SBB(31));
+    tte_init_con();
 
     initAudioSystem();
     irq_init(NULL);
@@ -66,9 +62,8 @@ int main()
 
     tte_printf("\nKind regards,\nSnappy Cobra");
 
-
-    while(1){
-      /* tte_erase_screen(); */
-      /* tte_printf("%8lu      ", SimpleRNG_rand()); */
+    while (1) {
+        /* tte_erase_screen(); */
+        /* tte_printf("%8lu      ", SimpleRNG_rand()); */
     };
 }
