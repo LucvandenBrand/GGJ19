@@ -33,3 +33,4 @@ Thumbs.db
 # Editor files
 .idea
 .vscode
+*.el
