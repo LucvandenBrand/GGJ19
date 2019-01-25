@@ -57,7 +57,8 @@ void playLevel(Level level) {
                 break;
         }
         renderState(oldState, currentState, transitionFrame, currentFrame);
-        VBlankIntrWait();
+        /* vid_vsync(); */
+        /* VBlankIntrWait(); */
     };
 }
 
