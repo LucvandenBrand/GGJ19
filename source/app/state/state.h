@@ -1,6 +1,16 @@
 #ifndef STATE_H
 #define STATE_H
 
+#include "tonc_types.h"
+#include <stdbool.h>
+
+#define INITIAL_BLADDER_FILLED_AMOUNT 25
+#define MAX_BLADDER 100
+#define TRANSITION_TIME 2000 // in frames
+
+typedef u32 TimeInFrames;
+typedef u32 KeyState;
+
 typedef enum {
     IDLE,
     TRANSIT
@@ -20,9 +30,11 @@ typedef struct {
     Player player;
 } State;
 
+Player initializePlayer();
+
 State newStartState();
 State updateStateFromKeys(State state, u32 keyState);
-u32 isTransitionFinished(u32 transitionFrame, u32 currentFrame);
+bool isTransitionFinished(TimeInFrames transitionFrame, TimeInFrames currentFrame);
 void renderState(State oldState, State currentState, u32 transitionFrame, u32 currentFrame);
 
 #endif

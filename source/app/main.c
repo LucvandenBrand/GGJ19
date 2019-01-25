@@ -22,17 +22,17 @@ void playLevel() {
     State currentState = newStartState();
     State oldState = currentState;
     StateMode stateMode = IDLE;
-    u32 currentFrame = 0;
-    u32 transitionFrame = 0;
+    TimeInFrames currentFrame = 0;
+    TimeInFrames transitionFrame = 0;
     while (1) {
         ++currentFrame;
         switch (stateMode) {
             case IDLE:
                 key_poll();
-                u32 keyState = key_curr_state();
-                if (keyState) {
+                KeyState keys = key_curr_state();
+                if (keys) {
                     oldState = currentState;
-                    currentState = updateStateFromKeys(currentState, keyState);
+                    currentState = updateStateFromKeys(currentState, keys);
                     stateMode = TRANSIT;
                     transitionFrame = currentFrame;
                 }
@@ -47,6 +47,4 @@ void playLevel() {
     };
 }
 
-int main() {
-    playLevel();
-}
+int main() { playLevel(); }
