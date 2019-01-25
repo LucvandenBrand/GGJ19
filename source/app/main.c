@@ -75,11 +75,25 @@ void wipPrintDungeonMap(Map map) {
     for (int x = 0; x < MAP_WIDTH; ++x) {
         for (int y = 0; y < MAP_HEIGHT; ++y) {
             Tile tile = map.ground[y * MAP_WIDTH + x];
-            if (tile == 0) {
-                m3_plot(x, y, CLR_RED);
-            } else {
-                m3_plot(x, y, CLR_CYAN);
+            switch(tile) {
+            case Empty:
+              m3_plot(x, y, CLR_DEAD);
+              break;
+            case Wall:
+              m3_plot(x, y, CLR_BLACK);
+              break;
+            case Bed:
+              m3_plot(x, y, CLR_CYAN);
+              break;
+            case Toilet:
+              m3_plot(x, y, CLR_RED);
+              break;
             }
+            /* if (tile == 0) { */
+            /*     m3_plot(x, y, CLR_RED); */
+            /* } else { */
+            /*     m3_plot(x, y, CLR_CYAN); */
+            /* } */
             /* m3_plot(x,y, dungeon.tiles[x][y] == DungeonTile_ground ? CLR_RED
              * : CLR_CYAN); */
             /* m3_plot(x,y, CLR_CYAN); */
@@ -89,6 +103,7 @@ void wipPrintDungeonMap(Map map) {
             /* } */
         }
     }
+    while(true) {};
 }
 
 int main() {
