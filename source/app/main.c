@@ -32,7 +32,7 @@ void playLevel() {
                 KeyState keys = key_curr_state();
                 if (keys) {
                     oldState = currentState;
-                    currentState = updateStateFromKeys(currentState, keys);
+                    currentState = updateStateFromKeys(currentState);
                     stateMode = TRANSIT;
                     transitionFrame = currentFrame;
                 }

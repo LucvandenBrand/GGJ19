@@ -31,9 +31,10 @@ typedef struct {
 } State;
 
 Player initializePlayer();
+bool isPlayerColliding();
 
 State newStartState();
-State updateStateFromKeys(State state, u32 keyState);
+State updateStateFromKeys(State state);
 bool isTransitionFinished(TimeInFrames transitionFrame, TimeInFrames currentFrame);
 void renderState(State oldState, State currentState, u32 transitionFrame, u32 currentFrame);
 
