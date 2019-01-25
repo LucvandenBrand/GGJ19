@@ -24,14 +24,17 @@ void worm(Map *map, int pos, int life){
         int worm = RAND(nworms);
         pos = worms[worm];
         Direction direction = RAND(4);
-        int dpos = (direction == West) - (direction == East) + MAP_WIDTH * (direction == South) - (direction == North);
+        int dpos;
+        for(int i=0; i<3; i++){
+            dpos = (direction == West) - (direction == East) + MAP_WIDTH * ((direction == South) - (direction == North));
+            int npos = pos + dpos;
+            if (map->ground[npos] == Empty || IS_EDGE(npos)){
+                direction = (direction + 1) % 4;
+            }
+        }
         int length = 3 + RAND(10);
         while (length--){
             int npos = pos + dpos;
-//             if (map->ground[npos] == Empty){
-//                 direction = RAND(4);
-//                 dpos = (direction == West) - (direction == East) + MAP_WIDTH * (direction == South) - (direction == North);
-//             }
             if (IS_EDGE(npos)){
                 break;
             }
@@ -39,9 +42,9 @@ void worm(Map *map, int pos, int life){
             map->ground[pos] = Empty;
         }
         worms[worm] = pos;
-//         if (RAND(30) == 0 && nworms < MAX_WORMS){
-//             worms[nworms++] = pos;
-//         }
+        if (RAND(7) == 0 && nworms < MAX_WORMS){
+            worms[nworms++] = pos;
+        }
     }
 }
 
@@ -53,7 +56,7 @@ Map generateMap(){
         map.ground[i] = Wall;
     }
     
-    worm(&map, RAND(MAP_SIZE), 10);
+    worm(&map, RAND(MAP_SIZE), 80);
     
     return map;
 }
