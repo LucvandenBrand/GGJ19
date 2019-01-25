@@ -1,31 +1,9 @@
 #include "tonc.h"
 
-#include <stdio.h>
-#include "audio.h"
-#include "gbfs.h"
 #include "simple_rng/simple_rng.h"
+#include "music/music.h"
 
 #include "./main.h"
-
-Audio createEmptyAudio() {
-    Audio audio;
-    audio.numChannels = 0;
-    return audio;
-}
-
-Audio loadAudio() {
-    u32 audioDataSize = 0;
-    const GBFS_FILE* audioFile = find_first_gbfs_file(find_first_gbfs_file);
-    const u16* audioData =
-        gbfs_get_obj(audioFile, "Test00.bin", &audioDataSize);
-
-    if (audioData == NULL) {
-        tte_printf("No GBFS audio found.\n");
-        return createEmptyAudio();
-    }
-
-    return loadAudioFromROM(audioData);
-}
 
 void seedRNGByKeyPress() {
     /* fake seeding by just fetching numbers until key is pressed. */
@@ -51,12 +29,6 @@ int main() {
     tte_printf("Press any key\n");
     seedRNGByKeyPress();
     tte_printf("Using seed: %lu\n", SimpleRNG_rand());
-
-    tte_printf("Hello, World!\n\n");
-
-    int result = foo();
-    result += bar(3, 2);
-    tte_printf("The result = %d.\n", result);
 
     tte_printf("Now playing audio.\n");
     Audio audio = loadAudio();
