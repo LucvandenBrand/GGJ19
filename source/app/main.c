@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include "simple_rng/simple_rng.h"
 #include "state/state.h"
+#include "state/render/stateRenderer.h"
 #include "audio.h"
 
 #include "setup/setup.h"
@@ -34,6 +35,7 @@ void playLevel(Level level) {
     StateMode stateMode = IDLE;
     TimeInFrames currentFrame = 0;
     TimeInFrames transitionFrame = 0;
+    initializeStateRenderer(currentState);
     while (true) {
         ++currentFrame;
         switch (stateMode) {
