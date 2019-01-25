@@ -151,3 +151,6 @@ clean :
 	@rm -rf $(APP_OBJECTS) $(TEST_OBJECTS)
 	@rm -rf $(APP_MAIN_OBJECT) $(TEST_MAIN_OBJECT)
 	@rm -rf $(TEST_MAIN_SOURCE)
+
+format :
+	clang-format -i source/app/*.c source/app/*.h
