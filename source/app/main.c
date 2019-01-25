@@ -7,6 +7,7 @@
 #include "audio.h"
 
 #include "setup/setup.h"
+#include "tonc_tte.h"
 #include "./main.h"
 
 
@@ -56,6 +57,7 @@ void playLevel(Level level) {
                 break;
         }
         renderState(oldState, currentState, transitionFrame, currentFrame);
+        VBlankIntrWait();
     };
 }
 
@@ -64,11 +66,13 @@ void playLevels() {
   while(true) {
     Level level = generateLevel(currentLevel);
     playLevel(level);
+    ++currentLevel;
   }
 }
 
 int main() {
   setupGBA();
+  tte_printf("Press any key");
   seedRNGByKeyPress();
   playLevels();
 }
