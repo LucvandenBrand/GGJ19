@@ -1,7 +1,8 @@
 #include "tonc.h"
 
+#include <stdbool.h>
 #include "simple_rng/simple_rng.h"
-#include "music/music.h"
+#include "state/state.h"
 
 #include "./main.h"
 
@@ -17,25 +18,35 @@ void seedRNGByKeyPress() {
     }
 }
 
-int main() {
-    REG_DISPCNT = DCNT_MODE0 | DCNT_BG0;
-    tte_init_se_default(0, BG_CBB(0) | BG_SBB(31));
-    tte_init_con();
-
-    initAudioSystem();
-    irq_init(NULL);
-    irq_add(II_VBLANK, tickAudioSystem);
-
-    tte_printf("Press any key\n");
-    seedRNGByKeyPress();
-    tte_printf("Using seed: %lu\n", SimpleRNG_rand());
-
-    tte_printf("Now playing audio.\n");
-    Audio audio = loadAudio();
-    setCurrentAudio(&audio);
-
-    tte_printf("\nKind regards,\nSnappy Cobra");
-
+void playLevel() {
+    State currentState = newStartState();
+    State oldState = currentState;
+    StateMode stateMode = IDLE;
+    u32 currentFrame = 0;
+    u32 transitionFrame = 0;
     while (1) {
+        ++currentFrame;
+        switch (stateMode) {
+            case IDLE:
+                key_poll();
+                u32 keyState = key_curr_state();
+                if (keyState) {
+                    oldState = currentState;
+                    currentState = updateStateFromKeys(currentState, keyState);
+                    stateMode = TRANSIT;
+                    transitionFrame = currentFrame;
+                }
+                break;
+            case TRANSIT:
+                if (isTransitionFinished(transitionFrame, currentFrame)) {
+                    stateMode = IDLE;
+                }
+                break;
+        }
+        renderState(oldState, currentState, transitionFrame, currentFrame);
     };
+}
+
+int main() {
+    playLevel();
 }
