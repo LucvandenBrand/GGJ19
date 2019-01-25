@@ -40,6 +40,8 @@ Your gba.h should do this for you.
 extern "C" {
 #endif
 
+#include "tonc_types.h"
+
 /* to make a 300 KB space called samples do GBFS_SPACE(samples, 300) */
 
 #define GBFS_SPACE(filename, kbytes) \
