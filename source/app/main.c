@@ -62,6 +62,7 @@ void playLevels() {
   while(true) {
     Level level = generateLevel(currentLevel);
     playLevel(level);
+    ++currentLevel;
   }
 }
 
