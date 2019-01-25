@@ -14,16 +14,3 @@ OBJ_ATTR playerToSpriteObject(Player player) {
     setSpriteObjectPosition(&spriteObject, position);
     return spriteObject;
 }
-
-void initializeStateRenderer(State state) {
-    loadSpriteSheet();
-    initializeSpriteObjectMemory(sprites, NUM_SPRITES);
-    sprites[0] = playerToSpriteObject(state.player);
-    copySpriteObjectsToMemory(sprites, NUM_SPRITES);
-    setSpritesOnScreen();
-}
-
-void renderState(State oldState, State currentState, u32 transitionFrame, u32 currentFrame) {
-    sprites[0] = playerToSpriteObject(currentState.player);
-    copySpriteObjectsToMemory(sprites, 1);
-}
