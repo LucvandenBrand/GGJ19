@@ -19,10 +19,10 @@ typedef enum { North = 0, East = 1, South = 2, West = 3 } Direction;
 void makeRoom(Map *map, int pos) {
     int x = pos % MAP_WIDTH;
     int y = pos / MAP_WIDTH;
-    int xmin = x - RAND(2) - 1;
-    int ymin = y - RAND(2) - 1;
-    int xmax = x + RAND(2) + 1;
-    int ymax = y + RAND(2) + 1;
+    int xmin = x - RAND(8) - 1;
+    int ymin = y - RAND(8) - 1;
+    int xmax = x + RAND(8) + 1;
+    int ymax = y + RAND(8) + 1;
     xmin = MAX(1, xmin);
     ymin = MAX(1, ymin);
     xmax = MIN(MAP_WIDTH - 2, xmax);
@@ -53,7 +53,7 @@ void worm(Map *map, int pos, int life) {
                 direction = (direction + ddir) % 4;
             }
         }
-        int length = 3 + RAND(10);
+        int length = 3 + RAND(5);
         while (length--) {
             int npos = pos + dpos;
             if (IS_EDGE(npos)) {
@@ -66,7 +66,7 @@ void worm(Map *map, int pos, int life) {
         if (RAND(9) == 0 && nworms < MAX_WORMS) {
             worms[nworms++] = pos;
         }
-        if (RAND(15) == 0) {
+        if (RAND(7) == 0) {
             makeRoom(map, pos);
         }
     }
