@@ -1,7 +1,0 @@
-# Ignore binaries.
-*.o
-*.gba
-*.elf
-*.sav
-*.bin
-*.gbfs
