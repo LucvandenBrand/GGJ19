@@ -4,6 +4,7 @@
 
 #include <stdio.h>
 
+
 #include "mapgen.h"
 #include "../simple_rng/simple_rng.h"
 
@@ -22,7 +23,7 @@ void printMap(Map map){
 
 int main(int argc, char *argv[]){
     
-    SimpleRNG_seed(101);
+    SimpleRNG_seed(103);
     
     Map map = generateMap();
     

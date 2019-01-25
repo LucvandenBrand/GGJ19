@@ -25,11 +25,12 @@ void worm(Map *map, int pos, int life){
         pos = worms[worm];
         Direction direction = RAND(4);
         int dpos;
+        int ddir = RAND(2) * 2 + 1;
         for(int i=0; i<3; i++){
             dpos = (direction == West) - (direction == East) + MAP_WIDTH * ((direction == South) - (direction == North));
             int npos = pos + dpos;
             if (map->ground[npos] == Empty || IS_EDGE(npos)){
-                direction = (direction + 1) % 4;
+                direction = (direction + ddir) % 4;
             }
         }
         int length = 3 + RAND(10);
