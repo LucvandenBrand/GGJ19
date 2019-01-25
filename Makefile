@@ -153,4 +153,4 @@ clean :
 	@rm -rf $(TEST_MAIN_SOURCE)
 
 format :
-	clang-format -i source/app/*.c source/app/*.h
+	clang-format -i $(APP_SOURCES) $(APP_MAIN_SOURCE) $(TEST_SOURCES)
