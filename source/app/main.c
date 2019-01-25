@@ -1,9 +1,11 @@
-#include "./main.h"
+#include "tonc.h"
+
 #include <stdio.h>
 #include "audio.h"
 #include "gbfs.h"
 #include "simple_rng/simple_rng.h"
-#include "tonc.h"
+
+#include "./main.h"
 
 Audio createEmptyAudio() {
     Audio audio;
@@ -56,14 +58,12 @@ int main() {
     result += bar(3, 2);
     tte_printf("The result = %d.\n", result);
 
-    /* tte_printf("Now playing audio.\n"); */
-    /* Audio audio = loadAudio(); */
-    /* setCurrentAudio(&audio); */
+    tte_printf("Now playing audio.\n");
+    Audio audio = loadAudio();
+    setCurrentAudio(&audio);
 
     tte_printf("\nKind regards,\nSnappy Cobra");
 
     while (1) {
-        /* tte_erase_screen(); */
-        /* tte_printf("%8lu      ", SimpleRNG_rand()); */
     };
 }
