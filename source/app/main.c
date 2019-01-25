@@ -3,8 +3,12 @@
 #include <stdbool.h>
 #include "simple_rng/simple_rng.h"
 #include "state/state.h"
+#include "audio.h"
 
+#include "setup/setup.h"
 #include "./main.h"
+
+
 
 void seedRNGByKeyPress() {
     /* fake seeding by just fetching numbers until key is pressed. */
@@ -18,7 +22,13 @@ void seedRNGByKeyPress() {
     }
 }
 
-void playLevel() {
+// Temporary implementation of level generation; will be swapped for Michiel's code.
+typedef void* Level;
+Level generateLevel(u8 currentLevel) {
+  return NULL;
+}
+
+void playLevel(Level level) {
     State currentState = newStartState();
     State oldState = currentState;
     StateMode stateMode = IDLE;
@@ -47,4 +57,16 @@ void playLevel() {
     };
 }
 
-int main() { playLevel(); }
+void playLevels() {
+  u8 currentLevel = 1;
+  while(true) {
+    Level level = generateLevel(currentLevel);
+    playLevel(level);
+  }
+}
+
+int main() {
+  setupGBA();
+  seedRNGByKeyPress();
+  playLevels();
+}
