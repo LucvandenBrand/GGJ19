@@ -6,8 +6,7 @@
 State updateStateFromKeys(State state, Level *level, Map *map) {
   State newState = state;
     if (!state.player.isSliding){
-      if (newState.player.bladder <= MAX_BLADDER)
-        newState.player.bladder += 1;
+      newState.player.bladder += 1;
 
       if(state.player.inebriationSteps) {
         --state.player.inebriationSteps;
