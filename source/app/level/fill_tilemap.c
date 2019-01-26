@@ -35,7 +35,6 @@ uint se_index_fast(uint tx, uint ty, u16 bgcnt) {
 #define FLOOR5 (FLOOR_TILES_OFFSET2 + 3)
 #define FLOOR6 (FLOOR_TILES_OFFSET2 + 4)
 #define FLOOR7 (FLOOR_TILES_OFFSET + 7)
-#define FLOOR8 (FLOOR_TILES_OFFSET + 8)
 
 #define FLOOR_HELL_1 (FLOOR_TILES_OFFSET + 10)
 #define FLOOR_HELL_2 (FLOOR_TILES_OFFSET + 11)
@@ -80,7 +79,7 @@ uint randomFloorTile(u8 currentLevel) {
 
     uint32_t rand = SimpleRNG_rand() % 100;
     if (rand < 1) {
-        return FLOOR8;
+        return FLOOR1;
     } else if (rand < 2) {
         return FLOOR7;
     } else if (rand < 4) {
