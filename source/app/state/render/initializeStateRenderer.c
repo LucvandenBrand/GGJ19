@@ -27,17 +27,16 @@ void createMap(unsigned short *mapdata){
 
 }
 
-void initializeStateRenderer(State state) {
+void initializeStateRenderer(State state, Map map) {
 
   unsigned short mapdata[64*64];
   createMap(mapdata);
-  Map map = loadDefaultMap();
   map.tileMapLayers[0] = mapdata;
   setMapOnScreen(map);
 
     loadSpriteSheet(playerSpritePalette, PLAYER_PAL_LEN, playerSpriteTileSet, PLAYER_TILE_LEN);
     initializeSpriteObjectMemory(sprites, NUM_SPRITES);
-    renderState(state, state, 0, 0, IDLE);
+    renderState(state, state, 0, 0, IDLE, map);
     /* sprites[0] = playerToSpriteObject(state.player); */
     /* copySpriteObjectsToMemory(sprites, NUM_SPRITES); */
     setSpritesOnScreen();

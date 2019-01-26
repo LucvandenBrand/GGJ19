@@ -33,7 +33,8 @@ void playLevel(Level level) {
     StateMode stateMode = IDLE;
     TimeInFrames currentFrame = 0;
     TimeInFrames transitionFrame = 0;
-    initializeStateRenderer(currentState);
+    Map map = loadDefaultMap();
+    initializeStateRenderer(currentState, map);
     while (true) {
         ++currentFrame;
         switch (stateMode) {
@@ -54,7 +55,7 @@ void playLevel(Level level) {
                 break;
         }
         renderState(oldState, currentState, transitionFrame, currentFrame,
-                    stateMode);
+                    stateMode, map);
         /* tte_printf(" %d", stateMode); */
         /* vid_vsync(); */
         /* VBlankIntrWait(); */
