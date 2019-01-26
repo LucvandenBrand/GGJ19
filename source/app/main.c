@@ -140,8 +140,8 @@ void playLevel(Level *level) {
             case TRANSIT:
                 if (isTransitionFinished(transitionFrame, currentFrame)) {
                     stateMode = IDLE;
-                    if(currentState.hasPlayerWon) {
-                      return;
+                    if (currentState.hasPlayerWon) {
+                        return;
                     }
                 }
                 break;

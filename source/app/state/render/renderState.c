@@ -45,6 +45,7 @@ void renderState(State oldState, State currentState, u32 transitionFrame,
     mapPos.y -= SCREEN_HEIGHT / 2 + 2;
     shiftMap(map, mapPos);
 
-    /* tte_printf("#{el}#{X}px: %d py: %d", currentState.player.position.tileX, currentState.player.position.tileY); */
+    /* tte_printf("#{el}#{X}px: %d py: %d", currentState.player.position.tileX,
+     * currentState.player.position.tileY); */
     copySpriteObjectsToMemory(sprites, NUM_SPRITES);
 }

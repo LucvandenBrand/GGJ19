@@ -8,26 +8,27 @@
 #include "mapgen.h"
 #include "../simple_rng/simple_rng.h"
 
-/* char chars[] = ".#bt????????"; */
+char chars[] = ".#bt????????";
 
-/* void printMap(Map map){ */
-/*     for (int i=0; i<MAP_SIZE; i++){ */
-/*         putchar(chars[map.ground[i]]); */
-/*         if ((i+1) % MAP_WIDTH == 0){ */
-/*             putchar('\n'); */
-/*         } */
-/*     } */
-/* } */
+void printMap(GenMap map){
+    for (int i=0; i<MAP_SIZE; i++){
+        putchar(chars[map.ground[i]]);
+        if ((i+1) % MAP_WIDTH == 0){
+            putchar('\n');
+        }
+    }
+}
 
 
 
-int mapgen_main(int argc, char *argv[]){
+int main(int argc, char *argv[]){
     
-    SimpleRNG_seed(104);
+    SimpleRNG_seed(99);
     
-    Map map = generateMap();
+    GenMap map;
+    generateGenMap(&map);
     
-    /* printMap(map); */
+    printMap(map);
     
     return 0;
 }

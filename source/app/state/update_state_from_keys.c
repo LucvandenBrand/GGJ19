@@ -6,9 +6,9 @@ State updateStateFromKeys(State state, const Level *level) {
     newState.player.position.tileX += key_tri_horz();
     newState.player.position.tileY += key_tri_vert();
 
-    if(isPlayerOnToilet(newState, level)) {
-      newState.hasPlayerWon = true;
-      return newState;
+    if (isPlayerOnToilet(newState, level)) {
+        newState.hasPlayerWon = true;
+        return newState;
     }
 
     if (isPlayerColliding(newState, level)) {
