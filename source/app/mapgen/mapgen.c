@@ -36,6 +36,8 @@ void makeRoom(GenMap *map, int pos) {
 
 void worm(GenMap *map, int pos, int life) {
     map->ground[pos] = Bed;
+    map->bedPos.tileX = pos % MAP_WIDTH;
+    map->bedPos.tileY = pos / MAP_WIDTH;
     int worms[MAX_WORMS];
     int nworms = 1;
     worms[0] = pos;
@@ -71,6 +73,10 @@ void worm(GenMap *map, int pos, int life) {
         }
     }
     map->ground[worms[0]] = Toilet;
+    map->toiletPos.tileX = worms[0] % MAP_WIDTH;
+    map->toiletPos.tileY = worms[0] / MAP_WIDTH;
+
+    map->ground[map->bedPos.tileY * MAP_WIDTH + map->bedPos.tileX] = Bed;
 }
 
 void generateGenMap(GenMap *map) {

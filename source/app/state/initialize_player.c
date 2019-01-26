@@ -1,6 +1,6 @@
 #include "state.h"
 
-Player initializePlayer() {
-    return (Player){.position = {.tileX = 5, .tileY = 5},
+Player initializePlayer(const Level *level) {
+    return (Player){.position = level->genMap.bedPos,
                     .bladder = INITIAL_BLADDER_FILLED_AMOUNT};
 }

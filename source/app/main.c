@@ -28,7 +28,7 @@ void seedRNGByKeyPress() {
 /* typedef void* Level; */
 
 void playLevel(Level *level) {
-    State currentState = newStartState();
+    State currentState = newStartState(level);
     State oldState = currentState;
     StateMode stateMode = IDLE;
     TimeInFrames currentFrame = 0;

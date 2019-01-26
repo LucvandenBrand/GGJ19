@@ -17,10 +17,6 @@ typedef enum {
     TRANSIT
 } StateMode;
 
-typedef struct {
-    s8 tileX;
-    s8 tileY;
-} TilePosition;
 
 typedef struct {
     TilePosition position;
@@ -31,10 +27,10 @@ typedef struct {
     Player player;
 } State;
 
-Player initializePlayer();
+Player initializePlayer(const Level *level);
 bool isPlayerColliding();
 
-State newStartState();
+State newStartState(const Level *level);
 State updateStateFromKeys(State state, Level *level);
 bool isTransitionFinished(TimeInFrames transitionFrame, TimeInFrames currentFrame);
 
