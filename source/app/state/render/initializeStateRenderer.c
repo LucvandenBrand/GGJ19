@@ -18,20 +18,22 @@ uint se_index_fast(uint tx, uint ty, u16 bgcnt)
   return n;
 }
 
+void createMap(unsigned short *mapdata){
+  for (unsigned int i = 0; i < 64*64; ++i)
+    mapdata[i] = 3;
+
+  mapdata[se_index_fast(2, 3, 0)] = 2 * 20 + 3;
+  mapdata[se_index_fast(2, 2, 0)] = 1 * 20 + 3;
+
+}
+
 void initializeStateRenderer(State state) {
-    Map map = loadDefaultMap();
-    unsigned short mapdata[64*64] = {0};
-    unsigned int size = sizeof(mapdata) / sizeof(mapdata[0]);
-    for (unsigned int i = 0; i < size; i++)
-      mapdata[i] = 3;
 
-    mapdata[se_index_fast(2, 3, 0)] = 2 * 20 + 3;
-    mapdata[se_index_fast(2, 2, 0)] = 1 * 20 + 3;
-
-
-    map.tileMapLayers[0] = mapdata;
-
-    setMapOnScreen(map);
+  unsigned short mapdata[64*64];
+  createMap(mapdata);
+  Map map = loadDefaultMap();
+  map.tileMapLayers[0] = mapdata;
+  setMapOnScreen(map);
 
     loadSpriteSheet(playerSpritePalette, PLAYER_PAL_LEN, playerSpriteTileSet, PLAYER_TILE_LEN);
     initializeSpriteObjectMemory(sprites, NUM_SPRITES);
