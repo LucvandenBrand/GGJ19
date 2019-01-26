@@ -22,7 +22,7 @@ Audio loadAudio() {
         tte_printf("No GBFS audio found.\n");
         return createEmptyAudio();
     }
-
+    setAudioSpeed(1);
     return loadAudioFromROM(audioData);
 }
 
