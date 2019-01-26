@@ -246,13 +246,13 @@ void generateBsp(GenMap *map, int xmin, int ymin, int xmax, int ymax){
     map->toiletPos.tileX = -1;
     map->toiletPos.tileY = -1;
     bsp(map, xmin, ymin, xmax, ymax, 8);
-    if (map->bedPos.tileX < 0){
-        map->bedPos.tileX = xmin+1;
-        map->bedPos.tileY = ymin;
-    }
     if (map->toiletPos.tileX < 0) {
         map->toiletPos.tileX = xmax - 1;
         map->toiletPos.tileY = ymax - 1;
+    }
+    if (map->bedPos.tileX < 0 || (map->bedPos.tileX == map->toiletPos.tileX && map->bedPos.tileY == map->toiletPos.tileY)){
+        map->bedPos.tileX = xmin+1;
+        map->bedPos.tileY = ymin;
     }
 //     int size = (xmax - xmin) * (ymax - ymin);
 //     for (int i=0; i<size/2; ++i) {
