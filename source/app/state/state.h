@@ -5,7 +5,7 @@
 #include <stdbool.h>
 #include "../level/level.h"
 
-#define INITIAL_BLADDER_FILLED_AMOUNT 25
+#define INITIAL_BLADDER_FILLED_AMOUNT 0
 #define MAX_BLADDER 100
 #define TRANSITION_TIME 30 // in frames
 

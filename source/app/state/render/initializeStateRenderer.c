@@ -1,4 +1,3 @@
-#include "../../../assets/sprites/playerSprite.h"
 #include "stateRenderer.h"
 
 #include "tonc.h"
@@ -32,8 +31,7 @@ void initializeStateRenderer(State state, Map map, Level *level) {
     /* map.tileMapLayers[2] = NULL; */
     setMapOnScreen(map);
     REG_DISPCNT |= DCNT_BG3;  // Because setMapOnScreen destroys it.
-    loadSpriteSheet(playerSpritePal, playerSpritePalLen, playerSpriteTiles,
-                    playerSpriteTilesLen);
+    loadSpriteSheet();
     initializeSpriteObjectMemory(sprites, NUM_SPRITES);
     renderState(state, state, 0, 0, IDLE, map);
     /* sprites[0] = playerToSpriteObject(state.player); */

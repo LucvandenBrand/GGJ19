@@ -4,8 +4,11 @@
 #include "mapObject.h"
 #include "tonc.h"
 
-void loadSpriteSheet(const unsigned short * spritePalette, unsigned spritePaletteLength,
-                const unsigned int * spriteTileSet, unsigned spriteTileSetLength);
+#define PLAYER_SPRITE_TILE 0
+#define NUM_BLADDER_SPRITES 5
+#define BLADDER_SPRITE_FIRST_TILE 4
+
+void loadSpriteSheet();
 void initializeSpriteObjectMemory(OBJ_ATTR *spriteObjects, u32 count);
 void hideSpriteObjects(OBJ_ATTR *spriteObjects, u32 count);
 void copySpriteObjectsToMemory(const OBJ_ATTR *spriteObjects, u32 count);
