@@ -121,6 +121,7 @@ void playLevel(Level *level) {
     TimeInFrames currentFrame = 0;
     TimeInFrames transitionFrame = 0;
     Map map = loadDefaultMap();
+    tte_printf("#{es}");
     /* initializeStateRenderer(currentState, map, level); */
     initializeStateRenderer(currentState, map, level);
     while (true) {
