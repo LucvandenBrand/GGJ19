@@ -10,7 +10,7 @@ uint se_index_fast(uint tx, uint ty, u16 bgcnt) {
     return n;
 }
 
-#define CEILING_TILES_OFFSET 2
+#define CEILING_TILES_OFFSET 0
 #define SIDE_WALL_TILES_OFFSET 1 * 20 + 1
 #define FLOOR_TILES_OFFSET 2 * 20 + 1
 #define FLOOR_TILES_OFFSET2 3 * 20 + 1
@@ -27,12 +27,34 @@ uint se_index_fast(uint tx, uint ty, u16 bgcnt) {
 #define TOILET (FLOOR_TILES_OFFSET2 + 8)
 #define FLOOR1 (FLOOR_TILES_OFFSET + 2)
 #define FLOOR2 (FLOOR_TILES_OFFSET + 3)
+#define FLOOR3 (FLOOR_TILES_OFFSET + 4)
+#define FLOOR4 (FLOOR_TILES_OFFSET2 + 2)
+#define FLOOR5 (FLOOR_TILES_OFFSET2 + 3)
+#define FLOOR6 (FLOOR_TILES_OFFSET2 + 4)
+#define FLOOR7 (FLOOR_TILES_OFFSET + 7)
 /* #define FLOOR_3 (FLOOR_TILES_OFFSET + 2) */
 
 GenMapTile fetchGenMapTile(int x, int y, const GenMap *genMap) {
   if(x < 0 || x > 63) return Wall;
   if(y < 0 || y > 63) return Wall;
   return genMap->ground[y * MAP_WIDTH + x];
+}
+
+uint randomCeilingTile() {
+  /* uint32_t rand = SimpleRNG_rand() % 100; */
+  uint rand =  SimpleRNG_rand() % 32;
+  if (rand < 8) {
+    return rand;
+  } else {
+    return 0;
+  }
+  /* if(rand < 80) { */
+  /*   return SIDE_WALL1; */
+  /* } else if (rand < 90) { */
+  /*   return SIDE_WALL2; */
+  /* } else { */
+  /*   return SIDE_WALL3; */
+  /* } */
 }
 
 uint randomWallTile() {
@@ -45,14 +67,23 @@ uint randomWallTile() {
     return SIDE_WALL3;
   }
 }
+
 uint randomFloorTile() {
   uint32_t rand = SimpleRNG_rand() % 100;
-  if(rand < 95) {
+  if(rand < 80) {
     return FLOOR1;
-  /* } else if (rand < 90) { */
-    /* return FLOOR2; */
-  } else {
+  }else if(rand < 85) {
     return FLOOR2;
+  }else if (rand < 85) {
+    return FLOOR3;
+  } else if (rand < 87) {
+    return FLOOR4;
+  } else if (rand < 92) {
+    return FLOOR5;
+  } else if (rand < 96) {
+    return FLOOR6;
+  } else {
+    return FLOOR7;
   }
 }
 
@@ -84,7 +115,7 @@ void fillTilemap(Tilemap *tilemap, GenMap *genMap) {
                       tileImg = randomWallTile();
                     }
                   } else {
-                    tileImg = TOP_WALL1;
+                    tileImg = 1 + randomCeilingTile();
                   }
                     break;
             }
