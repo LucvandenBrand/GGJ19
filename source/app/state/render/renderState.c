@@ -45,7 +45,7 @@ void renderState(State oldState, State currentState, u32 transitionFrame,
 
     if(stateMode == TRANSIT){
       playerFgPos.y += -deltat*1;
-      mapPos.y += -deltat*1.1;
+      /* mapPos.y += -deltat*1.1; */
     }
     sprites[0] = playerToSpriteObject(playerFgPos);
 
