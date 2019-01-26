@@ -317,11 +317,11 @@ void generateBsp(GenMap *map){
     }
 }
 
-void generateGenMap(GenMap *map, int currentLevel) {
+void generateGenMap(GenMap *map, u8 currentLevel) {
     map->xmin = 1;
     map->ymin = 1;
-    map->xmax = 4 + 2 * currentLevel;
-    map->ymax = 4 + 2 * currentLevel;
+    map->xmax = MIN(4 + 2 * currentLevel, MAP_WIDTH);
+    map->ymax = MIN(4 + 2 * currentLevel, MAP_WIDTH);
     for (int x=0; x<MAP_WIDTH; x++){
         for (int y=0; y<MAP_HEIGHT; y++){
             map->ground[INDEX(x, y)] = (x<map->xmin || y<map->ymin || x>=map->xmax || y>=map->ymax) ? Wall : Empty;
@@ -333,19 +333,17 @@ void generateGenMap(GenMap *map, int currentLevel) {
     map->ground[INDEX(map->toiletPos.tileX, map->toiletPos.tileY)] = Toilet;
     map->ground[INDEX(map->toiletPos.tileX-1, map->toiletPos.tileY)] = Toileft;
     
-    for (int i=0; i<100; ++i){
-        int pos = INDEX(map->xmin + RAND(map->xmax - map->xmin), map->ymin + RAND(map->ymax - map->ymin));
-        if (map->ground[pos] == Empty) {
-            map->ground[pos] = Duckie;
-            break;
-        }
-    }
 
-    for (int i=0; i<100; ++i){
-      int pos = INDEX(map->xmin + RAND(map->xmax - map->xmin), map->ymin + RAND(map->ymax - map->ymin));
-      if (map->ground[pos] == Empty) {
-        map->ground[pos] = Alcohol;
-        break;
-      }
+    for (int x=map->xmin; x<map->xmax; ++x){
+        for (int y=map->ymin; y<map->ymax; ++y){
+            int pos = INDEX(x, y);
+            if (map->ground[pos] == Empty) {
+                if (currentLevel >= 3 && RAND(40) == 0){
+                    map->ground[pos] = Duckie;
+                } else if (currentLevel >= 5 && RAND(25) == 0){
+                    map->ground[pos] = Alcohol;
+                }
+            }
+        }
     }
 }

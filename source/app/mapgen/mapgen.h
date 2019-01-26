@@ -1,7 +1,7 @@
 #ifndef MAPGEN
 #define MAPGEN
 
-// #include "tonc_types.h"
+#include "tonc_types.h"
 
 typedef struct {
   int tileX;
@@ -34,7 +34,7 @@ typedef struct {
 } GenMap;
 
 
-void generateGenMap(GenMap *map, int currentLevel);
+void generateGenMap(GenMap *map, u8 currentLevel);
 
 #endif
 
