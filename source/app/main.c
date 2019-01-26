@@ -31,7 +31,7 @@ void playLevel(Level *level) {
     TimeInFrames currentFrame = 0;
     TimeInFrames transitionFrame = 0;
     Map map = loadDefaultMap();
-    initializeStateRenderer(currentState, map, level);
+    initializeStateRenderer(currentState, &map, level);
     while (true) {
         ++currentFrame;
         switch (stateMode) {
@@ -40,7 +40,7 @@ void playLevel(Level *level) {
                 KeyState keys = key_curr_state();
                 if (keys || currentState.player.isSliding) {
                     oldState = currentState;
-                    currentState = updateStateFromKeys(currentState, level);
+                    currentState = updateStateFromKeys(currentState, level, &map);
                     stateMode = TRANSIT;
                     transitionFrame = currentFrame;
                 }
@@ -55,7 +55,7 @@ void playLevel(Level *level) {
                 break;
         }
         renderState(oldState, currentState, transitionFrame, currentFrame,
-                    stateMode, map);
+                    stateMode, &map);
     };
 }
 

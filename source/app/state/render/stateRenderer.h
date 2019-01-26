@@ -10,8 +10,8 @@
 OBJ_ATTR sprites[NUM_SPRITES];
 
 OBJ_ATTR playerToSpriteObject(ObjectPoint playerPos);
-void initializeStateRenderer(State state, Map map, Level *level);
-void renderState(State oldState, State currentState, u32 transitionFrame, u32 currentFrame, StateMode stateMode, Map map);
+void initializeStateRenderer(State state, Map *map, Level *level);
+void renderState(State oldState, State currentState, u32 transitionFrame, u32 currentFrame, StateMode stateMode, Map *map);
 
 Map loadDefaultMap();
 

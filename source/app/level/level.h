@@ -3,6 +3,7 @@
 
 #include "tonc_types.h"
 #include "../mapgen/mapgen.h"
+#include "map.h"
 
 typedef unsigned short Tilemap[64 * 64];
 typedef struct {
@@ -18,7 +19,7 @@ void generateLevel(u8 currentLevel, Level *level);
 void fillTilemap(Tilemap *tilemap, GenMap *genMap);
 
 GenMapTile getLevelTile(const Level *level, u8 x, u8 y);
-void setLevelTile(Level *level, u8 x, u8 y, GenMapTile newTile);
+void setLevelTile(Level *level, Map *map, u8 x, u8 y, GenMapTile newTile);
 void pickImgForPlace(Tilemap *tile, GenMap *genMap, int x, int y);
 
 #endif //LEVEL_H
