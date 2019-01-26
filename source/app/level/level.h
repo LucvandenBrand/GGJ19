@@ -10,7 +10,6 @@ typedef struct {
   GenMap genMap;
   Tilemap tilemap;
   u8 currentLevel;
-  bool changed;
 } Level;
 
 //public
