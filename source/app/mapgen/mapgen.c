@@ -172,7 +172,6 @@ void bsp(GenMap *map, int xmin, int ymin, int xmax, int ymax, int d){
     if (ymax - ymin >= 4 && (xmax - xmin < 4 || RAND(2))){
         // horizontal wall
         
-//         int sep = ymin + 1 + RAND(ymax - ymin - 2);
         int sepmin = ymin + 1 + RAND(ymax - ymin - 3);
         int sepmax = sepmin + 2 + RAND(2);
         sepmax = MIN(ymax-1, sepmax);
@@ -224,20 +223,23 @@ void bsp(GenMap *map, int xmin, int ymin, int xmax, int ymax, int d){
                 break;
             }
         }
+
     }
 }
 
 
 
-void generateGenMap(GenMap *map) {
-    for (int i = 0; i < MAP_SIZE; ++i) {
-        map->ground[i] = IS_EDGE(i) ? Wall : Empty;
+void generateGenMap(GenMap *map, int xmin, int ymin, int xmax, int ymax) {
+    for (int x=0; x<MAP_WIDTH; x++){
+        for (int y=0; y<MAP_HEIGHT; y++){
+            map->ground[INDEX(x, y)] = (x<xmin || y<ymin || x>=xmax || y>=ymax) ? Wall : Empty;
+        }
     }
-    bsp(map, 1, 1, MAP_WIDTH-1, MAP_HEIGHT-1, 10);
-    map->bedPos.tileX = 1;
-    map->bedPos.tileY = 1;
-    map->toiletPos.tileX = MAP_WIDTH-2;
-    map->toiletPos.tileY = MAP_HEIGHT-2;
+    bsp(map, xmin, ymin, xmax, ymax, 4);
+    map->bedPos.tileX = xmin;
+    map->bedPos.tileY = ymin;
+    map->toiletPos.tileX = xmax-1;
+    map->toiletPos.tileY = ymax-1;
     map->ground[INDEX(map->bedPos.tileX, map->bedPos.tileY)] = Bed;
     map->ground[INDEX(map->toiletPos.tileX, map->toiletPos.tileY)] = Toilet;
 //     worm(map, RAND(MAP_SIZE), 1050);
