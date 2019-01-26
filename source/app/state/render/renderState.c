@@ -4,7 +4,6 @@ double easeInOutQuad(double t) {
     return t < 0.5 ? 2 * t * t : t * (4 - 2 * t) - 1;
 }
 
-
 ObjectPoint interpolatePlayerPos(State *oldState, State *currentState,
                                  double deltat, StateMode stateMode) {
     ObjectPoint playerPos;
@@ -30,11 +29,12 @@ void renderState(State oldState, State currentState, u32 transitionFrame,
                  u32 currentFrame, StateMode stateMode, Map map) {
     /* playerPos.x = currentState.player.position.tileX * 16; */
     /* playerPos.y = currentState.player.position.tileY * 16; */
-    double deltat = (double)(currentFrame - transitionFrame) /
-      (double)TRANSITION_TIME;
-    ObjectPoint playerPos =
-      interpolatePlayerPos(&oldState, &currentState, easeInOutQuad(deltat), stateMode);
-    sprites[0] = playerToSpriteObject((ObjectPoint){.x = SCREEN_WIDTH / 2, .y = SCREEN_HEIGHT / 2});
+    double deltat =
+        (double)(currentFrame - transitionFrame) / (double)TRANSITION_TIME;
+    ObjectPoint playerPos = interpolatePlayerPos(
+        &oldState, &currentState, easeInOutQuad(deltat), stateMode);
+    sprites[0] = playerToSpriteObject(
+        (ObjectPoint){.x = SCREEN_WIDTH / 2, .y = SCREEN_HEIGHT / 2});
     BackgroundPoint mapPos;
     mapPos.x = -playerPos.x;
     mapPos.y = -playerPos.y;

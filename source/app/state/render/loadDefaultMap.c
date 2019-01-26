@@ -1,5 +1,5 @@
-#include "stateRenderer.h"
 #include "gbfs.h"
+#include "stateRenderer.h"
 
 Map loadDefaultMap() {
     u32 mapDataSize = 0;
