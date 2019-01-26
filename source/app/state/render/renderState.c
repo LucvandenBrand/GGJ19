@@ -5,7 +5,7 @@ double easeInOutQuad(double t) {
 }
 
 BackgroundPoint interpolatePlayerPos(State *oldState, State *currentState,
-                                 double deltat, StateMode stateMode) {
+                                     double deltat, StateMode stateMode) {
     BackgroundPoint playerPos;
     s32 newX = currentState->player.position.tileX * 8;
     s32 newY = currentState->player.position.tileY * 8;
@@ -41,8 +41,8 @@ void renderState(State oldState, State currentState, u32 transitionFrame,
     BackgroundPoint mapPos;
     mapPos.x = -playerPos.x;
     mapPos.y = -playerPos.y;
-    mapPos.x -= SCREEN_WIDTH/2;
-    mapPos.y -= SCREEN_HEIGHT/2;
+    mapPos.x -= SCREEN_WIDTH / 2;
+    mapPos.y -= SCREEN_HEIGHT / 2;
     shiftMap(map, mapPos);
     copySpriteObjectsToMemory(sprites, NUM_SPRITES);
 }

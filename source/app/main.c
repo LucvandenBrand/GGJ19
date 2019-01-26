@@ -2,15 +2,14 @@
 
 #include <stdbool.h>
 #include "audio.h"
+#include "level/level.h"
 #include "simple_rng/simple_rng.h"
 #include "state/render/stateRenderer.h"
 #include "state/state.h"
-#include "level/level.h"
 
 #include "./main.h"
 #include "setup/setup.h"
 #include "tonc_tte.h"
-
 
 void seedRNGByKeyPress() {
     /* fake seeding by just fetching numbers until key is pressed. */
@@ -24,12 +23,9 @@ void seedRNGByKeyPress() {
     }
 }
 
-
 // Temporary implementation of level generation; will be swapped for Michiel's
 // code.
 /* typedef void* Level; */
-
-
 
 void playLevel(Level *level) {
     State currentState = newStartState();
@@ -68,43 +64,43 @@ void playLevel(Level *level) {
 }
 
 void wipPrintDungeonMap(GenMap map) {
-  REG_DISPCNT = DCNT_MODE3 | DCNT_BG2;
-  for (int x = 0; x < MAP_WIDTH; ++x) {
-    for (int y = 0; y < MAP_HEIGHT; ++y) {
-      GenMapTile tile = map.ground[y * MAP_WIDTH + x];
-      switch (tile) {
-      case Empty:
-        m3_plot(x, y, CLR_YELLOW);
-        break;
-      case Wall:
-        m3_plot(x, y, CLR_BLACK);
-        break;
-      case Bed:
-        m3_plot(x, y, CLR_CYAN);
-        break;
-      case Toilet:
-        m3_plot(x, y, CLR_RED);
-        break;
-      }
+    REG_DISPCNT = DCNT_MODE3 | DCNT_BG2;
+    for (int x = 0; x < MAP_WIDTH; ++x) {
+        for (int y = 0; y < MAP_HEIGHT; ++y) {
+            GenMapTile tile = map.ground[y * MAP_WIDTH + x];
+            switch (tile) {
+                case Empty:
+                    m3_plot(x, y, CLR_YELLOW);
+                    break;
+                case Wall:
+                    m3_plot(x, y, CLR_BLACK);
+                    break;
+                case Bed:
+                    m3_plot(x, y, CLR_CYAN);
+                    break;
+                case Toilet:
+                    m3_plot(x, y, CLR_RED);
+                    break;
+            }
+        }
     }
-  }
-  while (true) {
-  };
+    while (true) {
+    };
 }
-
 
 void playLevels() {
     u8 currentLevel = 1;
     while (true) {
         /* Level level = generateLevel(currentLevel); */
-      tte_printf("Level %d\n", currentLevel);
-      /* Level level = (Level){.tilemap = {0}, .genMap = {0}}; */
-      /* Level level = {.genMap = {.ground = {[0 ... 64*64 - 1] = 0}}, .tilemap = {[0 ... 64*64 - 1] = 3}}; */
-      Level level;
-      generateLevel(currentLevel, &level);
+        tte_printf("Level %d\n", currentLevel);
+        /* Level level = (Level){.tilemap = {0}, .genMap = {0}}; */
+        /* Level level = {.genMap = {.ground = {[0 ... 64*64 - 1] = 0}},
+         * .tilemap = {[0 ... 64*64 - 1] = 3}}; */
+        Level level;
+        generateLevel(currentLevel, &level);
         tte_printf("Level %d generated!\n", currentLevel);
         key_wait_till_hit(KEY_ANY);
-      /* wipPrintDungeonMap(level.genMap); */
+        /* wipPrintDungeonMap(level.genMap); */
         playLevel(&level);
         ++currentLevel;
     }
