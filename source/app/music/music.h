@@ -4,5 +4,9 @@
 
 Audio createEmptyAudio();
 Audio loadAudio();
+void tickAudioSystemSpeedy();
+void increaseAudioSpeed();
+void setAudioSpeed(float newSpeed);
+void decreaseAudioSpeed();
 
 #endif

@@ -26,7 +26,7 @@ int main(int argc, char *argv[]){
     SimpleRNG_seed(99);
     
     GenMap map;
-    generateGenMap(&map, 1, 1, 32, 32);
+    generateGenMap(&map, 1, 1, 63, 63);
     
     printMap(map);
     
