@@ -6,8 +6,8 @@ State updateStateFromKeys(State state, const Level *level) {
     newState.player.position.tileX += key_tri_horz();
     newState.player.position.tileY += key_tri_vert();
 
-    if (newState.player.bladder < MAX_BLADDER)
-        newState.player.bladder += 2;
+    if (newState.player.bladder <= MAX_BLADDER)
+        newState.player.bladder += 1;
 
     if (isPlayerOnToilet(newState, level)) {
         newState.hasPlayerWon = true;
