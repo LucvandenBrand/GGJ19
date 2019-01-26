@@ -4,7 +4,11 @@
 
 
 State updateStateFromKeys(State state, Level *level, Map *map) {
+  State newState = state;
     if (!state.player.isSliding){
+      if (newState.player.bladder <= MAX_BLADDER)
+        newState.player.bladder += 1;
+
       if(state.player.inebriationSteps) {
         --state.player.inebriationSteps;
         state.player.velocity.tileX = -key_tri_vert();
@@ -14,12 +18,9 @@ State updateStateFromKeys(State state, Level *level, Map *map) {
         state.player.velocity.tileY = key_tri_vert();
       }
     }
-    State newState = state;
     newState.player.position.tileX += state.player.velocity.tileX;
     newState.player.position.tileY += state.player.velocity.tileY;
 
-    if (newState.player.bladder <= MAX_BLADDER)
-        newState.player.bladder += 1;
 
     if (isPlayerOnToilet(newState, level)) {
         newState.hasPlayerWon = true;
