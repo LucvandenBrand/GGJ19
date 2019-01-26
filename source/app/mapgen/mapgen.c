@@ -172,7 +172,7 @@ void bsp(GenMap *map, int xmin, int ymin, int xmax, int ymax, int d) {
     int height = ymax - ymin;
     int size = width * height;
     int tosplit = d > 0 && size > 8 + RAND(20) + RAND(20);
-    if (tosplit && height >= 5 && width > 2 && (width < 5 || RAND(2))) {
+    if (tosplit && height >= 5 && width > 2 && (width < 5 || 2 + (height >= width*2) - (width >= height*2) > RAND(4))) {
         // horizontal wall
 
         int sepmin = ymin + 1 + RAND(height - 3);
