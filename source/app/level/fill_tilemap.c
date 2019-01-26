@@ -58,13 +58,19 @@ uint randomCeilingTile() {
 }
 
 uint randomWallTile() {
-  uint32_t rand = SimpleRNG_rand() % 100;
-  if(rand < 80) {
-    return SIDE_WALL1;
-  } else if (rand < 90) {
-    return SIDE_WALL2;
+  /* uint32_t rand = SimpleRNG_rand() % 100; */
+  /* if(rand < 80) { */
+  /*   return SIDE_WALL1; */
+  /* } else if (rand < 90) { */
+  /*   return SIDE_WALL2; */
+  /* } else { */
+  /*   return SIDE_WALL3; */
+  /* } */
+  uint32_t rand = SimpleRNG_rand() % 32;
+  if (rand < 8) {
+    return SIDE_WALL1 + rand;
   } else {
-    return SIDE_WALL3;
+    return SIDE_WALL1;
   }
 }
 
