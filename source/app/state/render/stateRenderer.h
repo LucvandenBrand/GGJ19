@@ -3,6 +3,7 @@
 
 #include "../state.h"
 #include "../../rendering/sprite/sprite.h"
+#include "map.h"
 
 #define NUM_SPRITES 128
 OBJ_ATTR sprites[NUM_SPRITES];
@@ -10,5 +11,7 @@ OBJ_ATTR sprites[NUM_SPRITES];
 OBJ_ATTR playerToSpriteObject(Player player);
 void initializeStateRenderer(State state);
 void renderState(State oldState, State currentState, u32 transitionFrame, u32 currentFrame);
+
+Map loadDefaultMap();
 
 #endif
