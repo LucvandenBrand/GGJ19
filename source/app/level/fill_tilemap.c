@@ -9,6 +9,26 @@ uint se_index_fast(uint tx, uint ty, u16 bgcnt) {
     return n;
 }
 
+#define FLOOR_TILES_OFFSET 2 * 20 + 1
+#define SIDE_WALL_TILES_OFFSET 1 * 20 + 1
+#define CEILING_TILES_OFFSET 2
+
+#define TOP_WALL1 (CEILING_TILES_OFFSET)
+#define SIDE_WALL1 (SIDE_WALL_TILES_OFFSET + 2)
+#define SIDE_WALL2 (SIDE_WALL_TILES_OFFSET + 3)
+
+#define SINGLE_TILE_WALL (FLOOR_TILES_OFFSET + 4)
+
+#define BED_LEFT (FLOOR_TILES_OFFSET + 5)
+#define BED_RIGHT (FLOOR_TILES_OFFSET + 6)
+#define FLOOR_1 (FLOOR_TILES_OFFSET + 2)
+
+GenMapTile fetchGenMapTile(int x, int y, const GenMap *genMap) {
+  if(x <= 0 || x >= 63) return Wall;
+  if(y <= 0 || y >= 63) return Wall;
+  return genMap->ground[y * MAP_WIDTH + x];
+}
+
 void fillTilemap(Tilemap *tilemap, GenMap *genMap) {
     for (unsigned int i = 0; i < 64 * 64; ++i) {
         (*tilemap)[i] = 2 * 20 + 3;
@@ -16,15 +36,26 @@ void fillTilemap(Tilemap *tilemap, GenMap *genMap) {
     for (int x = 0; x < MAP_WIDTH; ++x) {
         for (int y = 0; y < MAP_HEIGHT; ++y) {
             unsigned short tileImg = 0;
-            switch (genMap->ground[y * MAP_WIDTH + x]) {
+            switch (fetchGenMapTile(x, y, genMap)) {
                 case Empty:
-                    tileImg = 2 * 20 + 3;
+                    tileImg = FLOOR_1;
                     break;
                 case Wall:
-                    tileImg = 1 * 20 + 3;
+                  if(fetchGenMapTile(x, y+1, genMap) != Wall) {
+                    if(fetchGenMapTile(x, y - 1, genMap) != Wall) {
+                      tileImg = SINGLE_TILE_WALL;
+                    } else {
+                      tileImg = SIDE_WALL1;
+                    }
+                  } else {
+                    tileImg = TOP_WALL1;
+                  }
                     break;
-                default:
-                    tileImg = 3;
+                case Bed:
+                    tileImg = BED_LEFT;
+                    break;
+                case Toilet:
+                    tileImg = BED_RIGHT;
                     break;
             }
 
