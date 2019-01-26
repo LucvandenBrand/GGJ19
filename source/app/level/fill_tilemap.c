@@ -10,7 +10,10 @@ uint se_index_fast(uint tx, uint ty, u16 bgcnt) {
 }
 
 void fillTilemap(Tilemap *tilemap, GenMap *genMap) {
-  /* for (unsigned int i = 0; i < 64 * 64; ++i) { */
+  for (unsigned int i = 0; i < 64 * 64; ++i) {
+
+    (*tilemap)[i] = 2 * 20 + 3;
+  }
   for(int x = 0; x < MAP_WIDTH; ++x) {
     for(int y = 0; y < MAP_HEIGHT; ++y) {
       unsigned short tileImg = 0;
@@ -26,7 +29,7 @@ void fillTilemap(Tilemap *tilemap, GenMap *genMap) {
           break;
       }
 
-        *tilemap[se_index_fast(x, y, 0)] = tileImg;
+      (*tilemap)[se_index_fast(x, y, 0)] = tileImg;
     }
   }
     /* (*tilemap)[i] = genMap->ground[i]; */
