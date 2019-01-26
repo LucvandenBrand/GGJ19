@@ -10,9 +10,10 @@ uint se_index_fast(uint tx, uint ty, u16 bgcnt) {
     return n;
 }
 
-#define FLOOR_TILES_OFFSET 2 * 20 + 1
-#define SIDE_WALL_TILES_OFFSET 1 * 20 + 1
 #define CEILING_TILES_OFFSET 2
+#define SIDE_WALL_TILES_OFFSET 1 * 20 + 1
+#define FLOOR_TILES_OFFSET 2 * 20 + 1
+#define FLOOR_TILES_OFFSET2 3 * 20 + 1
 
 #define TOP_WALL1 (CEILING_TILES_OFFSET)
 #define SIDE_WALL1 (SIDE_WALL_TILES_OFFSET + 2)
@@ -23,6 +24,7 @@ uint se_index_fast(uint tx, uint ty, u16 bgcnt) {
 
 #define BED_LEFT (FLOOR_TILES_OFFSET + 5)
 #define BED_RIGHT (FLOOR_TILES_OFFSET + 6)
+#define TOILET (FLOOR_TILES_OFFSET2 + 8)
 #define FLOOR1 (FLOOR_TILES_OFFSET + 2)
 #define FLOOR2 (FLOOR_TILES_OFFSET + 3)
 /* #define FLOOR_3 (FLOOR_TILES_OFFSET + 2) */
@@ -67,7 +69,7 @@ void fillTilemap(Tilemap *tilemap, GenMap *genMap) {
               tileImg = BED_LEFT;
               break;
             case Toilet:
-              tileImg = BED_RIGHT;
+              tileImg = TOILET;
               break;
                 case Empty:
                   /* tileImg = FLOOR1 + (SimpleRNG_rand() % 3); */
