@@ -25,6 +25,7 @@ typedef struct {
     u16 bladder;
     TilePosition velocity;
     bool isSliding;
+  u8 inebriationSteps;
 } Player;
 
 typedef struct {
