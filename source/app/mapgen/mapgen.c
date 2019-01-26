@@ -134,7 +134,8 @@ void worm(GenMap *map, int pos, int life) {
     map->toiletPos.tileY = worms[0] / MAP_WIDTH;
 
     map->ground[map->bedPos.tileY * MAP_WIDTH + map->bedPos.tileX] = Bed;
-    map->ground[map->toiletPos.tileY * MAP_WIDTH + map->toiletPos.tileX] = Toilet;
+    map->ground[map->toiletPos.tileY * MAP_WIDTH + map->toiletPos.tileX] =
+        Toilet;
 }
 
 // int isValue(Map *map, x, y, width, height, val){
