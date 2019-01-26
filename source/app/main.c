@@ -10,6 +10,7 @@
 #include "./main.h"
 #include "setup/setup.h"
 #include "tonc_tte.h"
+#include "music/music.h"
 
 void seedRNGByKeyPress() {
     /* fake seeding by just fetching numbers until key is pressed. */
@@ -67,6 +68,7 @@ void playLevels() {
         Level level;
         generateLevel(currentLevel, &level);
         playLevel(&level);
+        increaseAudioSpeed();
         ++currentLevel;
     }
 }
