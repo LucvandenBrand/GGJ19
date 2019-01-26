@@ -36,6 +36,9 @@ bool playLevel(Level *level) {
     initializeStateRenderer(currentState, &map, level);
     while (true) {
         ++currentFrame;
+        if(currentState.player.bladder >= MAX_BLADDER) {
+          return false;
+        }
         switch (stateMode) {
             case IDLE:
                 key_poll();
@@ -77,7 +80,8 @@ void playLevels() {
         ++currentLevel;
     }
     setupGBA();
-    tte_printf("You reached level %d", currentLevel);
+    tte_printf("You reached level %d\n", currentLevel);
+    setAudioSpeed(0);
     key_wait_till_hit(KEY_ANY);
 }
 
