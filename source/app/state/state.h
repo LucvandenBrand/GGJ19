@@ -6,7 +6,7 @@
 
 #define INITIAL_BLADDER_FILLED_AMOUNT 25
 #define MAX_BLADDER 100
-#define TRANSITION_TIME 4000 // in frames
+#define TRANSITION_TIME 200 // in frames
 
 typedef u32 TimeInFrames;
 typedef u32 KeyState;

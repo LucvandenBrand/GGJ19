@@ -8,9 +8,9 @@
 #define NUM_SPRITES 128
 OBJ_ATTR sprites[NUM_SPRITES];
 
-OBJ_ATTR playerToSpriteObject(Player player);
+OBJ_ATTR playerToSpriteObject(ObjectPoint playerPos);
 void initializeStateRenderer(State state);
-void renderState(State oldState, State currentState, u32 transitionFrame, u32 currentFrame);
+void renderState(State oldState, State currentState, u32 transitionFrame, u32 currentFrame, StateMode stateMode);
 
 Map loadDefaultMap();
 

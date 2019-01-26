@@ -1,5 +1,5 @@
-#include "sprite.h"
 #include <string.h>
+#include "sprite.h"
 
 void loadSpriteSheet(const unsigned short * spritePalette, unsigned spritePaletteLength,
                      const unsigned int * spriteTileSet, unsigned spriteTileSetLength)
