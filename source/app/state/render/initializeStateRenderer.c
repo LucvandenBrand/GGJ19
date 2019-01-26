@@ -22,10 +22,11 @@ void createMap(unsigned short *mapdata) {
     mapdata[se_index_fast2(2, 2, 0)] = 1 * 20 + 3;
 }
 
-void initializeStateRenderer(State state, Map map, Level level) {
+void initializeStateRenderer(State state, Map map, Level *level) {
     /* unsigned short mapdata[64 * 64]; */
     /* createMap(mapdata); */
-    map.tileMapLayers[0] = level.tilemap;
+    /* map.tileMapLayers[0] = mapdata; */
+    map.tileMapLayers[0] = level->tilemap;
     setMapOnScreen(map);
 
     loadSpriteSheet(playerSpritePalette, PLAYER_PAL_LEN, playerSpriteTileSet,

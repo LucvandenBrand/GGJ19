@@ -10,8 +10,8 @@ uint se_index_fast(uint tx, uint ty, u16 bgcnt) {
 }
 
 void fillTilemap(Tilemap *tilemap, GenMap *genMap) {
-  for (unsigned int i = 0; i < 64 * 64; ++i) *tilemap[i] = 3;
+  for (unsigned int i = 0; i < 64 * 64; ++i) (*tilemap)[i] = 3;
 
-  *tilemap[se_index_fast(2, 3, 0)] = 2 * 20 + 3;
-  *tilemap[se_index_fast(2, 2, 0)] = 1 * 20 + 3;
+  (*tilemap)[se_index_fast(2, 3, 0)] = 2 * 20 + 3;
+  (*tilemap)[se_index_fast(2, 2, 0)] = 1 * 20 + 3;
 }

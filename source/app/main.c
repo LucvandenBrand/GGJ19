@@ -31,7 +31,7 @@ void seedRNGByKeyPress() {
 
 
 
-void playLevel(Level level) {
+void playLevel(Level *level) {
     State currentState = newStartState();
     State oldState = currentState;
     StateMode stateMode = IDLE;
@@ -99,12 +99,13 @@ void playLevels() {
         /* Level level = generateLevel(currentLevel); */
       tte_printf("Level %d\n", currentLevel);
       /* Level level = (Level){.tilemap = {0}, .genMap = {0}}; */
-      Level level = {.genMap = {.ground = {[0 ... 64*64 - 1] = 0}}, .tilemap = {[0 ... 64*64 - 1] = 3}};
+      /* Level level = {.genMap = {.ground = {[0 ... 64*64 - 1] = 0}}, .tilemap = {[0 ... 64*64 - 1] = 3}}; */
+      Level level;
       generateLevel(currentLevel, &level);
         tte_printf("Level %d generated!\n", currentLevel);
         key_wait_till_hit(KEY_ANY);
       /* wipPrintDungeonMap(level.genMap); */
-        playLevel(level);
+        playLevel(&level);
         ++currentLevel;
     }
 }
