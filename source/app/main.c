@@ -36,8 +36,8 @@ bool playLevel(Level *level) {
     initializeStateRenderer(currentState, &map, level);
     while (true) {
         ++currentFrame;
-        if(currentState.player.bladder >= MAX_BLADDER) {
-          return false;
+        if (currentState.player.bladder >= MAX_BLADDER) {
+            return false;
         }
         switch (stateMode) {
             case IDLE:
@@ -45,7 +45,8 @@ bool playLevel(Level *level) {
                 KeyState keys = key_curr_state();
                 if (keys || currentState.player.isSliding) {
                     oldState = currentState;
-                    currentState = updateStateFromKeys(currentState, level, &map);
+                    currentState =
+                        updateStateFromKeys(currentState, level, &map);
                     stateMode = TRANSIT;
                     transitionFrame = currentFrame;
                 }
@@ -73,8 +74,8 @@ void playLevels() {
         Level level;
         generateLevel(currentLevel, &level);
         bool playerBeatLevel = playLevel(&level);
-        if(!playerBeatLevel){
-          break;
+        if (!playerBeatLevel) {
+            break;
         }
         increaseAudioSpeed(0.05);
         ++currentLevel;
@@ -86,11 +87,11 @@ void playLevels() {
 }
 
 int main() {
-  setupGBA();
-  while(true){
-    tte_printf("Toilet Boy Alpha\n\nPress any key!\n");
-    seedRNGByKeyPress();
-    tte_printf("#{es}");
-    playLevels();
-  }
+    setupGBA();
+    while (true) {
+        tte_printf("Toilet Boy Alpha\n\nPress any key!\n");
+        seedRNGByKeyPress();
+        tte_printf("#{es}");
+        playLevels();
+    }
 }
