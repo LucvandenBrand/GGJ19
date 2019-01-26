@@ -1,5 +1,5 @@
 # GG19 - GBA Game
-This repository contains a basic setup for building structured and test-driven Game Boy Advance (GBA) applications.
+This repository contains the sources for a GBA game about finding your toilet in the middle of the night.
 
 ## Project structure
 The actual content of the GBA application is stored in `source`:
@@ -25,3 +25,10 @@ Once the project has been setup properly, the only thing a developer needs to do
 - `make` : builds the game and exports a `.gba` file.
 - `make test` : builds both the game and its tests in the `.test.c` files, exporting a `.gba` file that runs all these tests. This is made possible by the `minunit_test_builder` in the tools folder and the `minunit` testing library.
 - `make clean` : removes all junk created by the building processes above.
+
+## Authors
+- [Timo Strating](https://github.com/timostrating)
+- [Luc van den Brand](LucvandenBrand.com)
+- [Wiebe-Marten Wijnja](https://wmcode.nl/)
+- [Michiel de Jong](https://troido.nl
+- [Marco Breemhaar](https://github.com/mbreemhaar)
