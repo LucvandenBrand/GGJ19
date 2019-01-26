@@ -179,7 +179,7 @@ void wipPrintDungeonMap(GenMap map) {
 }
 
 void fade_out_till_end() {
-    init_main(); // WARNING: This may break some other backgrounds
+    /* init_main(); // WARNING: This may break some other backgrounds */
     int rr = 0, x0 = 120, y0 = 80;
 
     while (rr < 145) {
@@ -207,7 +207,7 @@ void playLevels() {
         tte_printf("Level %d generated!\n", currentLevel);
         key_wait_till_hit(KEY_ANY);
         /* wipPrintDungeonMap(level.genMap); */
-        fade_out_till_end();
+        /* fade_out_till_end(); */
         playLevel(&level);
         ++currentLevel;
     }
