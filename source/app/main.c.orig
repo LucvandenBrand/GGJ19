@@ -36,8 +36,8 @@ bool playLevel(Level *level) {
     initializeStateRenderer(currentState, &map, level);
     while (true) {
         ++currentFrame;
-        if(currentState.player.bladder >= MAX_BLADDER) {
-          return false;
+        if (currentState.player.bladder >= MAX_BLADDER) {
+            return false;
         }
         switch (stateMode) {
             case IDLE:
@@ -45,7 +45,8 @@ bool playLevel(Level *level) {
                 KeyState keys = key_curr_state();
                 if (keys || currentState.player.isSliding) {
                     oldState = currentState;
-                    currentState = updateStateFromKeys(currentState, level, &map);
+                    currentState =
+                        updateStateFromKeys(currentState, level, &map);
                     stateMode = TRANSIT;
                     transitionFrame = currentFrame;
                 }
@@ -59,6 +60,15 @@ bool playLevel(Level *level) {
                 }
                 break;
         }
+<<<<<<< HEAD
+=======
+        if (level->changed) {
+            setMapOnScreen(map);
+            REG_DISPCNT |= DCNT_BG3 | DCNT_OBJ |
+                           DCNT_OBJ_1D;  // Because setMapOnScreen destroys it.
+            level->changed = false;
+        }
+>>>>>>> 8d771df140e9ba7e4c67afd0b12caa82c7e76209
         renderState(oldState, currentState, transitionFrame, currentFrame,
                     stateMode, &map);
     };
@@ -72,29 +82,25 @@ void playLevels() {
     while (true) {
         Level level;
         generateLevel(currentLevel, &level);
-<<<<<<< HEAD
         bool playerBeatLevel = playLevel(&level);
-        if(!playerBeatLevel){
-          break;
+        if (!playerBeatLevel) {
+            break;
         }
-        increaseAudioSpeed();
-=======
-        playLevel(&level);
         increaseAudioSpeed(0.05);
->>>>>>> sliding
         ++currentLevel;
     }
     setupGBA();
-    tte_printf("You reached level %d", currentLevel);
+    tte_printf("You reached level %d\n", currentLevel);
+    setAudioSpeed(0);
     key_wait_till_hit(KEY_ANY);
 }
 
 int main() {
-  setupGBA();
-  while(true){
-    tte_printf("Toilet Boy Alpha\n\nPress any key!\n");
-    seedRNGByKeyPress();
-    tte_printf("#{es}");
-    playLevels();
-  }
+    setupGBA();
+    while (true) {
+        tte_printf("Toilet Boy Alpha\n\nPress any key!\n");
+        seedRNGByKeyPress();
+        tte_printf("#{es}");
+        playLevels();
+    }
 }
