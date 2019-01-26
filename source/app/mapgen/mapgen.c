@@ -231,7 +231,7 @@ void bsp(GenMap *map, int xmin, int ymin, int xmax, int ymax, int d){
                 break;
             }
         }
-    } 
+    }
 }
 
 
