@@ -1,7 +1,8 @@
 #include "state.h"
 #include "tonc_input.h"
+#include "../level/level.h"
 
-State updateStateFromKeys(State state, const Level *level) {
+State updateStateFromKeys(State state, Level *level) {
     if (!state.player.isSliding){
         state.player.velocity.tileX = key_tri_horz();
         state.player.velocity.tileY = key_tri_vert();
@@ -19,6 +20,9 @@ State updateStateFromKeys(State state, const Level *level) {
         state.player.isSliding = false;
         return state;
     }
-    newState.player.isSliding = true;
+    if (tileUnderPlayer(newState, level) == Duckie){
+        newState.player.isSliding = true;
+        setLevelTile(level, newState.player.position.tileX, newState.player.position.tileY, Empty);
+    }
     return newState;
 }
