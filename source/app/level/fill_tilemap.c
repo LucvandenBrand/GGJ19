@@ -5,7 +5,7 @@
 uint se_index_fast(uint tx, uint ty, u16 bgcnt) {
     uint n = tx + ty * 32;
     if (tx >= 32) n += 0x03E0;
-    if (ty >= 32 && (bgcnt & BG_REG_64x64) == BG_REG_64x64) n += 0x0400;
+    if (ty >= 32) n += 0x0400;
     return n;
 }
 
@@ -28,7 +28,7 @@ void fillTilemap(Tilemap *tilemap, GenMap *genMap) {
                     break;
             }
 
-            (*tilemap)[se_index_fast(x, y, 0)] = tileImg;
+            (*tilemap)[se_index_fast(x, y, REG_BG0CNT)] = tileImg;
         }
     }
     /* (*tilemap)[i] = genMap->ground[i]; */
