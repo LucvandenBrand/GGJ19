@@ -6,7 +6,7 @@ Audio createEmptyAudio();
 Audio loadAudio();
 void tickAudioSystemSpeedy();
 void increaseAudioSpeed();
-void setAudioSpeed();
+void setAudioSpeed(float newSpeed);
 void decreaseAudioSpeed();
 
 #endif
