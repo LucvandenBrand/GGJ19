@@ -1,3 +1,5 @@
 #include "state.h"
 
-State newStartState() { return (State){.player = initializePlayer()}; }
+State newStartState(const Level *level) {
+  return (State){.player = initializePlayer(level)};
+}

@@ -4,7 +4,8 @@
 #include "mapObject.h"
 #include "tonc.h"
 
-void loadSpriteSheet();
+void loadSpriteSheet(const unsigned short * spritePalette, unsigned spritePaletteLength,
+                const unsigned int * spriteTileSet, unsigned spriteTileSetLength);
 void initializeSpriteObjectMemory(OBJ_ATTR *spriteObjects, u32 count);
 void hideSpriteObjects(OBJ_ATTR *spriteObjects, u32 count);
 void copySpriteObjectsToMemory(const OBJ_ATTR *spriteObjects, u32 count);
