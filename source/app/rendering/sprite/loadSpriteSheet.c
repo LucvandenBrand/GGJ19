@@ -7,8 +7,8 @@
 void loadSpriteSheet() {
     // Player sprite
     memcpy(MEM_PAL_OBJ, playerSpritePal, playerSpritePalLen);
-    memcpy(&tile_mem[4][0], playerSpriteTiles, playerSpriteTilesLen);
+    memcpy(&tile_mem[4][PLAYER_SPRITE_TILE], playerSpriteTiles, playerSpriteTilesLen);
 
     // Bladder sprite
-    memcpy(&tile_mem[4][5], bladder01Tiles, bladder01TilesLen);
+    memcpy(&tile_mem[4][BLADDER_SPRITE_TILE], bladder01Tiles, bladder01TilesLen);
 };

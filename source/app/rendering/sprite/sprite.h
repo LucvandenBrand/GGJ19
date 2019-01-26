@@ -4,6 +4,9 @@
 #include "mapObject.h"
 #include "tonc.h"
 
+#define PLAYER_SPRITE_TILE 0
+#define BLADDER_SPRITE_TILE 5
+
 void loadSpriteSheet();
 void initializeSpriteObjectMemory(OBJ_ATTR *spriteObjects, u32 count);
 void hideSpriteObjects(OBJ_ATTR *spriteObjects, u32 count);
