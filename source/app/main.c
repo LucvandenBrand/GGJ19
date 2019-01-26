@@ -6,11 +6,11 @@
 #include "state/render/stateRenderer.h"
 #include "state/state.h"
 
-#include "mapgen/mapgen.h"
-
 #include "./main.h"
 #include "setup/setup.h"
 #include "tonc_tte.h"
+
+#include "mapgen/mapgen.h"
 
 void seedRNGByKeyPress() {
     /* fake seeding by just fetching numbers until key is pressed. */
@@ -84,9 +84,37 @@ void playLevels() {
     }
 }
 
+void wipPrintDungeonMap(GenMap map) {
+    REG_DISPCNT = DCNT_MODE3 | DCNT_BG2;
+    for (int x = 0; x < MAP_WIDTH; ++x) {
+        for (int y = 0; y < MAP_HEIGHT; ++y) {
+            GenMapTile tile = map.ground[y * MAP_WIDTH + x];
+            switch(tile) {
+            case Empty:
+              m3_plot(x, y, CLR_YELLOW);
+              break;
+            case Wall:
+              m3_plot(x, y, CLR_BLACK);
+              break;
+            case Bed:
+              m3_plot(x, y, CLR_CYAN);
+              break;
+            case Toilet:
+              m3_plot(x, y, CLR_RED);
+              break;
+            }
+        }
+    }
+    while(true) {};
+}
+
 int main() {
     setupGBA();
     tte_printf("Press any key");
     seedRNGByKeyPress();
     playLevels();
+
+    /* Map map = generateMap(); */
+    /* wipPrintDungeonMap(map); */
+    /* playLevels(); */
 }
