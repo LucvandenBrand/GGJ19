@@ -1,11 +1,11 @@
 #ifndef MAPGEN
 #define MAPGEN
 
-#include "tonc_types.h"
+// #include "tonc_types.h"
 
 typedef struct {
-  s8 tileX;
-  s8 tileY;
+  int tileX;
+  int tileY;
 } TilePosition;
 
 #define MAP_WIDTH 64

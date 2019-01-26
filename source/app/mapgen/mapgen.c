@@ -20,7 +20,7 @@
 
 typedef enum { North = 0, East = 1, South = 2, West = 3 } Direction;
 
-void fillSquare(GenMap *map, int xmin, int ymin, int xmax, int ymax, Tile val) {
+void fillSquare(GenMap *map, int xmin, int ymin, int xmax, int ymax, GenMapTile val) {
     for (int xx = xmin; xx < xmax; ++xx) {
         for (int yy = ymin; yy < ymax; ++yy) {
             map->ground[INDEX(xx, yy)] = val;
@@ -75,14 +75,12 @@ int random_wall_pos(GenMap *map, int ntries) {
 }
 
 void worm(GenMap *map, int pos, int life) {
-    map->ground[pos] = Bed;
-    map->bedPos.tileX = pos % MAP_WIDTH;
-    map->bedPos.tileY = pos / MAP_WIDTH;
+    int bedpos = pos;
     int worms[MAX_WORMS];
     int nworms = 1;
     worms[0] = pos;
     while (life--) {
-        int worm = RAND(nworms);
+        int worm = RAND(MIN(nworms, MAX_WORMS));
         pos = worms[worm];
         // random direction
         Direction direction = RAND(4);
@@ -119,10 +117,9 @@ void worm(GenMap *map, int pos, int life) {
             map->ground[pos] = Empty;
         }
         worms[worm] = pos;
-        if (RAND(5) == 0 && nworms < MAX_WORMS) {
-            worms[nworms++] = pos;
-        }
-        if (RAND(25) == 0) {
+        if (RAND(5) == 0) {
+            worms[(nworms++)%MAX_WORMS] = pos;
+        } else if (RAND(25) == 0) {
             makeRoom(map, pos, 4, 6);
             int p = random_wall_pos(map, 100);
             if (p >= 0) {
@@ -132,6 +129,8 @@ void worm(GenMap *map, int pos, int life) {
         }
     }
     map->ground[bedpos] = Bed;
+    map->bedPos.tileX = bedpos % MAP_WIDTH;
+    map->bedPos.tileY = bedpos / MAP_WIDTH;
     map->ground[worms[0]] = Toilet;
     map->toiletPos.tileX = worms[0] % MAP_WIDTH;
     map->toiletPos.tileY = worms[0] / MAP_WIDTH;
@@ -165,12 +164,16 @@ void worm(GenMap *map, int pos, int life) {
 //             continue;
 //         }
 
-void generateMap(GenMap *map) {
-    GenMap map;
+
+
+
+
+
+void generateGenMap(GenMap *map) {
     for (int i = 0; i < MAP_SIZE; ++i) {
-        map.ground[i] = Wall;
+        map->ground[i] = Wall;
     }
-    worm(&map, RAND(MAP_SIZE), 1050);
+    worm(map, RAND(MAP_SIZE), 1050);
 
     /* return map; */
 }
