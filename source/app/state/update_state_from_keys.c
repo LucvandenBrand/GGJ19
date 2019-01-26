@@ -12,8 +12,8 @@ State updateStateFromKeys(State state, Level *level, Map *map) {
     newState.player.position.tileX += state.player.velocity.tileX;
     newState.player.position.tileY += state.player.velocity.tileY;
 
-    if (newState.player.bladder < MAX_BLADDER)
-        newState.player.bladder += 2;
+    if (newState.player.bladder <= MAX_BLADDER)
+        newState.player.bladder += 1;
 
     if (isPlayerOnToilet(newState, level)) {
         newState.hasPlayerWon = true;

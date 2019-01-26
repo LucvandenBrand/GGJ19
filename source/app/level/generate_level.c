@@ -5,5 +5,6 @@
 void generateLevel(u8 currentLevel, Level *level) {
     generateGenMap(&level->genMap, 1, 1, 2 + 2 * currentLevel,
                    2 + 2 * currentLevel);
-    fillTilemap(&level->tilemap, &level->genMap);
+    fillTilemap(currentLevel, &level->tilemap, &level->genMap);
+    level->currentLevel = currentLevel;
 }
