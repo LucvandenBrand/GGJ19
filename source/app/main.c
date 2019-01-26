@@ -77,7 +77,7 @@ void wipPrintDungeonMap(Map map) {
             Tile tile = map.ground[y * MAP_WIDTH + x];
             switch(tile) {
             case Empty:
-              m3_plot(x, y, CLR_DEAD);
+              m3_plot(x, y, CLR_YELLOW);
               break;
             case Wall:
               m3_plot(x, y, CLR_BLACK);
@@ -89,18 +89,6 @@ void wipPrintDungeonMap(Map map) {
               m3_plot(x, y, CLR_RED);
               break;
             }
-            /* if (tile == 0) { */
-            /*     m3_plot(x, y, CLR_RED); */
-            /* } else { */
-            /*     m3_plot(x, y, CLR_CYAN); */
-            /* } */
-            /* m3_plot(x,y, dungeon.tiles[x][y] == DungeonTile_ground ? CLR_RED
-             * : CLR_CYAN); */
-            /* m3_plot(x,y, CLR_CYAN); */
-            /* DungeonTile tile = dungeon.tiles[x][y]; */
-            /* if(tile != DungeonTile_ground) { */
-            /*   m3_plot(x,y, CLR_RED); */
-            /* } */
         }
     }
     while(true) {};

@@ -53,7 +53,7 @@ void worm(Map *map, int pos, int life) {
                 direction = (direction + ddir) % 4;
             }
         }
-        int length = 3 + RAND(10);
+        int length = 3 + RAND(5);
         while (length--) {
             int npos = pos + dpos;
             if (IS_EDGE(npos)) {
