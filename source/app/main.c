@@ -5,12 +5,12 @@
 #include "simple_rng/simple_rng.h"
 #include "state/render/stateRenderer.h"
 #include "state/state.h"
+#include "level/level.h"
 
 #include "./main.h"
 #include "setup/setup.h"
 #include "tonc_tte.h"
 
-#include "mapgen/mapgen.h"
 
 void seedRNGByKeyPress() {
     /* fake seeding by just fetching numbers until key is pressed. */
@@ -24,39 +24,12 @@ void seedRNGByKeyPress() {
     }
 }
 
-uint se_index_fast(uint tx, uint ty, u16 bgcnt) {
-  uint n = tx + ty * 32;
-  if (tx >= 32) n += 0x03E0;
-  if (ty >= 32 && (bgcnt & BG_REG_64x64) == BG_REG_64x64) n += 0x0400;
-  return n;
-}
 
 // Temporary implementation of level generation; will be swapped for Michiel's
 // code.
 /* typedef void* Level; */
-typedef unsigned short Tilemap[64 * 64];
-typedef struct {
-    GenMap genMap;
-    Tilemap tilemap;
-} Level;
 
-void fillTilemap(Tilemap *tilemap, GenMap *genMap) {
-  for (unsigned int i = 0; i < 64 * 64; ++i) *tilemap[i] = 3;
 
-  *tilemap[se_index_fast(2, 3, 0)] = 2 * 20 + 3;
-  *tilemap[se_index_fast(2, 2, 0)] = 1 * 20 + 3;
-}
-
-void generateLevel(u8 currentLevel, Level *level) {
-  tte_printf("Starting level gen\n");
-  /* Level level = (Level){.genMap = {0}, .tilemap = {0}}; */
-    /* tte_printf("Starting level generation\n"); */
-    generateGenMap(&level->genMap);
-    tte_printf("GenMap made\n");
-    fillTilemap(&level->tilemap, &level->genMap);
-    tte_printf("Tilemap filled\n");
-    /* return level; */
-}
 
 void playLevel(Level level) {
     State currentState = newStartState();
@@ -66,7 +39,7 @@ void playLevel(Level level) {
     TimeInFrames transitionFrame = 0;
     Map map = loadDefaultMap();
     /* initializeStateRenderer(currentState, map, level); */
-    initializeStateRenderer(currentState, map);
+    initializeStateRenderer(currentState, map, level);
     while (true) {
         ++currentFrame;
         switch (stateMode) {
