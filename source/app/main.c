@@ -1,7 +1,7 @@
 #include "tonc.h"
 
 #include <stdbool.h>
-#include "audio.h"
+#include "music/music.h"
 #include "level/level.h"
 #include "simple_rng/simple_rng.h"
 #include "state/render/stateRenderer.h"
@@ -10,6 +10,7 @@
 #include "./main.h"
 #include "setup/setup.h"
 #include "tonc_tte.h"
+
 
 u16 g_winh[SCREEN_HEIGHT + 1];
 
@@ -196,6 +197,9 @@ void fade_out_till_end() {
 }
 
 void playLevels() {
+    Audio audio = loadAudio();
+    setCurrentAudio(&audio);
+
     u8 currentLevel = 1;
     while (true) {
         /* Level level = generateLevel(currentLevel); */
