@@ -19,7 +19,7 @@ typedef struct {
 } GenMap;
 
 
-GenMap generateMap();
+void generateGenMap(GenMap *map);
 
 #endif
 

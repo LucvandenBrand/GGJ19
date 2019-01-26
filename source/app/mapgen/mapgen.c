@@ -73,12 +73,12 @@ void worm(GenMap *map, int pos, int life) {
     map->ground[worms[0]] = Toilet;
 }
 
-GenMap generateGenMap() {
-    GenMap map;
+void generateGenMap(GenMap *map) {
+    /* GenMap map; */
     for (int i = 0; i < MAP_SIZE; i++) {
-        map.ground[i] = Wall;
+        map->ground[i] = Wall;
     }
-    worm(&map, RAND(MAP_SIZE), 220);
+    worm(map, RAND(MAP_SIZE), 220);
 
-    return map;
+    /* return map; */
 }
