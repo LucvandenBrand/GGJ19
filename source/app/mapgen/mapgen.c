@@ -298,39 +298,43 @@ void addDoors(GenMap *map, int xmin, int ymin, int xmax, int ymax){
     }
 }
 
-void generateBsp(GenMap *map, int xmin, int ymin, int xmax, int ymax){
+void generateBsp(GenMap *map){
     
     map->bedPos.tileX = -1;
     map->bedPos.tileY = -1;
     map->toiletPos.tileX = -1;
     map->toiletPos.tileY = -1;
-    bsp(map, xmin, ymin, xmax, ymax, 12);
+    bsp(map, map->xmin, map->ymin, map->xmax, map->ymax, 12);
     if (map->toiletPos.tileX < 0) {
-        map->toiletPos.tileX = xmax - 1;
-        map->toiletPos.tileY = ymax - 1;
+        map->toiletPos.tileX = map->xmax - 1;
+        map->toiletPos.tileY = map->ymax - 1;
 //         map->ground[INDEX(xmax-2, ymax-1)] = Empty;
 //         map->ground[INDEX(xmax-2, ymax-2)] = Empty;
     }
     if (map->bedPos.tileX < 0 || (map->bedPos.tileX == map->toiletPos.tileX && map->bedPos.tileY == map->toiletPos.tileY)){
-        map->bedPos.tileX = xmin+1;
-        map->bedPos.tileY = ymin;
+        map->bedPos.tileX = map->xmin+1;
+        map->bedPos.tileY = map->ymin;
     }
 }
 
-void generateGenMap(GenMap *map, int xmin, int ymin, int xmax, int ymax) {
+void generateGenMap(GenMap *map, int currentLevel) {
+    map->xmin = 1;
+    map->ymin = 1;
+    map->xmax = 4 + 2 * currentLevel;
+    map->ymax = 4 + 2 * currentLevel;
     for (int x=0; x<MAP_WIDTH; x++){
         for (int y=0; y<MAP_HEIGHT; y++){
-            map->ground[INDEX(x, y)] = (x<xmin || y<ymin || x>=xmax || y>=ymax) ? Wall : Empty;
+            map->ground[INDEX(x, y)] = (x<map->xmin || y<map->ymin || x>=map->xmax || y>=map->ymax) ? Wall : Empty;
         }
     }
-    generateBsp(map, xmin, ymin, xmax, ymax);
+    generateBsp(map);
     map->ground[INDEX(map->bedPos.tileX, map->bedPos.tileY)] = Bed;
     map->ground[INDEX(map->bedPos.tileX-1, map->bedPos.tileY)] = BedLeft;
     map->ground[INDEX(map->toiletPos.tileX, map->toiletPos.tileY)] = Toilet;
     map->ground[INDEX(map->toiletPos.tileX-1, map->toiletPos.tileY)] = Toileft;
     
     for (int i=0; i<100; ++i){
-        int pos = INDEX(xmin + RAND(xmax - xmin), ymin + RAND(ymax - ymin));
+        int pos = INDEX(map->xmin + RAND(map->xmax - map->xmin), map->ymin + RAND(map->ymax - map->ymin));
         if (map->ground[pos] == Empty) {
             map->ground[pos] = Duckie;
             break;
@@ -338,7 +342,7 @@ void generateGenMap(GenMap *map, int xmin, int ymin, int xmax, int ymax) {
     }
 
     for (int i=0; i<100; ++i){
-      int pos = INDEX(xmin + RAND(xmax - xmin), ymin + RAND(ymax - ymin));
+      int pos = INDEX(map->xmin + RAND(map->xmax - map->xmin), map->ymin + RAND(map->ymax - map->ymin));
       if (map->ground[pos] == Empty) {
         map->ground[pos] = Alcohol;
         break;

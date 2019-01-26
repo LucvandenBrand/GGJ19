@@ -27,10 +27,14 @@ typedef struct {
     GenMapTile ground[MAP_SIZE];
     TilePosition bedPos;
     TilePosition toiletPos;
+    int xmin;
+    int ymin;
+    int xmax;
+    int ymax;
 } GenMap;
 
 
-void generateGenMap(GenMap *map, int xmin, int ymin, int xmax, int ymax);
+void generateGenMap(GenMap *map, int currentLevel);
 
 #endif
 
