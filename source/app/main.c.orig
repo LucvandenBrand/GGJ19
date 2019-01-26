@@ -36,6 +36,9 @@ bool playLevel(Level *level) {
     initializeStateRenderer(currentState, &map, level);
     while (true) {
         ++currentFrame;
+        if(currentState.player.bladder >= MAX_BLADDER) {
+          return false;
+        }
         switch (stateMode) {
             case IDLE:
                 key_poll();
@@ -69,11 +72,16 @@ void playLevels() {
     while (true) {
         Level level;
         generateLevel(currentLevel, &level);
+<<<<<<< HEAD
         bool playerBeatLevel = playLevel(&level);
         if(!playerBeatLevel){
           break;
         }
+        increaseAudioSpeed();
+=======
+        playLevel(&level);
         increaseAudioSpeed(0.05);
+>>>>>>> sliding
         ++currentLevel;
     }
     setupGBA();

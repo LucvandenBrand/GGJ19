@@ -13,10 +13,13 @@ typedef struct {
 #define MAP_SIZE (MAP_WIDTH * MAP_HEIGHT)
 
 typedef enum {
-    Empty = 0,
-    Wall = 1,
-    Bed = 2,
-    Toilet = 3
+    Empty,
+    Wall,
+    Bed,
+    BedLeft,
+    Toilet,
+    Toileft,
+    Duckie
 } GenMapTile;
 
 typedef struct {

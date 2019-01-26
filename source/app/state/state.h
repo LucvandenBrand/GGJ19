@@ -4,6 +4,8 @@
 #include "tonc_types.h"
 #include <stdbool.h>
 #include "../level/level.h"
+#include "../mapgen/mapgen.h"
+#include "map.h"
 
 #define INITIAL_BLADDER_FILLED_AMOUNT 0
 #define MAX_BLADDER 100
@@ -21,19 +23,22 @@ typedef enum {
 typedef struct {
     TilePosition position;
     u16 bladder;
+    TilePosition velocity;
+    bool isSliding;
 } Player;
 
 typedef struct {
     Player player;
-  bool hasPlayerWon;
+    bool hasPlayerWon;
 } State;
 
 Player initializePlayer(const Level *level);
+GenMapTile tileUnderPlayer();
 bool isPlayerColliding();
 bool isPlayerOnToilet(State state, const Level *level);
 
 State newStartState(const Level *level);
-State updateStateFromKeys(State state, const Level *level);
+State updateStateFromKeys(State state, Level *level, Map *map);
 bool isTransitionFinished(TimeInFrames transitionFrame, TimeInFrames currentFrame);
 
 #endif

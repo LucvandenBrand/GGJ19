@@ -26,7 +26,7 @@ BackgroundPoint interpolatePlayerPos(State *oldState, State *currentState,
 }
 
 void renderState(State oldState, State currentState, u32 transitionFrame,
-                 u32 currentFrame, StateMode stateMode, Map map) {
+                 u32 currentFrame, StateMode stateMode, Map *map) {
     /* playerPos.x = currentState.player.position.tileX * 16; */
     /* playerPos.y = currentState.player.position.tileY * 16; */
     double deltat =
@@ -52,7 +52,7 @@ void renderState(State oldState, State currentState, u32 transitionFrame,
     sprites[0] = playerToSpriteObject(playerFgPos);
     sprites[1] = bladderToSpriteObject(currentState.player.bladder);
 
-    shiftMap(map, mapPos);
+    shiftMap(*map, mapPos);
 
     /* tte_printf("#{el}#{X}px: %d py: %d", currentState.player.position.tileX,
      * currentState.player.position.tileY); */

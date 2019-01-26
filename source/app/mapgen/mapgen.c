@@ -325,6 +325,15 @@ void generateGenMap(GenMap *map, int xmin, int ymin, int xmax, int ymax) {
     }
     generateBsp(map, xmin, ymin, xmax, ymax);
     map->ground[INDEX(map->bedPos.tileX, map->bedPos.tileY)] = Bed;
+    map->ground[INDEX(map->bedPos.tileX-1, map->bedPos.tileY)] = BedLeft;
     map->ground[INDEX(map->toiletPos.tileX, map->toiletPos.tileY)] = Toilet;
-    //     worm(map, RAND(MAP_SIZE), 1050);
+    map->ground[INDEX(map->toiletPos.tileX-1, map->toiletPos.tileY)] = Toileft;
+    
+    for (int i=0; i<100; ++i){
+        int pos = INDEX(xmin + RAND(xmax - xmin), ymin + RAND(ymax - ymin));
+        if (map->ground[pos] == Empty) {
+            map->ground[pos] = Duckie;
+            break;
+        }
+    }
 }
