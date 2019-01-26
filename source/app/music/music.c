@@ -27,8 +27,8 @@ Audio loadAudio() {
 }
 
 void setAudioSpeed(float newSpeed) { audioSpeed = newSpeed; }
-void increaseAudioSpeed() { ++audioSpeed; }
-void decreaseAudioSpeed() { --audioSpeed; }
+void increaseAudioSpeed(float speed) { audioSpeed += speed; }
+void decreaseAudioSpeed(float speed) { audioSpeed -= speed; }
 
 void tickAudioSystemSpeedy() {
     audioTimer += audioSpeed;
