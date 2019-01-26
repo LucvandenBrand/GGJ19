@@ -121,7 +121,7 @@ void playLevel(Level *level) {
     TimeInFrames currentFrame = 0;
     TimeInFrames transitionFrame = 0;
     Map map = loadDefaultMap();
-    tte_printf("#{es}");
+    //tte_printf("#{es}");
     /* initializeStateRenderer(currentState, map, level); */
     initializeStateRenderer(currentState, map, level);
     while (true) {
@@ -199,13 +199,13 @@ void playLevels() {
     u8 currentLevel = 1;
     while (true) {
         /* Level level = generateLevel(currentLevel); */
-        tte_printf("Level %d\n", currentLevel);
+        //tte_printf("Level %d\n", currentLevel);
         /* Level level = (Level){.tilemap = {0}, .genMap = {0}}; */
         /* Level level = {.genMap = {.ground = {[0 ... 64*64 - 1] = 0}},
          * .tilemap = {[0 ... 64*64 - 1] = 3}}; */
         Level level;
         generateLevel(currentLevel, &level);
-        tte_printf("Level %d generated!\n", currentLevel);
+        //tte_printf("Level %d generated!\n", currentLevel);
         /* key_wait_till_hit(KEY_ANY); */
         /* wipPrintDungeonMap(level.genMap); */
         /* fade_out_till_end(); */
@@ -216,9 +216,9 @@ void playLevels() {
 
 int main() {
     setupGBA();
-    tte_printf("Press any key\n");
+    //tte_printf("Press any key\n");
     seedRNGByKeyPress();
-    tte_printf("Starting...\n");
+    //tte_printf("Starting...\n");
     playLevels();
 
     /* Map map = generateMap(); */
