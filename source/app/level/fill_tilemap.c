@@ -52,7 +52,7 @@ uint randomCeilingTile(u8 currentLevel) {
     uint rand = SimpleRNG_rand() % 32;
     if (rand < 8) {
         return rand;
-    } else if (currentLevel > 7 && rand < 12) {
+    } else if (currentLevel > 14 && rand < 12) {
         uint rand2 = SimpleRNG_rand() % 25;
         if (rand2 < currentLevel) {
             return rand;
@@ -69,7 +69,7 @@ uint randomWallTile(u8 currentLevel) {
     uint32_t rand = SimpleRNG_rand() % 25;
     if (rand < 10) {
         return SIDE_WALL_TILES_OFFSET + rand;
-    } else if (currentLevel > 6 && rand < 12) {
+    } else if (currentLevel > 10 && rand < 12) {
         return SIDE_WALL_TILES_OFFSET + rand;
     } else {
         return SIDE_WALL1;
@@ -96,9 +96,9 @@ uint randomFloorTile(u8 currentLevel) {
     }
 
     else if (currentLevel > 5) {
-        if (rand < (30+ 2*currentLevel)) {
+        if (rand < (10+ 3*currentLevel)) {
             return FLOOR_HELL_1;
-        } else if (rand < (35+ 2*currentLevel)) {
+        } else if (rand < (15+ 3*currentLevel)) {
             return FLOOR_HELL_2;
         }
     }
