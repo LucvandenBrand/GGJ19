@@ -346,4 +346,12 @@ void generateGenMap(GenMap *map, u8 currentLevel) {
             }
         }
     }
+
+    for (int i=0; i<100; ++i){
+      int pos = INDEX(xmin + RAND(xmax - xmin), ymin + RAND(ymax - ymin));
+      if (map->ground[pos] == Empty) {
+        map->ground[pos] = Diaper;
+        break;
+      }
+    }
 }

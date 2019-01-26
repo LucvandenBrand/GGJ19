@@ -38,5 +38,14 @@ State updateStateFromKeys(State state, Level *level, Map *map) {
       newState.player.inebriationSteps = 20;
       setLevelTile(level, map, newState.player.position.tileX, newState.player.position.tileY, Empty);
     }
+
+    if (tileUnderPlayer(newState, level) == Diaper){
+      if (newState.player.bladder < 50){
+        newState.player.bladder = 0;
+      } else {
+        newState.player.bladder -= 50;
+      }
+      setLevelTile(level, map, newState.player.position.tileX, newState.player.position.tileY, Empty);
+    }
     return newState;
 }
