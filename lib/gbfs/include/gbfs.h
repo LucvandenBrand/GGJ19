@@ -41,6 +41,7 @@ extern "C" {
 #endif
 
 #include "tonc_types.h"
+#include <stddef.h>
 
 /* to make a 300 KB space called samples do GBFS_SPACE(samples, 300) */
 

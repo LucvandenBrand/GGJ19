@@ -6,6 +6,8 @@
 #include "state/render/stateRenderer.h"
 #include "state/state.h"
 
+#include "mapgen/mapgen.h"
+
 #include "./main.h"
 #include "setup/setup.h"
 #include "tonc_tte.h"
@@ -24,8 +26,18 @@ void seedRNGByKeyPress() {
 
 // Temporary implementation of level generation; will be swapped for Michiel's
 // code.
-typedef void* Level;
-Level generateLevel(u8 currentLevel) { return NULL; }
+/* typedef void* Level; */
+typedef struct {
+    GenMap gen_map;
+    Map tilemap;
+} Level;
+
+Level generateLevel(u8 currentLevel) {
+    Level level = (Level){};
+    level.gen_map = generateMap();
+    level.tilemap = parseMap(level.gen_map);
+    return level;
+}
 
 void playLevel(Level level) {
     State currentState = newStartState();
@@ -34,6 +46,7 @@ void playLevel(Level level) {
     TimeInFrames currentFrame = 0;
     TimeInFrames transitionFrame = 0;
     Map map = loadDefaultMap();
+    /* initializeStateRenderer(currentState, map, level); */
     initializeStateRenderer(currentState, map);
     while (true) {
         ++currentFrame;
