@@ -223,6 +223,7 @@ void bsp(GenMap *map, int xmin, int ymin, int xmax, int ymax, int d){
                 break;
             }
         }
+
     }
 }
 
@@ -234,7 +235,7 @@ void generateGenMap(GenMap *map, int xmin, int ymin, int xmax, int ymax) {
             map->ground[INDEX(x, y)] = (x<xmin || y<ymin || x>=xmax || y>=ymax) ? Wall : Empty;
         }
     }
-    bsp(map, xmin, ymin, xmax, ymax, 8);
+    bsp(map, xmin, ymin, xmax, ymax, 4);
     map->bedPos.tileX = xmin;
     map->bedPos.tileY = ymin;
     map->toiletPos.tileX = xmax-1;
