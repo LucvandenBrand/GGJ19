@@ -20,7 +20,8 @@ typedef enum {
     Toilet,
     Toileft,
     Duckie,
-    Alcohol
+    Alcohol,
+    Diaper
 } GenMapTile;
 
 typedef struct {

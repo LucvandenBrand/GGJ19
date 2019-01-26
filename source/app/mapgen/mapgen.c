@@ -344,4 +344,12 @@ void generateGenMap(GenMap *map, int xmin, int ymin, int xmax, int ymax) {
         break;
       }
     }
+
+    for (int i=0; i<100; ++i){
+      int pos = INDEX(xmin + RAND(xmax - xmin), ymin + RAND(ymax - ymin));
+      if (map->ground[pos] == Empty) {
+        map->ground[pos] = Diaper;
+        break;
+      }
+    }
 }
