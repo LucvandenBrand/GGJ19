@@ -62,7 +62,6 @@ uint randomCeilingTile(u8 currentLevel) {
     } else {
         return 0;
     }
-
 }
 
 uint randomWallTile(u8 currentLevel) {
@@ -77,7 +76,6 @@ uint randomWallTile(u8 currentLevel) {
 }
 
 uint randomFloorTile(u8 currentLevel) {
-
     uint32_t rand = SimpleRNG_rand() % 100;
     if (rand < 1) {
         return FLOOR1;
@@ -96,9 +94,9 @@ uint randomFloorTile(u8 currentLevel) {
     }
 
     else if (currentLevel > 5) {
-        if (rand < (10+ 3*currentLevel)) {
+        if (rand < (10 + 3 * currentLevel)) {
             return FLOOR_HELL_1;
-        } else if (rand < (15+ 3*currentLevel)) {
+        } else if (rand < (15 + 3 * currentLevel)) {
             return FLOOR_HELL_2;
         }
     }
@@ -106,22 +104,24 @@ uint randomFloorTile(u8 currentLevel) {
     return FLOOR1;
 }
 
-void pickImgForPlace(Level *level, int x, int y){
-
+void pickImgForPlace(Level *level, int x, int y) {
     unsigned short tileImg = 0;
     switch (getLevelTile(level, x, y)) {
         case Bed:
             tileImg = BED_RIGHT;
-//                     (*tilemap)[se_index_fast(x - 1, y, REG_BG0CNT)] = BED_LEFT;
+            //                     (*tilemap)[se_index_fast(x - 1, y,
+            //                     REG_BG0CNT)] = BED_LEFT;
             break;
         case BedLeft:
             tileImg = BED_LEFT;
-//                     (*tilemap)[se_index_fast(x - 1, y, REG_BG0CNT)] = BED_LEFT;
+            //                     (*tilemap)[se_index_fast(x - 1, y,
+            //                     REG_BG0CNT)] = BED_LEFT;
             break;
         case Toilet:
             tileImg = TOILET_RIGHT;
-//                     (*tilemap)[se_index_fast(x - 1, y, REG_BG0CNT)] =
-//                         TOILET_LEFT;
+            //                     (*tilemap)[se_index_fast(x - 1, y,
+            //                     REG_BG0CNT)] =
+            //                         TOILET_LEFT;
             break;
         case Toileft:
             tileImg = TOILET_LEFT;
@@ -129,12 +129,12 @@ void pickImgForPlace(Level *level, int x, int y){
         case Duckie:
             tileImg = DUCKIE;
             break;
-    case Alcohol:
-      tileImg = ALCOHOL;
-      break;
-    case Diaper:
-      tileImg = DIAPER;
-      break;
+        case Alcohol:
+            tileImg = ALCOHOL;
+            break;
+        case Diaper:
+            tileImg = DIAPER;
+            break;
         case Empty:
             /* tileImg = FLOOR1 + (SimpleRNG_rand() % 3); */
             tileImg = randomFloorTile(level->currentLevel);

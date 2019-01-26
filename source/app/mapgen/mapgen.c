@@ -172,7 +172,9 @@ void bsp(GenMap *map, int xmin, int ymin, int xmax, int ymax, int d) {
     int height = ymax - ymin;
     int size = width * height;
     int tosplit = d > 0 && size > 8 + RAND(20) + RAND(20);
-    if (tosplit && height >= 5 && width > 2 && (width < 5 || 2 + (height >= width*2) - (width >= height*2) > RAND(4))) {
+    if (tosplit && height >= 5 && width > 2 &&
+        (width < 5 ||
+         2 + (height >= width * 2) - (width >= height * 2) > RAND(4))) {
         // horizontal wall
 
         int sepmin = ymin + 1 + RAND(height - 3);
@@ -183,31 +185,35 @@ void bsp(GenMap *map, int xmin, int ymin, int xmax, int ymax, int d) {
                 map->ground[INDEX(x, y)] = Wall;
             }
         }
-        if RAND(2){
-            bsp(map, xmin, ymin, xmax, sepmin, d - 1);
-            bsp(map, xmin, sepmax, xmax, ymax, d - 1);
-        } else {
+        if
+            RAND(2) {
+                bsp(map, xmin, ymin, xmax, sepmin, d - 1);
+                bsp(map, xmin, sepmax, xmax, ymax, d - 1);
+            }
+        else {
             bsp(map, xmin, sepmax, xmax, ymax, d - 1);
             bsp(map, xmin, ymin, xmax, sepmin, d - 1);
         }
         int l = width;
         // draw 1 to 3 doors
-        for (int i=0, ln=1+RAND(3); i<ln; ++i){
+        for (int i = 0, ln = 1 + RAND(3); i < ln; ++i) {
             // pick a random door position
             int dp = RAND(l);
-            // if this door ends in a wall, move until there is a place where a door makes sense
-            for (int i=0; i<l; ++i){
+            // if this door ends in a wall, move until there is a place where a
+            // door makes sense
+            for (int i = 0; i < l; ++i) {
                 int doorposmin = INDEX(xmin + (i + dp) % l, sepmin);
                 int doorposmax = INDEX(xmin + (i + dp) % l, sepmax);
-                if (map->ground[doorposmax] == Empty && map->ground[doorposmin - MAP_WIDTH] == Empty){
-                    for (int p=doorposmin; p<doorposmax; p+=MAP_WIDTH){
+                if (map->ground[doorposmax] == Empty &&
+                    map->ground[doorposmin - MAP_WIDTH] == Empty) {
+                    for (int p = doorposmin; p < doorposmax; p += MAP_WIDTH) {
                         map->ground[p] = Empty;
                     }
                     break;
                 }
             }
         }
-    } else if (tosplit && width >= 5 && width > 2 ) {
+    } else if (tosplit && width >= 5 && width > 2) {
         // vertical wall
         int sepmin = xmin + 1 + RAND(width - 3);
         int sepmax = sepmin + 2 + RAND(2);
@@ -218,23 +224,24 @@ void bsp(GenMap *map, int xmin, int ymin, int xmax, int ymax, int d) {
                 map->ground[INDEX(x, y)] = Wall;
             }
         }
-        if RAND(2){
-            bsp(map, xmin, ymin, sepmin, ymax, d - 1);
-            bsp(map, sepmax, ymin, xmax, ymax, d - 1);
-        } else {
+        if
+            RAND(2) {
+                bsp(map, xmin, ymin, sepmin, ymax, d - 1);
+                bsp(map, sepmax, ymin, xmax, ymax, d - 1);
+            }
+        else {
             bsp(map, sepmax, ymin, xmax, ymax, d - 1);
             bsp(map, xmin, ymin, sepmin, ymax, d - 1);
         }
         int l = height;
         int dp = RAND(l);
-        for (int i=0, ln=1+RAND(3); i<ln; ++i){
-            for (int i=0; i<l; ++i){
+        for (int i = 0, ln = 1 + RAND(3); i < ln; ++i) {
+            for (int i = 0; i < l; ++i) {
                 int doorposmin = INDEX(sepmin, ymin + (i + dp) % l);
                 int doorposmax = INDEX(sepmax, ymin + (i + dp) % l);
-                if (
-                        map->ground[doorposmax] == Empty &&
-                        map->ground[doorposmin - 1] == Empty){
-                    for (int p=doorposmin; p<doorposmax; ++p){
+                if (map->ground[doorposmax] == Empty &&
+                    map->ground[doorposmin - 1] == Empty) {
+                    for (int p = doorposmin; p < doorposmax; ++p) {
                         map->ground[p] = Empty;
                     }
                     break;
@@ -242,9 +249,8 @@ void bsp(GenMap *map, int xmin, int ymin, int xmax, int ymax, int d) {
             }
         }
     } else {
-        
-        if (width >= 2 && height >= 2){
-            int x = xmin + 1 + RAND(width-1);
+        if (width >= 2 && height >= 2) {
+            int x = xmin + 1 + RAND(width - 1);
             int y = ymin + RAND(height);
             if (map->bedPos.tileX < 0) {
                 map->bedPos.tileX = x;
@@ -257,39 +263,39 @@ void bsp(GenMap *map, int xmin, int ymin, int xmax, int ymax, int d) {
     }
 }
 
-void addDoors(GenMap *map, int xmin, int ymin, int xmax, int ymax){
+void addDoors(GenMap *map, int xmin, int ymin, int xmax, int ymax) {
     int size = (xmax - xmin) * (ymax - ymin);
-    for (int i=0; i<size/2; ++i) {
+    for (int i = 0; i < size / 2; ++i) {
         int door = RAND(MAP_SIZE);
-        if (map->ground[door] != Wall){
+        if (map->ground[door] != Wall) {
             continue;
         }
-//         printf("1\n");
+        //         printf("1\n");
         int builddir = -1;
-        for (int dir=0; dir<4; ++dir){
-            if (map->ground[MOVE(door, dir)] != Wall){
+        for (int dir = 0; dir < 4; ++dir) {
+            if (map->ground[MOVE(door, dir)] != Wall) {
                 builddir = (dir + 2) % 4;
             }
         }
-        if (builddir < 0){
+        if (builddir < 0) {
             continue;
         }
-//         printf("1\n");
+        //         printf("1\n");
         int d = door;
         int hasend = 0;
-        for (int j=0; j<5; j++){
+        for (int j = 0; j < 5; j++) {
             d = MOVE(d, builddir);
-            if (map->ground[d] != Wall){
+            if (map->ground[d] != Wall) {
                 hasend = 1;
                 break;
             }
         }
-        if (!hasend){
+        if (!hasend) {
             continue;
         }
-//         printf("%d\n", door);
-        for (int j=0; j<4; j++){
-            if (map->ground[door] != Wall){
+        //         printf("%d\n", door);
+        for (int j = 0; j < 4; j++) {
+            if (map->ground[door] != Wall) {
                 break;
             }
             map->ground[door] = Empty;
@@ -298,8 +304,7 @@ void addDoors(GenMap *map, int xmin, int ymin, int xmax, int ymax){
     }
 }
 
-void generateBsp(GenMap *map){
-    
+void generateBsp(GenMap *map) {
     map->bedPos.tileX = -1;
     map->bedPos.tileY = -1;
     map->toiletPos.tileX = -1;
@@ -308,11 +313,12 @@ void generateBsp(GenMap *map){
     if (map->toiletPos.tileX < 0) {
         map->toiletPos.tileX = map->xmax - 1;
         map->toiletPos.tileY = map->ymax - 1;
-//         map->ground[INDEX(xmax-2, ymax-1)] = Empty;
-//         map->ground[INDEX(xmax-2, ymax-2)] = Empty;
+        //         map->ground[INDEX(xmax-2, ymax-1)] = Empty;
+        //         map->ground[INDEX(xmax-2, ymax-2)] = Empty;
     }
-    if (map->bedPos.tileX < 0 || (map->bedPos.tileX == map->toiletPos.tileX && map->bedPos.tileY == map->toiletPos.tileY)){
-        map->bedPos.tileX = map->xmin+1;
+    if (map->bedPos.tileX < 0 || (map->bedPos.tileX == map->toiletPos.tileX &&
+                                  map->bedPos.tileY == map->toiletPos.tileY)) {
+        map->bedPos.tileX = map->xmin + 1;
         map->bedPos.tileY = map->ymin;
     }
 }
@@ -322,27 +328,30 @@ void generateGenMap(GenMap *map, u8 currentLevel) {
     map->ymin = 1;
     map->xmax = MIN(4 + 2 * currentLevel, MAP_WIDTH);
     map->ymax = MIN(4 + 2 * currentLevel, MAP_WIDTH);
-    for (int x=0; x<MAP_WIDTH; x++){
-        for (int y=0; y<MAP_HEIGHT; y++){
-            map->ground[INDEX(x, y)] = (x<map->xmin || y<map->ymin || x>=map->xmax || y>=map->ymax) ? Wall : Empty;
+    for (int x = 0; x < MAP_WIDTH; x++) {
+        for (int y = 0; y < MAP_HEIGHT; y++) {
+            map->ground[INDEX(x, y)] = (x < map->xmin || y < map->ymin ||
+                                        x >= map->xmax || y >= map->ymax)
+                                           ? Wall
+                                           : Empty;
         }
     }
     generateBsp(map);
     map->ground[INDEX(map->bedPos.tileX, map->bedPos.tileY)] = Bed;
-    map->ground[INDEX(map->bedPos.tileX-1, map->bedPos.tileY)] = BedLeft;
+    map->ground[INDEX(map->bedPos.tileX - 1, map->bedPos.tileY)] = BedLeft;
     map->ground[INDEX(map->toiletPos.tileX, map->toiletPos.tileY)] = Toilet;
-    map->ground[INDEX(map->toiletPos.tileX-1, map->toiletPos.tileY)] = Toileft;
-    
+    map->ground[INDEX(map->toiletPos.tileX - 1, map->toiletPos.tileY)] =
+        Toileft;
 
-    for (int x=map->xmin; x<map->xmax; ++x){
-        for (int y=map->ymin; y<map->ymax; ++y){
+    for (int x = map->xmin; x < map->xmax; ++x) {
+        for (int y = map->ymin; y < map->ymax; ++y) {
             int pos = INDEX(x, y);
             if (map->ground[pos] == Empty) {
-                if (currentLevel >= 3 && RAND(40) == 0){
+                if (currentLevel >= 3 && RAND(40) == 0) {
                     map->ground[pos] = Duckie;
-                } else if (currentLevel >= 5 && RAND(25) == 0){
+                } else if (currentLevel >= 5 && RAND(25) == 0) {
                     map->ground[pos] = Alcohol;
-                } else if (currentLevel >= 7 && RAND(60) == 0){
+                } else if (currentLevel >= 7 && RAND(60) == 0) {
                     map->ground[pos] = Diaper;
                 }
             }
