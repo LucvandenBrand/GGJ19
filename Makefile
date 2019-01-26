@@ -61,6 +61,11 @@ MAP_BINARIES := $(MAP_ASSETS:%.tmx=%.bin)
 MIDI_ASSETS   := $(shell find $(SOURCE_DIR)/assets -name '*.mid')
 MIDI_BINARIES := $(MIDI_ASSETS:%.mid=%.bin)
 
+SPRITE_ASSETS := $(shell find $(SOURCE_DIR)/assets/sprites -name '*.bmp')
+SPRITE_HEADERS := $(SPRITE_ASSETS:%.bmp=%.h)
+SPRITE_SOURCES := $(SPRITE_ASSETS:%.bmp=%.c)
+SPRITE_OBJECTS := $(SPRITE_ASSETS:%.bmp=%.o)
+
 # Build commands and dependencies
 
 build : libs $(NAME).gba
@@ -82,7 +87,7 @@ $(NAME)-no_content.gba : $(NAME).elf
 	-@gbafix $@ -t$(NAME)
 	padbin 256 $@ 
 
-$(NAME).elf : $(APP_OBJECTS) $(APP_MAIN_OBJECT)
+$(NAME).elf : $(APP_OBJECTS) $(APP_MAIN_OBJECT) $(SPRITE_OBJECTS)
 	$(LD) $^ $(LDFLAGS) -o $@
 
 $(NAME)-test.elf : $(APP_OBJECTS) $(TEST_OBJECTS) $(TEST_MAIN_OBJECT)
@@ -132,6 +137,12 @@ $(MIDI2GBA_PLAYER_LIB): $(MIDI2GBA_PLAYER_LIB)/lib
 $(MIDI2GBA_PLAYER_LIB)/lib:
 	cd $(MIDI2GBA_PLAYER_LIB) && make
 
+$(SPRITE_OBJECTS): $(SPRITE_SOURCES)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(SPRITE_SOURCES): %.c : %.bmp
+	$(DEVKITPRO)/tools/bin/grit $< -gB4 -Mw 2 -Mh 2 -ftcd -o $@
+
 $(LIB_DIR)/libtonc: $(LIB_DIR)/libtonc/lib
 
 $(LIB_DIR)/libtonc/lib:
@@ -147,7 +158,7 @@ clean :
 	@rm -fv *.elf
 	@rm -fv *.sav
 	@rm -fv *.gbfs
-	@rm -fv $(MAP_BINARIES) $(MIDI_BINARIES)
+	@rm -fv $(MAP_BINARIES) $(MIDI_BINARIES) $(SPRITE_OBJECTS)
 	@rm -rf $(APP_OBJECTS) $(TEST_OBJECTS)
 	@rm -rf $(APP_MAIN_OBJECT) $(TEST_MAIN_OBJECT)
 	@rm -rf $(TEST_MAIN_SOURCE)
