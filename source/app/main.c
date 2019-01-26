@@ -38,7 +38,7 @@ void playLevel(Level *level) {
             case IDLE:
                 key_poll();
                 KeyState keys = key_curr_state();
-                if (keys) {
+                if (keys || currentState.player.isSliding) {
                     oldState = currentState;
                     currentState = updateStateFromKeys(currentState, level);
                     stateMode = TRANSIT;

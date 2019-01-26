@@ -21,11 +21,13 @@ typedef enum {
 typedef struct {
     TilePosition position;
     u16 bladder;
+    TilePosition velocity;
+    bool isSliding;
 } Player;
 
 typedef struct {
     Player player;
-  bool hasPlayerWon;
+    bool hasPlayerWon;
 } State;
 
 Player initializePlayer(const Level *level);
