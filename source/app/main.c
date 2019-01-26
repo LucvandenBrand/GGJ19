@@ -59,6 +59,11 @@ bool playLevel(Level *level) {
                 }
                 break;
         }
+        if (level->changed){
+            setMapOnScreen(map);
+            REG_DISPCNT |= DCNT_BG3 | DCNT_OBJ | DCNT_OBJ_1D;  // Because setMapOnScreen destroys it.
+            level->changed = false;
+        }
         renderState(oldState, currentState, transitionFrame, currentFrame,
                     stateMode, &map);
     };
