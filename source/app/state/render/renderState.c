@@ -33,8 +33,7 @@ void renderState(State oldState, State currentState, u32 transitionFrame,
         (double)(currentFrame - transitionFrame) / (double)TRANSITION_TIME;
     BackgroundPoint playerPos = interpolatePlayerPos(
         &oldState, &currentState, easeInOutQuad(deltat), stateMode);
-    sprites[0] = playerToSpriteObject(
-        (ObjectPoint){.x = SCREEN_WIDTH / 2, .y = SCREEN_HEIGHT / 2});
+    ObjectPoint playerFgPos = (ObjectPoint){.x = SCREEN_WIDTH / 2, .y = SCREEN_HEIGHT / 2};
     /* BackgroundPoint mapPos = playerPos; */
     /* mapPos.x = -playerPos.x; */
     /* mapPos.y = -playerPos.y; */
@@ -43,6 +42,13 @@ void renderState(State oldState, State currentState, u32 transitionFrame,
     mapPos.y = playerPos.y;
     mapPos.x -= SCREEN_WIDTH / 2 - 4;
     mapPos.y -= SCREEN_HEIGHT / 2 + 2;
+
+    if(stateMode == TRANSIT){
+      playerFgPos.y += -deltat*1;
+      mapPos.y += -deltat*1.1;
+    }
+    sprites[0] = playerToSpriteObject(playerFgPos);
+
     shiftMap(map, mapPos);
 
     /* tte_printf("#{el}#{X}px: %d py: %d", currentState.player.position.tileX,
