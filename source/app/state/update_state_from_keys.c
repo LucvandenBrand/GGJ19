@@ -12,7 +12,6 @@ State updateStateFromKeys(State state, const Level *level) {
 
     if (isPlayerOnToilet(newState, level)) {
         newState.hasPlayerWon = true;
-        state.player.isSliding = false;
         return newState;
     }
 
