@@ -2,7 +2,7 @@
 
 Player initializePlayer() {
   return (Player){
-    .position = {.tileX = 0, .tileY = 0},
+    .position = {.tileX = 5, .tileY = 5},
                     .bladder = INITIAL_BLADDER_FILLED_AMOUNT
   };
 }

@@ -56,7 +56,8 @@ void playLevel(Level level) {
                 }
                 break;
         }
-        renderState(oldState, currentState, transitionFrame, currentFrame);
+        renderState(oldState, currentState, transitionFrame, currentFrame, stateMode);
+        /* tte_printf(" %d", stateMode); */
         /* vid_vsync(); */
         /* VBlankIntrWait(); */
     };
