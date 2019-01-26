@@ -7,7 +7,7 @@
 #include "../mapgen/mapgen.h"
 #include "map.h"
 
-#define INITIAL_BLADDER_FILLED_AMOUNT 25
+#define INITIAL_BLADDER_FILLED_AMOUNT 0
 #define MAX_BLADDER 100
 #define TRANSITION_TIME 30 // in frames
 #define MAX_ENTITIES 10
@@ -20,12 +20,6 @@ typedef enum {
     TRANSIT
 } StateMode;
 
-typedef enum {RubberDuck} EntityType;
-
-typedef struct {
-  TilePosition position;
-  EntityType type;
-} Entity;
 
 typedef struct {
     TilePosition position;
@@ -35,17 +29,32 @@ typedef struct {
   u8 inebriationSteps;
 } Player;
 
+typedef enum {RubberDuck} EntityType;
+
+typedef struct {
+  TilePosition position;
+  EntityType type;
+} Entity;
+
 typedef struct {
     Player player;
+<<<<<<< HEAD
+  bool hasPlayerWon;
+  Entity entities[MAX_ENTITIES];
+  u8 n_entities;
+} State;
+
+Player initializePlayer(const Level *level);
+bool isPlayerColliding(State state, Level *level);
+bool isEntityColliding(Entity entity, Level *level);
+=======
     bool hasPlayerWon;
-    Entity entities[MAX_ENTITIES];
-    u8 n_entities;
 } State;
 
 Player initializePlayer(const Level *level);
 GenMapTile tileUnderPlayer();
-bool isPlayerColliding(State state, Level *level);
-bool isEntityColliding(Entity entity, Level *level);
+bool isPlayerColliding();
+>>>>>>> develop
 bool isPlayerOnToilet(State state, const Level *level);
 
 State newStartState(const Level *level);

@@ -1,9 +1,9 @@
 
-//{{BLOCK(playerSprite)
+//{{BLOCK(bladder05)
 
 //======================================================================
 //
-//	playerSprite, 16x16@4, 
+//	bladder05, 16x16@4, 
 //	+ palette 256 entries, not compressed
 //	+ 4 tiles Metatiled by 2x2 not compressed
 //	Total size: 512 + 128 = 640
@@ -14,15 +14,15 @@
 //
 //======================================================================
 
-const unsigned int playerSpriteTiles[32] __attribute__((aligned(4))) __attribute__((visibility("hidden")))=
+const unsigned int bladder05Tiles[32] __attribute__((aligned(4))) __attribute__((visibility("hidden")))=
 {
-	0x66600000,0x6B660000,0xB9B60000,0xBBB80000,0x9BBF0000,0xBBF00000,0xFF000000,0xEECC0000,
-	0x00000886,0x00008666,0x0000869B,0x00008BBB,0x0000FBB9,0x00000FBB,0x000000FF,0x0000CCEE,
-	0xCCCB0000,0xEEC0B000,0xCCC0B000,0xEEC0B000,0xCC000000,0x0D000000,0x0C000000,0x0BB00000,
-	0x0000BCCC,0x000B0CEE,0x000B0CCC,0x000B0CEE,0x000000CC,0x000000D0,0x000000C0,0x00000BB0,
+	0x69000000,0x66000000,0x66000000,0x69000000,0x77700000,0x66680000,0x66860000,0x66760000,
+	0x00000096,0x00000066,0x00000066,0x00000096,0x00000777,0x00008666,0x00006866,0x00006766,
+	0x66760000,0x66760000,0x66970000,0x86000000,0x76000000,0x76000000,0x76000000,0x76000000,
+	0x00006766,0x00006766,0x00007966,0x00000068,0x00000067,0x00000067,0x00000067,0x00000067,
 };
 
-const unsigned short playerSpritePal[256] __attribute__((aligned(4))) __attribute__((visibility("hidden")))=
+const unsigned short bladder05Pal[256] __attribute__((aligned(4))) __attribute__((visibility("hidden")))=
 {
 	0x0000,0x7FFF,0x5EF7,0x4631,0x739C,0x4631,0x03FF,0x09CE,
 	0x0B39,0x0047,0x03FF,0x5F7F,0x28E1,0x1460,0x7F06,0x1E12,
@@ -61,4 +61,4 @@ const unsigned short playerSpritePal[256] __attribute__((aligned(4))) __attribut
 	0x7FFF,0x7FFF,0x7FFF,0x7FFF,0x7FFF,0x7FFF,0x7FFF,0x7FFF,
 };
 
-//}}BLOCK(playerSprite)
+//}}BLOCK(bladder05)

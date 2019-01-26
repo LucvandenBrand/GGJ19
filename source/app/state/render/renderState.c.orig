@@ -69,13 +69,21 @@ void renderState(State oldState, State currentState, u32 transitionFrame,
     mapPos.x -= SCREEN_WIDTH / 2 - 4;
     mapPos.y -= SCREEN_HEIGHT / 2 + 2;
 
+<<<<<<< HEAD
     if (stateMode == TRANSIT) {
         playerFgPos.y += -deltat * 1;
-        /* mapPos.y += -deltat * 1.1; */
+        mapPos.y += -deltat * 1.1;
+=======
+    if(stateMode == TRANSIT){
+      playerFgPos.y += -deltat*1;
+      /* mapPos.y += -deltat*1.1; */
+>>>>>>> develop
     }
+
     sprites[0] = playerToSpriteObject(playerFgPos);
     sprites[1] = bladderToSpriteObject(currentState.player.bladder);
 
+<<<<<<< HEAD
     for (size_t index = 0; index < currentState.n_entities; ++index) {
         /* TilePosition entityPos = currentState.entities[index].position; */
         /* ObjectPoint entityObjPos; */
@@ -86,10 +94,13 @@ void renderState(State oldState, State currentState, u32 transitionFrame,
             &currentState.entities[index].position, deltat, stateMode);
         entityObjPos.x -= mapPos.x;
         entityObjPos.y -= mapPos.y;
-        sprites[index + 2] = playerToSpriteObject(entityObjPos);
+        sprites[index + 1] = playerToSpriteObject(entityObjPos);
     }
 
+    shiftMap(map, mapPos);
+=======
     shiftMap(*map, mapPos);
+>>>>>>> develop
 
     /* tte_printf("#{el}#{X}px: %d py: %d", currentState.player.position.tileX,
      * currentState.player.position.tileY); */

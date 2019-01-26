@@ -1,9 +1,9 @@
 
-//{{BLOCK(playerSprite)
+//{{BLOCK(bladder01)
 
 //======================================================================
 //
-//	playerSprite, 16x16@4, 
+//	bladder01, 16x16@4, 
 //	+ palette 256 entries, not compressed
 //	+ 4 tiles Metatiled by 2x2 not compressed
 //	Total size: 512 + 128 = 640
@@ -14,15 +14,15 @@
 //
 //======================================================================
 
-#ifndef GRIT_PLAYERSPRITE_H
-#define GRIT_PLAYERSPRITE_H
+#ifndef GRIT_BLADDER01_H
+#define GRIT_BLADDER01_H
 
-#define playerSpriteTilesLen 128
-extern const unsigned int playerSpriteTiles[32];
+#define bladder01TilesLen 128
+extern const unsigned int bladder01Tiles[32];
 
-#define playerSpritePalLen 512
-extern const unsigned short playerSpritePal[256];
+#define bladder01PalLen 512
+extern const unsigned short bladder01Pal[256];
 
-#endif // GRIT_PLAYERSPRITE_H
+#endif // GRIT_BLADDER01_H
 
-//}}BLOCK(playerSprite)
+//}}BLOCK(bladder01)

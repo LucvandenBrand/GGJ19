@@ -1,7 +1,7 @@
 #ifndef MAPGEN
 #define MAPGEN
 
-// #include "tonc_types.h"
+#include "tonc_types.h"
 
 typedef struct {
   int tileX;
@@ -13,20 +13,29 @@ typedef struct {
 #define MAP_SIZE (MAP_WIDTH * MAP_HEIGHT)
 
 typedef enum {
-    Empty = 0,
-    Wall = 1,
-    Bed = 2,
-    Toilet = 3
+    Empty,
+    Wall,
+    Bed,
+    BedLeft,
+    Toilet,
+    Toileft,
+    Duckie,
+    Alcohol,
+    Diaper
 } GenMapTile;
 
 typedef struct {
     GenMapTile ground[MAP_SIZE];
     TilePosition bedPos;
     TilePosition toiletPos;
+    int xmin;
+    int ymin;
+    int xmax;
+    int ymax;
 } GenMap;
 
 
-void generateGenMap(GenMap *map, int xmin, int ymin, int xmax, int ymax);
+void generateGenMap(GenMap *map, u8 currentLevel);
 
 #endif
 
