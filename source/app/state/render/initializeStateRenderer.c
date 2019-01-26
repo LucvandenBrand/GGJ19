@@ -26,8 +26,12 @@ void initializeStateRenderer(State state, Map map, Level *level) {
     /* unsigned short mapdata[64 * 64]; */
     /* createMap(mapdata); */
     /* map.tileMapLayers[0] = mapdata; */
+  map.numLayers = 1;
     map.tileMapLayers[0] = level->tilemap;
+    /* map.tileMapLayers[1] = NULL; */
+    /* map.tileMapLayers[2] = NULL; */
     setMapOnScreen(map);
+    REG_DISPCNT |= DCNT_BG3; // Because setMapOnScreen destroys it.
 
     loadSpriteSheet(playerSpritePalette, PLAYER_PAL_LEN, playerSpriteTileSet,
                     PLAYER_TILE_LEN);
