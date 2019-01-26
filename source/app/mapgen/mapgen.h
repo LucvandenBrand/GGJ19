@@ -26,7 +26,7 @@ typedef struct {
 } GenMap;
 
 
-void generateGenMap(GenMap *map);
+void generateGenMap(GenMap *map, int xmin, int ymin, int xmax, int ymax);
 
 #endif
 
