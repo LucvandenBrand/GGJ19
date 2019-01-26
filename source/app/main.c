@@ -45,6 +45,9 @@ void playLevel(Level *level) {
                 if (keys) {
                     oldState = currentState;
                     currentState = updateStateFromKeys(currentState, level);
+                    if(currentState.hasPlayerWon) {
+                      return;
+                    }
                     stateMode = TRANSIT;
                     transitionFrame = currentFrame;
                 }

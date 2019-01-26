@@ -25,13 +25,15 @@ typedef struct {
 
 typedef struct {
     Player player;
+  bool hasPlayerWon;
 } State;
 
 Player initializePlayer(const Level *level);
 bool isPlayerColliding();
+bool isPlayerOnToilet(State state, const Level *level);
 
 State newStartState(const Level *level);
-State updateStateFromKeys(State state, Level *level);
+State updateStateFromKeys(State state, const Level *level);
 bool isTransitionFinished(TimeInFrames transitionFrame, TimeInFrames currentFrame);
 
 #endif

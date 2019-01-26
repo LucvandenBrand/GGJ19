@@ -55,7 +55,7 @@ void worm(GenMap *map, int pos, int life) {
                 direction = (direction + ddir) % 4;
             }
         }
-        int length = 3 + RAND(5);
+        int length = 3 + RAND(1);
         while (length--) {
             int npos = pos + dpos;
             if (IS_EDGE(npos)) {
@@ -73,10 +73,13 @@ void worm(GenMap *map, int pos, int life) {
         }
     }
     map->ground[worms[0]] = Toilet;
-    map->toiletPos.tileX = worms[0] % MAP_WIDTH;
-    map->toiletPos.tileY = worms[0] / MAP_WIDTH;
+    /* map->toiletPos.tileX = worms[0] % MAP_WIDTH; */
+    map->toiletPos = map->bedPos;
+    map->toiletPos.tileX += 2;
+    /* map->toiletPos.tileY = worms[0] / MAP_WIDTH; */
 
     map->ground[map->bedPos.tileY * MAP_WIDTH + map->bedPos.tileX] = Bed;
+    map->ground[map->toiletPos.tileY * MAP_WIDTH + map->toiletPos.tileX] = Toilet;
 }
 
 void generateGenMap(GenMap *map) {
