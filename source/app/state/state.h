@@ -3,6 +3,7 @@
 
 #include "tonc_types.h"
 #include <stdbool.h>
+#include "../level/level.h"
 
 #define INITIAL_BLADDER_FILLED_AMOUNT 25
 #define MAX_BLADDER 100
@@ -34,7 +35,7 @@ Player initializePlayer();
 bool isPlayerColliding();
 
 State newStartState();
-State updateStateFromKeys(State state);
+State updateStateFromKeys(State state, Level *level);
 bool isTransitionFinished(TimeInFrames transitionFrame, TimeInFrames currentFrame);
 
 #endif

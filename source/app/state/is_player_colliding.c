@@ -1,3 +1,10 @@
+#include "../level/level.h"
+#include "../mapgen/mapgen.h"
 #include "state.h"
 
-bool isPlayerColliding(State state) { return false; }
+bool isPlayerColliding(State state, Level *level) {
+    /* return false; */
+    s8 playerX = state.player.position.tileX;
+    s8 playerY = state.player.position.tileY;
+    return level->genMap.ground[playerY * MAP_WIDTH + playerX] == Wall;
+}

@@ -44,7 +44,7 @@ void playLevel(Level *level) {
                 KeyState keys = key_curr_state();
                 if (keys) {
                     oldState = currentState;
-                    currentState = updateStateFromKeys(currentState);
+                    currentState = updateStateFromKeys(currentState, level);
                     stateMode = TRANSIT;
                     transitionFrame = currentFrame;
                 }
