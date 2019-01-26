@@ -133,9 +133,6 @@ void playLevel(Level *level) {
                 if (keys) {
                     oldState = currentState;
                     currentState = updateStateFromKeys(currentState, level);
-                    if(currentState.hasPlayerWon) {
-                      return;
-                    }
                     stateMode = TRANSIT;
                     transitionFrame = currentFrame;
                 }
@@ -143,6 +140,9 @@ void playLevel(Level *level) {
             case TRANSIT:
                 if (isTransitionFinished(transitionFrame, currentFrame)) {
                     stateMode = IDLE;
+                    if(currentState.hasPlayerWon) {
+                      return;
+                    }
                 }
                 break;
         }
@@ -206,7 +206,7 @@ void playLevels() {
         Level level;
         generateLevel(currentLevel, &level);
         tte_printf("Level %d generated!\n", currentLevel);
-        key_wait_till_hit(KEY_ANY);
+        /* key_wait_till_hit(KEY_ANY); */
         /* wipPrintDungeonMap(level.genMap); */
         /* fade_out_till_end(); */
         playLevel(&level);
