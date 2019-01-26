@@ -1,8 +1,8 @@
 #include "setup.h"
 
 void setupGBA() {
-  setupDisplayMode();
-  setupInterrupts();
-  setupTextMode();
-  setupAudioSystem();
+    setupDisplayMode();
+    setupInterrupts();
+    setupTextMode();
+    setupAudioSystem();
 }

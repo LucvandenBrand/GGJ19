@@ -1,16 +1,14 @@
 #include "tonc.h"
 
 #include <stdbool.h>
-#include "simple_rng/simple_rng.h"
-#include "state/state.h"
-#include "state/render/stateRenderer.h"
 #include "audio.h"
+#include "simple_rng/simple_rng.h"
+#include "state/render/stateRenderer.h"
+#include "state/state.h"
 
+#include "./main.h"
 #include "setup/setup.h"
 #include "tonc_tte.h"
-#include "./main.h"
-
-
 
 void seedRNGByKeyPress() {
     /* fake seeding by just fetching numbers until key is pressed. */
@@ -24,11 +22,10 @@ void seedRNGByKeyPress() {
     }
 }
 
-// Temporary implementation of level generation; will be swapped for Michiel's code.
+// Temporary implementation of level generation; will be swapped for Michiel's
+// code.
 typedef void* Level;
-Level generateLevel(u8 currentLevel) {
-  return NULL;
-}
+Level generateLevel(u8 currentLevel) { return NULL; }
 
 void playLevel(Level level) {
     State currentState = newStartState();
@@ -56,7 +53,8 @@ void playLevel(Level level) {
                 }
                 break;
         }
-        renderState(oldState, currentState, transitionFrame, currentFrame, stateMode);
+        renderState(oldState, currentState, transitionFrame, currentFrame,
+                    stateMode);
         /* tte_printf(" %d", stateMode); */
         /* vid_vsync(); */
         /* VBlankIntrWait(); */
@@ -64,17 +62,17 @@ void playLevel(Level level) {
 }
 
 void playLevels() {
-  u8 currentLevel = 1;
-  while(true) {
-    Level level = generateLevel(currentLevel);
-    playLevel(level);
-    ++currentLevel;
-  }
+    u8 currentLevel = 1;
+    while (true) {
+        Level level = generateLevel(currentLevel);
+        playLevel(level);
+        ++currentLevel;
+    }
 }
 
 int main() {
-  setupGBA();
-  tte_printf("Press any key");
-  seedRNGByKeyPress();
-  playLevels();
+    setupGBA();
+    tte_printf("Press any key");
+    seedRNGByKeyPress();
+    playLevels();
 }
