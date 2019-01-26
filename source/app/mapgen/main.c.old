@@ -23,7 +23,7 @@ void printMap(Map map){
 
 int main(int argc, char *argv[]){
     
-    SimpleRNG_seed(104);
+    SimpleRNG_seed(100);
     
     Map map = generateMap();
     
