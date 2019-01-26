@@ -27,6 +27,7 @@ uint se_index_fast(uint tx, uint ty, u16 bgcnt) {
 #define TOILET_LEFT (FLOOR_TILES_OFFSET2 + 7)
 #define TOILET_RIGHT (FLOOR_TILES_OFFSET2 + 8)
 #define DUCKIE (FLOOR_TILES_OFFSET2 + 9)
+#define ALCOHOL (FLOOR_TILES_OFFSET + 8)
 #define FLOOR1 (FLOOR_TILES_OFFSET + 2)
 #define FLOOR2 (FLOOR_TILES_OFFSET + 3)
 #define FLOOR3 (FLOOR_TILES_OFFSET + 4)
@@ -118,6 +119,9 @@ void pickImgForPlace(Tilemap *tilemap, GenMap *genMap, int x, int y){
         case Duckie:
             tileImg = DUCKIE;
             break;
+    case Alcohol:
+      tileImg = ALCOHOL;
+      break;
         case Empty:
             /* tileImg = FLOOR1 + (SimpleRNG_rand() % 3); */
             tileImg = randomFloorTile();

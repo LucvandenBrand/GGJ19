@@ -34,5 +34,9 @@ State updateStateFromKeys(State state, Level *level, Map *map) {
         newState.player.isSliding = true;
         setLevelTile(level, map, newState.player.position.tileX, newState.player.position.tileY, Empty);
     }
+    if (tileUnderPlayer(newState, level) == Alcohol){
+      newState.player.inebriationSteps = 20;
+      setLevelTile(level, map, newState.player.position.tileX, newState.player.position.tileY, Empty);
+    }
     return newState;
 }
