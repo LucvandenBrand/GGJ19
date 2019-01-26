@@ -165,11 +165,19 @@ void worm(GenMap *map, int pos, int life) {
 //         }
 
 
+
 void bsp(GenMap *map, int xmin, int ymin, int xmax, int ymax, int d){
-    if (d < RAND(5)){
+    if (d == 0 || RAND(9) == 0){
+        if (RAND(5) == 0 && map->bedPos.tileX < 0){
+            map->bedPos.tileX = xmax-1;
+            map->bedPos.tileY = ymax-1;
+        } else if (RAND(5) == 0){
+            map->toiletPos.tileX = xmax-1;
+            map->toiletPos.tileY = ymax-1;
+        }
         return;
     }
-    if (ymax - ymin >= 4 && (xmax - xmin < 4 || RAND(2))){
+    if (ymax - ymin >= 5 && (xmax - xmin < 5 || RAND(2))){
         // horizontal wall
         
         int sepmin = ymin + 1 + RAND(ymax - ymin - 3);
@@ -196,7 +204,7 @@ void bsp(GenMap *map, int xmin, int ymin, int xmax, int ymax, int d){
             }
            
         }
-    } else if (xmax - xmin >= 4){
+    } else if (xmax - xmin >=5){
         // vertical wall
         int sepmin = xmin + 1 + RAND(xmax - xmin - 3);
         int sepmax = sepmin + 2 + RAND(2);
@@ -223,7 +231,7 @@ void bsp(GenMap *map, int xmin, int ymin, int xmax, int ymax, int d){
                 break;
             }
         }
-    }
+    } 
 }
 
 
@@ -234,11 +242,19 @@ void generateGenMap(GenMap *map, int xmin, int ymin, int xmax, int ymax) {
             map->ground[INDEX(x, y)] = (x<xmin || y<ymin || x>=xmax || y>=ymax) ? Wall : Empty;
         }
     }
+    map->bedPos.tileX = -1;
+    map->bedPos.tileY = -1;
+    map->toiletPos.tileX = -1;
+    map->toiletPos.tileY = -1;
     bsp(map, xmin, ymin, xmax, ymax, 8);
-    map->bedPos.tileX = xmin;
-    map->bedPos.tileY = ymin;
-    map->toiletPos.tileX = xmax-1;
-    map->toiletPos.tileY = ymax-1;
+    if (map->bedPos.tileX < 0){
+        map->bedPos.tileX = xmin;
+        map->bedPos.tileY = ymin;
+    }
+    if (map->toiletPos.tileX < 0){
+        map->toiletPos.tileX = xmax-1;
+        map->toiletPos.tileY = ymax-1;
+    }
     map->ground[INDEX(map->bedPos.tileX, map->bedPos.tileY)] = Bed;
     map->ground[INDEX(map->toiletPos.tileX, map->toiletPos.tileY)] = Toilet;
 //     worm(map, RAND(MAP_SIZE), 1050);
