@@ -15,6 +15,6 @@ void generateLevel(u8 currentLevel, Level *level);
 
 
 // private
-void fillTilemap(Tilemap *tilemap, GenMap *genMap);
+void fillTilemap(u8 currentLevel, Tilemap *tilemap, GenMap *genMap);
 
 #endif //LEVEL_H
