@@ -68,7 +68,7 @@ void playLevels() {
         Level level;
         generateLevel(currentLevel, &level);
         playLevel(&level);
-        increaseAudioSpeed();
+        increaseAudioSpeed(0.05);
         ++currentLevel;
     }
 }
