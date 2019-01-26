@@ -1,16 +1,16 @@
 #include "tonc.h"
 
 #include <stdbool.h>
-#include "music/music.h"
 #include "level/level.h"
+#include "music/music.h"
 #include "simple_rng/simple_rng.h"
 #include "state/render/stateRenderer.h"
 #include "state/state.h"
 
 #include "./main.h"
+#include "music/music.h"
 #include "setup/setup.h"
 #include "tonc_tte.h"
-#include "music/music.h"
 
 void seedRNGByKeyPress() {
     /* fake seeding by just fetching numbers until key is pressed. */

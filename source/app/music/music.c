@@ -26,24 +26,17 @@ Audio loadAudio() {
     return loadAudioFromROM(audioData);
 }
 
-void setAudioSpeed(float newSpeed) {
-  audioSpeed = newSpeed;
-}
-void increaseAudioSpeed(){
-  ++audioSpeed;
-}
-void decreaseAudioSpeed(){
-  --audioSpeed;
-}
-
+void setAudioSpeed(float newSpeed) { audioSpeed = newSpeed; }
+void increaseAudioSpeed() { ++audioSpeed; }
+void decreaseAudioSpeed() { --audioSpeed; }
 
 void tickAudioSystemSpeedy() {
-  audioTimer += audioSpeed;
-  while(audioTimer > 1) {
-    tickAudioSystem();
-    audioTimer -= 1;
-  }
-  /* for(int index = 0; index < audioSpeed; ++index) { */
-  /*   tickAudioSystem(); */
-  /* } */
+    audioTimer += audioSpeed;
+    while (audioTimer > 1) {
+        tickAudioSystem();
+        audioTimer -= 1;
+    }
+    /* for(int index = 0; index < audioSpeed; ++index) { */
+    /*   tickAudioSystem(); */
+    /* } */
 }
