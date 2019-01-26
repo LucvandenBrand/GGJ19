@@ -31,17 +31,14 @@ IN THE SOFTWARE.
    also assumes that the target uses 16-bit short and 32-bit longs.
 */
 
-typedef unsigned short u16;
-typedef unsigned long u32;
-
 #include <stdlib.h>
 #include <string.h>
 #include "gbfs.h"
 
 /* change this to the end of your ROM, or to 0x02040000 for multiboot */
-#define GBFS_1ST_SEARCH_LIMIT ((const u32 *)0x02040000)
-#define GBFS_2ND_SEARCH_START ((const u32 *)0x08000000)
-#define GBFS_2ND_SEARCH_LIMIT ((const u32 *)0x0a000000)
+#define GBFS_1ST_SEARCH_LIMIT ((const unsigned int *)0x02040000)
+#define GBFS_2ND_SEARCH_START ((const unsigned int *)0x08000000)
+#define GBFS_2ND_SEARCH_LIMIT ((const unsigned int *)0x0a000000)
 
 /* a power of two, less than or equal to the argument passed to
    padbin.  Increasing the stride makes find_first_gbfs_file()
@@ -51,7 +48,7 @@ typedef unsigned long u32;
 const GBFS_FILE *find_first_gbfs_file(const void *start)
 {
   /* align the pointer */
-  const u32 *here = (const u32 *)
+  const unsigned int *here = (const unsigned int *)
                       ((unsigned long)start & (-GBFS_ALIGNMENT));
   const char rest_of_magic[] = "ightGBFS\r\n\x1a\n";
 
@@ -106,7 +103,7 @@ static int namecmp(const void *a, const void *b)
 
 const void *gbfs_get_obj(const GBFS_FILE *file,
                          const char *name,
-                         u32 *len)
+                         unsigned int *len)
 {
   char key[24] = {0};
 
@@ -131,7 +128,7 @@ const void *gbfs_get_obj(const GBFS_FILE *file,
 const void *gbfs_get_nth_obj(const GBFS_FILE *file,
                              size_t n,
                              char *name,
-                             u32 *len)
+                             unsigned int *len)
 {
   const GBFS_ENTRY *dirbase = (const GBFS_ENTRY *)((const char *)file + file->dir_off);
   size_t n_entries = file->dir_nmemb;
@@ -157,7 +154,7 @@ void *gbfs_copy_obj(void *dst,
                     const GBFS_FILE *file,
                     const char *name)
 {
-  u32 len;
+  unsigned int len;
   const void *src = gbfs_get_obj(file, name, &len);
 
   if(!src)

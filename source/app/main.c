@@ -1,31 +1,15 @@
 #include "tonc.h"
 
-#include <stdio.h>
-#include "audio.h"
-#include "gbfs.h"
+#include <stdbool.h>
+#include "music/music.h"
+#include "level/level.h"
 #include "simple_rng/simple_rng.h"
+#include "state/render/stateRenderer.h"
+#include "state/state.h"
 
 #include "./main.h"
-
-Audio createEmptyAudio() {
-    Audio audio;
-    audio.numChannels = 0;
-    return audio;
-}
-
-Audio loadAudio() {
-    u32 audioDataSize = 0;
-    const GBFS_FILE* audioFile = find_first_gbfs_file(find_first_gbfs_file);
-    const u16* audioData =
-        gbfs_get_obj(audioFile, "Test00.bin", &audioDataSize);
-
-    if (audioData == NULL) {
-        tte_printf("No GBFS audio found.\n");
-        return createEmptyAudio();
-    }
-
-    return loadAudioFromROM(audioData);
-}
+#include "setup/setup.h"
+#include "tonc_tte.h"
 
 void seedRNGByKeyPress() {
     /* fake seeding by just fetching numbers until key is pressed. */
@@ -39,31 +23,58 @@ void seedRNGByKeyPress() {
     }
 }
 
-int main() {
-    REG_DISPCNT = DCNT_MODE0 | DCNT_BG0;
-    tte_init_se_default(0, BG_CBB(0) | BG_SBB(31));
-    tte_init_con();
+void playLevel(Level *level) {
+    State currentState = newStartState(level);
+    State oldState = currentState;
+    StateMode stateMode = IDLE;
+    TimeInFrames currentFrame = 0;
+    TimeInFrames transitionFrame = 0;
+    Map map = loadDefaultMap();
+    initializeStateRenderer(currentState, map, level);
+    while (true) {
+        ++currentFrame;
+        switch (stateMode) {
+            case IDLE:
+                key_poll();
+                KeyState keys = key_curr_state();
+                if (keys) {
+                    oldState = currentState;
+                    currentState = updateStateFromKeys(currentState, level);
+                    stateMode = TRANSIT;
+                    transitionFrame = currentFrame;
+                }
+                break;
+            case TRANSIT:
+                if (isTransitionFinished(transitionFrame, currentFrame)) {
+                    stateMode = IDLE;
+                    if (currentState.hasPlayerWon) {
+                        return;
+                    }
+                }
+                break;
+        }
+        renderState(oldState, currentState, transitionFrame, currentFrame,
+                    stateMode, map);
+    };
+}
 
-    initAudioSystem();
-    irq_init(NULL);
-    irq_add(II_VBLANK, tickAudioSystem);
-
-    tte_printf("Press any key\n");
-    seedRNGByKeyPress();
-    tte_printf("Using seed: %lu\n", SimpleRNG_rand());
-
-    tte_printf("Hello, World!\n\n");
-
-    int result = foo();
-    result += bar(3, 2);
-    tte_printf("The result = %d.\n", result);
-
-    tte_printf("Now playing audio.\n");
+void playLevels() {
     Audio audio = loadAudio();
     setCurrentAudio(&audio);
 
-    tte_printf("\nKind regards,\nSnappy Cobra");
+    u8 currentLevel = 1;
+    while (true) {
+        Level level;
+        generateLevel(currentLevel, &level);
+        playLevel(&level);
+        ++currentLevel;
+    }
+}
 
-    while (1) {
-    };
+int main() {
+    setupGBA();
+    tte_printf("Toilet Boy Alpha\n\nPress any key!\n");
+    seedRNGByKeyPress();
+    tte_printf("#{es}");
+    playLevels();
 }
