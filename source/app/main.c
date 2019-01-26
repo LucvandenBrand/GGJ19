@@ -12,6 +12,8 @@
 #include "setup/setup.h"
 #include "tonc_tte.h"
 
+#include "stdlib.h"
+
 void seedRNGByKeyPress() {
     /* fake seeding by just fetching numbers until key is pressed. */
     while (1) {
@@ -24,7 +26,7 @@ void seedRNGByKeyPress() {
     }
 }
 
-void playLevel(Level *level) {
+bool playLevel(Level *level) {
     State currentState = newStartState(level);
     State oldState = currentState;
     StateMode stateMode = IDLE;
@@ -34,6 +36,9 @@ void playLevel(Level *level) {
     initializeStateRenderer(currentState, map, level);
     while (true) {
         ++currentFrame;
+        if(currentState.player.bladder >= MAX_BLADDER) {
+          return false;
+        }
         switch (stateMode) {
             case IDLE:
                 key_poll();
@@ -49,7 +54,7 @@ void playLevel(Level *level) {
                 if (isTransitionFinished(transitionFrame, currentFrame)) {
                     stateMode = IDLE;
                     if (currentState.hasPlayerWon) {
-                        return;
+                        return true;
                     }
                 }
                 break;
@@ -67,16 +72,24 @@ void playLevels() {
     while (true) {
         Level level;
         generateLevel(currentLevel, &level);
-        playLevel(&level);
+        bool playerBeatLevel = playLevel(&level);
+        if(!playerBeatLevel){
+          break;
+        }
         increaseAudioSpeed();
         ++currentLevel;
     }
+    setupGBA();
+    tte_printf("You reached level %d", currentLevel);
+    key_wait_till_hit(KEY_ANY);
 }
 
 int main() {
-    setupGBA();
+  setupGBA();
+  while(true){
     tte_printf("Toilet Boy Alpha\n\nPress any key!\n");
     seedRNGByKeyPress();
     tte_printf("#{es}");
     playLevels();
+  }
 }
