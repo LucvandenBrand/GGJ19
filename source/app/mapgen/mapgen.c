@@ -19,8 +19,8 @@ typedef enum { North = 0, East = 1, South = 2, West = 3 } Direction;
 void makeRoom(Map *map, int pos, int minsize, int maxsize) {
     int x = pos % MAP_WIDTH;
     int y = pos / MAP_WIDTH;
-    int xmin = x - (RAND(maxsize-minsize) - minsize)/2;
-    int ymin = y - (RAND(maxsize-minsize) - minsize)/2;
+    int xmin = x - (RAND(maxsize-minsize) + minsize)/2;
+    int ymin = y - (RAND(maxsize-minsize) + minsize)/2;
     int xmax = x + (RAND(maxsize-minsize) + minsize)/2;
     int ymax = y + (RAND(maxsize-minsize) + minsize)/2;
     xmin = MAX(1, xmin);
@@ -35,7 +35,7 @@ void makeRoom(Map *map, int pos, int minsize, int maxsize) {
 }
 
 void worm(Map *map, int pos, int life) {
-    map->ground[pos] = Bed;
+    int bedpos = pos;
     int worms[MAX_WORMS];
     int nworms = 1;
     worms[0] = pos;
@@ -53,7 +53,7 @@ void worm(Map *map, int pos, int life) {
                 direction = (direction + ddir) % 4;
             }
         }
-        int length = 3 + RAND(5);
+        int length = 3 + RAND(10);
         while (length--) {
             int npos = pos + dpos;
             if (IS_EDGE(npos)) {
@@ -70,6 +70,7 @@ void worm(Map *map, int pos, int life) {
             makeRoom(map, pos, 4, 8);
         }
     }
+    map->ground[bedpos] = Bed;
     map->ground[worms[0]] = Toilet;
 }
 
@@ -81,7 +82,7 @@ Map generateMap() {
     for (int i = 0; i < MAP_SIZE; i++) {
         map.ground[i] = Wall;
     }
-    worm(&map, RAND(MAP_SIZE), 220);
+    worm(&map, RAND(MAP_SIZE), 250);
 
     return map;
 }
