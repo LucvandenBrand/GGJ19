@@ -17,10 +17,10 @@ void generateLevel(u8 currentLevel, Level *level);
 
 
 // private
-void fillTilemap(u8 currentLevel, Tilemap *tilemap, GenMap *genMap);
+void fillTilemap(Level *level);
 
 GenMapTile getLevelTile(const Level *level, u8 x, u8 y);
 void setLevelTile(Level *level, Map *map, u8 x, u8 y, GenMapTile newTile);
-void pickImgForPlace(u8 currentLevel, Tilemap *tile, GenMap *genMap, int x, int y);
+void pickImgForPlace(Level *level, int x, int y);
 
 #endif //LEVEL_H

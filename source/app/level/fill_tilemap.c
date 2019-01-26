@@ -105,10 +105,10 @@ uint randomFloorTile(u8 currentLevel) {
     return FLOOR1;
 }
 
-void pickImgForPlace(u8 currentLevel, Tilemap *tilemap, GenMap *genMap, int x, int y){
+void pickImgForPlace(Level *level, int x, int y){
 
     unsigned short tileImg = 0;
-    switch (fetchGenMapTile(x, y, genMap)) {
+    switch (getLevelTile(level, x, y)) {
         case Bed:
             tileImg = BED_RIGHT;
 //                     (*tilemap)[se_index_fast(x - 1, y, REG_BG0CNT)] = BED_LEFT;
@@ -130,32 +130,32 @@ void pickImgForPlace(u8 currentLevel, Tilemap *tilemap, GenMap *genMap, int x, i
             break;
         case Empty:
             /* tileImg = FLOOR1 + (SimpleRNG_rand() % 3); */
-            tileImg = randomFloorTile(currentLevel);
+            tileImg = randomFloorTile(level->currentLevel);
             break;
         case Wall:
-            if (fetchGenMapTile(x, y + 1, genMap) != Wall) {
-                if (fetchGenMapTile(x, y - 1, genMap) != Wall) {
+            if (getLevelTile(level, x, y + 1) != Wall) {
+                if (getLevelTile(level, x, y - 1) != Wall) {
                     tileImg = SINGLE_TILE_WALL;
                 } else {
                     /* tileImg = SIDE_WALL1 + (SimpleRNG_rand() % 3); */
-                    tileImg = randomWallTile(currentLevel);
+                    tileImg = randomWallTile(level->currentLevel);
                 }
             } else {
-                tileImg = 1 + randomCeilingTile(currentLevel);
+                tileImg = 1 + randomCeilingTile(level->currentLevel);
             }
             break;
     }
 
-    (*tilemap)[se_index_fast(x, y, REG_BG0CNT)] = tileImg;
+    (level->tilemap)[se_index_fast(x, y, REG_BG0CNT)] = tileImg;
 }
 
-void fillTilemap(u8 currentLevel, Tilemap *tilemap, GenMap *genMap) {
+void fillTilemap(Level *level) {
     for (unsigned int i = 0; i < 64 * 64; ++i) {
-        (*tilemap)[i] = 2 * 20 + 3;
+        (level->tilemap)[i] = 2 * 20 + 3;
     }
     for (int x = 0; x < MAP_WIDTH; ++x) {
         for (int y = 0; y < MAP_HEIGHT; ++y) {
-            pickImgForPlace(currentLevel, tilemap, genMap, x, y);
+            pickImgForPlace(level, x, y);
         }
     }
 }
