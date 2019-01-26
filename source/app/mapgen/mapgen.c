@@ -15,6 +15,7 @@
     (((direction) % 4 == West) - ((direction) % 4 == East) + \
      MAP_WIDTH * (((direction) % 4 == South) - ((direction) % 4 == North)))
 #define MOVE(pos, dir) (pos + MOVEMENT(dir))
+#define GET(map, x, y) (map->ground[INDEX(x, y)])
 
 #define MAX_WORMS 10
 
@@ -165,15 +166,60 @@ void worm(GenMap *map, int pos, int life) {
 //         }
 
 
-
+void bst(GenMap *map, int xmin, int ymin, int xmax, int ymax, int d){
+    if (d < RAND(5)){
+        return;
+    }
+    if (RAND(2)){
+        if (ymax - ymin < 3){
+            return;
+        }
+        int sep = ymin + 1 + RAND(ymax - ymin - 2);
+        for (int x=xmin; x<xmax; ++x){
+            map->ground[INDEX(x, sep)] = Wall;
+        }
+        bst(map, xmin, ymin, xmax, sep, d-1);
+        bst(map, xmin, sep+1, xmax, ymax, d-1);
+        int l = xmax - xmin;
+        int dp = RAND(l);
+        for (int i=0; i<l; ++i){
+            int doorpos = INDEX(xmin + (i + dp) % l, sep);
+            if (map->ground[doorpos + MAP_WIDTH] == Empty && map->ground[doorpos - MAP_WIDTH] == Empty){
+                map->ground[doorpos] = Empty;
+                break;
+            }
+        }
+    } else {
+        if (xmax - xmin < 3){
+            return;
+        }
+        int sep = xmin + 1 + RAND(xmax - xmin - 2);
+        for (int y=ymin; y<ymax; ++y){
+            map->ground[INDEX(sep, y)] = Wall;
+        }
+        bst(map, xmin, ymin, sep, ymax, d-1);
+        bst(map, sep+1, ymin, xmax, ymax, d-1);
+        int l = ymax - ymin;
+        int dp = RAND(l);
+        for (int i=0; i<l; ++i){
+            int doorpos = INDEX(sep, ymin + (i + dp) % l);
+            if (map->ground[doorpos + 1] == Empty && map->ground[doorpos - 1] == Empty){
+                map->ground[doorpos] = Empty;
+                break;
+            }
+        }
+        
+    }
+}
 
 
 
 void generateGenMap(GenMap *map) {
     for (int i = 0; i < MAP_SIZE; ++i) {
-        map->ground[i] = Wall;
+        map->ground[i] = IS_EDGE(i) ? Wall : Empty;
     }
-    worm(map, RAND(MAP_SIZE), 1050);
+    bst(map, 1, 1, MAP_WIDTH-1, MAP_HEIGHT-1, 9);
+//     worm(map, RAND(MAP_SIZE), 1050);
 
     /* return map; */
 }
