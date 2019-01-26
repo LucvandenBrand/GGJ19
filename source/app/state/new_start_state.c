@@ -5,6 +5,5 @@ State newStartState(const Level *level) {
         .player = initializePlayer(level),
         .n_entities = 1,
         .entities = {(Entity){.type = RubberDuck,
-                              .position = {.tileX = 10, .tileY = 10}}}
-    };
+                              .position = {.tileX = 10, .tileY = 10}}}};
 }
