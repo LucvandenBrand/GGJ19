@@ -84,9 +84,9 @@ uint randomFloorTile() {
     return FLOOR3;
   } else if (rand < 87) {
     return FLOOR4;
-  } else if (rand < 92) {
+  } else if (rand < 98) {
     return FLOOR5;
-  } else if (rand < 96) {
+  } else if (rand < 99) {
     return FLOOR6;
   } else {
     return FLOOR7;
