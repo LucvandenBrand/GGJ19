@@ -342,16 +342,10 @@ void generateGenMap(GenMap *map, u8 currentLevel) {
                     map->ground[pos] = Duckie;
                 } else if (currentLevel >= 5 && RAND(25) == 0){
                     map->ground[pos] = Alcohol;
+                } else if (currentLevel >= 7 && RAND(60) == 0){
+                    map->ground[pos] = Diaper;
                 }
             }
         }
-    }
-
-    for (int i=0; i<100; ++i){
-      int pos = INDEX(xmin + RAND(xmax - xmin), ymin + RAND(ymax - ymin));
-      if (map->ground[pos] == Empty) {
-        map->ground[pos] = Diaper;
-        break;
-      }
     }
 }
