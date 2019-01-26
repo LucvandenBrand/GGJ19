@@ -24,7 +24,8 @@ uint se_index_fast(uint tx, uint ty, u16 bgcnt) {
 
 #define BED_LEFT (FLOOR_TILES_OFFSET + 5)
 #define BED_RIGHT (FLOOR_TILES_OFFSET + 6)
-#define TOILET (FLOOR_TILES_OFFSET2 + 8)
+#define TOILET_LEFT (FLOOR_TILES_OFFSET2 + 7)
+#define TOILET_RIGHT (FLOOR_TILES_OFFSET2 + 8)
 #define FLOOR1 (FLOOR_TILES_OFFSET + 2)
 #define FLOOR2 (FLOOR_TILES_OFFSET + 3)
 #define FLOOR3 (FLOOR_TILES_OFFSET + 4)
@@ -103,10 +104,12 @@ void fillTilemap(Tilemap *tilemap, GenMap *genMap) {
             unsigned short tileImg = 0;
             switch (fetchGenMapTile(x, y, genMap)) {
             case Bed:
-              tileImg = BED_LEFT;
+              tileImg = BED_RIGHT;
+              (*tilemap)[se_index_fast(x-1, y, REG_BG0CNT)] = BED_LEFT;
               break;
             case Toilet:
-              tileImg = TOILET;
+              tileImg = TOILET_RIGHT;
+              (*tilemap)[se_index_fast(x-1, y, REG_BG0CNT)] = TOILET_LEFT;
               break;
                 case Empty:
                   /* tileImg = FLOOR1 + (SimpleRNG_rand() % 3); */
