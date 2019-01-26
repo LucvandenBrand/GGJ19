@@ -41,10 +41,10 @@ uint se_index_fast(uint tx, uint ty, u16 bgcnt) {
 #define FLOOR_HELL_2 (FLOOR_TILES_OFFSET + 11)
 /* #define FLOOR_3 (FLOOR_TILES_OFFSET + 2) */
 
-GenMapTile fetchGenMapTile(int x, int y, const GenMap *genMap) {
+GenMapTile fetchLevelTile(const Level *level, int x, int y) {
     if (x < 0 || x > 63) return Wall;
     if (y < 0 || y > 63) return Wall;
-    return genMap->ground[y * MAP_WIDTH + x];
+    return getLevelTile(level, x, y);
 }
 
 uint randomCeilingTile(u8 currentLevel) {
@@ -137,8 +137,8 @@ void pickImgForPlace(Level *level, int x, int y){
             tileImg = randomFloorTile(level->currentLevel);
             break;
         case Wall:
-            if (getLevelTile(level, x, y + 1) != Wall) {
-                if (getLevelTile(level, x, y - 1) != Wall) {
+            if (fetchLevelTile(level, x, y + 1) != Wall) {
+                if (fetchLevelTile(level, x, y - 1) != Wall) {
                     tileImg = SINGLE_TILE_WALL;
                 } else {
                     /* tileImg = SIDE_WALL1 + (SimpleRNG_rand() % 3); */
