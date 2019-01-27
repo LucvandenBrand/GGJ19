@@ -18,7 +18,7 @@ State newStartState(const Level *level) {
         }
         u8 tileX = SimpleRNG_rand() % 64;
         u8 tileY = SimpleRNG_rand() % 64;
-        if (level->genMap.ground[tileY + MAP_WIDTH * tileX] != Wall) {
+        if (level->genMap.ground[tileY + MAP_WIDTH * tileX] == Empty) {
             state.entities[state.n_entities] = createEntity(tileX, tileY);
             ++state.n_entities;
         }
