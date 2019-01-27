@@ -24,7 +24,7 @@ uint se_index_fast(uint tx, uint ty, u16 bgcnt) {
 //#define SIDE_WALL2 (SIDE_WALL_TILES_OFFSET + 3)
 //#define SIDE_WALL3 (SIDE_WALL_TILES_OFFSET + 4)
 
-#define SINGLE_TILE_WALL (FLOOR_TILES_OFFSET + 7)
+#define SINGLE_TILE_WALL (FLOOR_TILES_OFFSET3 + 6)
 
 #define BED_LEFT (FLOOR_TILES_OFFSET + 5)
 #define BED_RIGHT (FLOOR_TILES_OFFSET + 6)

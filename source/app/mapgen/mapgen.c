@@ -141,11 +141,11 @@ void worm(GenMap *map, int pos, int life) {
         Toilet;
 }
 
-int countTile(Map *map, int x, int y, int width, int height, int val){
+int countTile(GenMap *map, int xmin, int ymin, int xmax, int ymax, int val){
     int total = 0;
     for (int x = xmin; x < xmax; ++x) {
         for (int y = ymin; y < ymax; ++y) {
-            if (map->ground[INDEX(x, y)] == val){
+            if (GET(map, x, y) == val){
                 ++total;
             }
         }
@@ -153,20 +153,6 @@ int countTile(Map *map, int x, int y, int width, int height, int val){
     return total;
 }
 
-// void wallFeatures(Map *map, ntries) {
-//     int start = INDEX(MAP_WIDTH / 2, MAP_HEIGHT / 2);
-//     makeRoom(map, start, 4, 10);
-//     for (int i=0; i<ntries; ++i){
-//         int pos = RANDOM_POS();
-//         int builddir = -1;
-//         for (int dir=0; dir<4; ++dir){
-//             if (map->ground[MOVE(pos, dir)] != WALL){
-//                 builddir = (dir + 2) % 4;
-//             }
-//         }
-//         if (builddir < 0){
-//             continue;
-//         }
 
 void bsp(GenMap *map, int xmin, int ymin, int xmax, int ymax, int d) {
     int width = xmax - xmin;
@@ -175,7 +161,7 @@ void bsp(GenMap *map, int xmin, int ymin, int xmax, int ymax, int d) {
     int tosplit = d > 0 && size > 8 + RAND(20) + RAND(20);
     if (tosplit && height >= 5 && width > 2 &&
         (width < 5 ||
-         2 + (height >= width * 2) - (width >= height * 2) > RAND(4))) {
+         2 + (height * 2 >= width * 3) - (width * 2 >= height * 3) > RAND(4))) {
         // horizontal wall
 
         int sepmin = ymin + 1 + RAND(height - 3);
@@ -353,10 +339,12 @@ void generateGenMap(GenMap *map, u8 currentLevel) {
                     map->ground[pos] = Duckie;
                 } else if (currentLevel >= 5 && RAND(40) == 0) {
                     map->ground[pos] = Alcohol;
-                } else if (currentLevel >= 7 && RAND(100) == 0) {
+                } else if (currentLevel >= 7 && RAND(70) == 0) {
                     map->ground[pos] = Diaper;
                 } else if( RAND(2000) == 0) {
                   map->ground[pos] = Saxophone;
+                } else if (countTile(map, x-1, y-1, x+2, y+2, Wall) == 0 && RAND(20) == 0){
+                    map->ground[pos] = Flowers;
                 }
             }
         }
