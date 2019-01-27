@@ -30,5 +30,5 @@ Once the project has been setup properly, the only thing a developer needs to do
 - [Timo Strating](https://github.com/timostrating)
 - [Luc van den Brand](LucvandenBrand.com)
 - [Wiebe-Marten Wijnja](https://wmcode.nl/)
-- [Michiel de Jong](https://troido.nl
+- [Michiel de Jong](https://troido.nl)
 - [Marco Breemhaar](https://github.com/mbreemhaar)
