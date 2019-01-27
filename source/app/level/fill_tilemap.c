@@ -27,7 +27,9 @@ uint se_index_fast(uint tx, uint ty, u16 bgcnt) {
 #define TOILET_LEFT (FLOOR_TILES_OFFSET2 + 7)
 #define TOILET_RIGHT (FLOOR_TILES_OFFSET2 + 8)
 #define DUCKIE (FLOOR_TILES_OFFSET2 + 9)
+#define CROWN (FLOOR_TILES_OFFSET + 9)
 #define DIAPER (FLOOR_TILES_OFFSET2 + 10)
+#define SAXOPHONE (FLOOR_TILES_OFFSET2 + 11)
 #define ALCOHOL (FLOOR_TILES_OFFSET + 8)
 #define FLOOR1 (FLOOR_TILES_OFFSET + 2)
 #define FLOOR2 (FLOOR_TILES_OFFSET + 3)
@@ -135,6 +137,9 @@ void pickImgForPlace(Level *level, int x, int y) {
         case Diaper:
             tileImg = DIAPER;
             break;
+    case Saxophone:
+      tileImg = SAXOPHONE;
+      break;
         case Empty:
             /* tileImg = FLOOR1 + (SimpleRNG_rand() % 3); */
             tileImg = randomFloorTile(level->currentLevel);

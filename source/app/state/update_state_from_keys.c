@@ -2,7 +2,7 @@
 #include "state.h"
 #include "tonc_input.h"
 
-State updateStateFromKeys(State state, Level *level, Map *map) {
+State updateStateFromKeys(State state, Level *level, Map *map, u8 currentLevel) {
     if (!state.player.isSliding) {
         state.player.bladder += 1;
 
@@ -21,6 +21,7 @@ State updateStateFromKeys(State state, Level *level, Map *map) {
 
     if (isPlayerOnToilet(newState, level)) {
         newState.hasPlayerWon = true;
+        newState.musicTrack = (currentLevel >= 10 ? 2 : 0);
         return newState;
     }
 
@@ -28,25 +29,31 @@ State updateStateFromKeys(State state, Level *level, Map *map) {
         state.player.isSliding = false;
         return state;
     }
-    if (tileUnderPlayer(newState, level) == Duckie) {
-        newState.player.isSliding = true;
-        setLevelTile(level, map, newState.player.position.tileX,
-                     newState.player.position.tileY, Empty);
+    bool removeTile = true;
+    switch(tileUnderPlayer(newState, level)) {
+    case Duckie:
+      newState.player.isSliding = true;
+      break;
+    case Alcohol:
+      newState.player.inebriationSteps = 10;
+      break;
+    case Saxophone:
+      newState.musicTrack = 1;
+    case Diaper:
+      if (newState.player.bladder < 50) {
+        newState.player.bladder = 0;
+      } else {
+        newState.player.bladder -= 50;
+      }
+      break;
+    default:
+      removeTile = false;
+      break;
     }
-    if (tileUnderPlayer(newState, level) == Alcohol) {
-        newState.player.inebriationSteps = 10;
-        setLevelTile(level, map, newState.player.position.tileX,
-                     newState.player.position.tileY, Empty);
+    if(removeTile){
+      setLevelTile(level, map, newState.player.position.tileX,
+                   newState.player.position.tileY, Empty);
     }
 
-    if (tileUnderPlayer(newState, level) == Diaper) {
-        if (newState.player.bladder < 50) {
-            newState.player.bladder = 0;
-        } else {
-            newState.player.bladder -= 50;
-        }
-        setLevelTile(level, map, newState.player.position.tileX,
-                     newState.player.position.tileY, Empty);
-    }
     return newState;
 }
