@@ -20,7 +20,7 @@ typedef enum {
     TRANSIT
 } StateMode;
 
-typedef enum {NoEntity = 0, Snake, Plunger} EntityType;
+typedef enum {RubberDuck} EntityType;
 
 typedef struct {
   TilePosition position;
@@ -38,9 +38,12 @@ typedef struct {
 typedef struct {
     Player player;
     bool hasPlayerWon;
+<<<<<<< HEAD
     Entity entities[MAX_ENTITIES];
     u8 n_entities;
+=======
   u8 musicTrack;
+>>>>>>> develop
 } State;
 
 Player initializePlayer(const Level *level);

@@ -12,9 +12,10 @@ Audio createEmptyAudio() {
 static float audioSpeed = 1.0;
 static float audioTimer = 0;
 
-Audio loadAudio(const char * audioFileName) {
+Audio loadAudio(const char* audioFileName) {
     u32 audioDataSize = 0;
-    const GBFS_FILE* gbfsPackedFile = find_first_gbfs_file(find_first_gbfs_file);
+    const GBFS_FILE* gbfsPackedFile =
+        find_first_gbfs_file(find_first_gbfs_file);
     const u16* audioData =
         gbfs_get_obj(gbfsPackedFile, audioFileName, &audioDataSize);
 

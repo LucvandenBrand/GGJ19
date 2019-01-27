@@ -10,7 +10,6 @@ uint se_index_fast(uint tx, uint ty, u16 bgcnt) {
     return n;
 }
 
-
 #define MIN(a, b) (((a) < (b)) ? (a) : (b))
 
 #define CEILING_TILES_OFFSET 0
@@ -60,7 +59,7 @@ uint randomCeilingTile(u8 currentLevel) {
         return rand;
     } else if (currentLevel >= 16 && rand < 12) {
         uint rand2 = SimpleRNG_rand() % 25;
-        if (rand2 < currentLevel-16) {
+        if (rand2 < currentLevel - 16) {
             return rand;
         } else {
             return 0;
@@ -100,10 +99,11 @@ uint randomFloorTile(u8 currentLevel) {
     } else if (rand < 25) {
         return FLOOR2;
     } else if (currentLevel >= 5) {
-        if (currentLevel >= 7 && SimpleRNG_rand() % 50 < MIN((currentLevel-7), 25)) {
+        if (currentLevel >= 7 &&
+            SimpleRNG_rand() % 50 < MIN((currentLevel - 7), 25)) {
             return FLOOR_HELL_2;
-        } 
-        if (SimpleRNG_rand() % 30 < MIN((currentLevel-5), 7)) {
+        }
+        if (SimpleRNG_rand() % 30 < MIN((currentLevel - 5), 7)) {
             return FLOOR_HELL_1;
         }
     }
@@ -142,14 +142,15 @@ void pickImgForPlace(Level *level, int x, int y) {
         case Diaper:
             tileImg = DIAPER;
             break;
+        case Saxophone:
+            tileImg = SAXOPHONE;
+            break;
         case Flowers:
             tileImg = SINGLE_TILE_WALL;
             break;
         case Secret: 
             tileImg = SIDE_WALL1 + 8;
-    case Saxophone:
-      tileImg = SAXOPHONE;
-      break;
+            break;
         case Empty:
             /* tileImg = FLOOR1 + (SimpleRNG_rand() % 3); */
             tileImg = randomFloorTile(level->currentLevel);

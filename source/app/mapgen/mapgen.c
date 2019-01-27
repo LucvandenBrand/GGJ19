@@ -141,18 +141,17 @@ void worm(GenMap *map, int pos, int life) {
         Toilet;
 }
 
-int countTile(GenMap *map, int xmin, int ymin, int xmax, int ymax, int val){
+int countTile(GenMap *map, int xmin, int ymin, int xmax, int ymax, int val) {
     int total = 0;
     for (int x = xmin; x < xmax; ++x) {
         for (int y = ymin; y < ymax; ++y) {
-            if (GET(map, x, y) == val){
+            if (GET(map, x, y) == val) {
                 ++total;
             }
         }
     }
     return total;
 }
-
 
 void bsp(GenMap *map, int xmin, int ymin, int xmax, int ymax, int d) {
     int width = xmax - xmin;
@@ -323,8 +322,8 @@ void generateGenMap(GenMap *map, u8 currentLevel) {
                                            : Empty;
         }
     }
-    generateBsp(map, currentLevel%8 ? 12: 4);
-//     worm(map, INDEX(MAP_WIDTH/2, MAP_HEIGHT/2), 150);
+    generateBsp(map, currentLevel % 8 ? 12 : 4);
+    //     worm(map, INDEX(MAP_WIDTH/2, MAP_HEIGHT/2), 150);
     map->ground[INDEX(map->bedPos.tileX, map->bedPos.tileY)] = Bed;
     map->ground[INDEX(map->bedPos.tileX - 1, map->bedPos.tileY)] = BedLeft;
     map->ground[INDEX(map->toiletPos.tileX, map->toiletPos.tileY)] = Toilet;
@@ -341,9 +340,11 @@ void generateGenMap(GenMap *map, u8 currentLevel) {
                     map->ground[pos] = Alcohol;
                 } else if (currentLevel >= 7 && RAND(70) == 0) {
                     map->ground[pos] = Diaper;
-                } else if( RAND(2000) == 0) {
-                  map->ground[pos] = Saxophone;
-                } else if (countTile(map, x-1, y-1, x+2, y+2, Wall) == 0 && RAND(20) == 0){
+                } else if (RAND(2000) == 0) {
+                    map->ground[pos] = Saxophone;
+                } else if (countTile(map, x - 1, y - 1, x + 2, y + 2, Wall) ==
+                               0 &&
+                           RAND(20) == 0) {
                     map->ground[pos] = Flowers;
                 }
             } else if(map->ground[pos] == Wall && map->ground[pos+MAP_WIDTH] != Wall && RAND(1) == 0){
