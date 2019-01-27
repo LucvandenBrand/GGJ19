@@ -40,6 +40,7 @@ typedef struct {
     bool hasPlayerWon;
     Entity entities[MAX_ENTITIES];
     u8 n_entities;
+  u8 musicTrack;
 } State;
 
 Player initializePlayer(const Level *level);
@@ -49,7 +50,7 @@ bool isEntityColliding(Entity entity, Level *level);
 bool isPlayerOnToilet(State state, const Level *level);
 
 State newStartState(const Level *level);
-State updateStateFromKeys(State state, Level *level, Map *map);
+State updateStateFromKeys(State state, Level *level, Map *map, u8 currentLevel);
 bool isTransitionFinished(TimeInFrames transitionFrame, TimeInFrames currentFrame);
 
 #endif
