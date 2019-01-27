@@ -20,7 +20,7 @@ uint se_index_fast(uint tx, uint ty, u16 bgcnt) {
 //#define SIDE_WALL2 (SIDE_WALL_TILES_OFFSET + 3)
 //#define SIDE_WALL3 (SIDE_WALL_TILES_OFFSET + 4)
 
-#define SINGLE_TILE_WALL (FLOOR_TILES_OFFSET + 4)
+#define SINGLE_TILE_WALL (SIDE_WALL_TILES_OFFSET + 2)
 
 #define BED_LEFT (FLOOR_TILES_OFFSET + 5)
 #define BED_RIGHT (FLOOR_TILES_OFFSET + 6)
@@ -141,7 +141,7 @@ void pickImgForPlace(Level *level, int x, int y) {
             break;
         case Wall:
             if (fetchLevelTile(level, x, y + 1) != Wall) {
-                if (fetchLevelTile(level, x, y - 1) != Wall) {
+                if (1||fetchLevelTile(level, x, y - 1) != Wall) {
                     tileImg = SINGLE_TILE_WALL;
                 } else {
                     /* tileImg = SIDE_WALL1 + (SimpleRNG_rand() % 3); */

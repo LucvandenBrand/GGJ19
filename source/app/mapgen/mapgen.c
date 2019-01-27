@@ -110,7 +110,7 @@ void worm(GenMap *map, int pos, int life) {
             }
             continue;
         }
-        int length = 3 + RAND(10);
+        int length = 3 + RAND(7);
         while (length--) {
             int npos = pos + dpos;
             if (IS_EDGE(npos) || map->ground[MOVE(npos, direction)] != Wall ||
@@ -125,7 +125,7 @@ void worm(GenMap *map, int pos, int life) {
         if (RAND(5) == 0) {
             worms[(nworms++) % MAX_WORMS] = pos;
         } else if (RAND(25) == 0) {
-            makeRoom(map, pos, 4, 6);
+            makeRoom(map, pos, 2, 4);
             int p = random_wall_pos(map, 100);
             if (p >= 0) {
                 worms[worm] = p;
@@ -304,12 +304,12 @@ void addDoors(GenMap *map, int xmin, int ymin, int xmax, int ymax) {
     }
 }
 
-void generateBsp(GenMap *map) {
+void generateBsp(GenMap *map, int recdepth) {
     map->bedPos.tileX = -1;
     map->bedPos.tileY = -1;
     map->toiletPos.tileX = -1;
     map->toiletPos.tileY = -1;
-    bsp(map, map->xmin, map->ymin, map->xmax, map->ymax, 12);
+    bsp(map, map->xmin, map->ymin, map->xmax, map->ymax, recdepth);
     if (map->toiletPos.tileX < 0) {
         map->toiletPos.tileX = map->xmax - 1;
         map->toiletPos.tileY = map->ymax - 1;
@@ -336,7 +336,8 @@ void generateGenMap(GenMap *map, u8 currentLevel) {
                                            : Empty;
         }
     }
-    generateBsp(map);
+    generateBsp(map, currentLevel%8 ? 12: 4);
+//     worm(map, INDEX(MAP_WIDTH/2, MAP_HEIGHT/2), 150);
     map->ground[INDEX(map->bedPos.tileX, map->bedPos.tileY)] = Bed;
     map->ground[INDEX(map->bedPos.tileX - 1, map->bedPos.tileY)] = BedLeft;
     map->ground[INDEX(map->toiletPos.tileX, map->toiletPos.tileY)] = Toilet;
