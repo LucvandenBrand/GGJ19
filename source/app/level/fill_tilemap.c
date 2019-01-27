@@ -10,17 +10,20 @@ uint se_index_fast(uint tx, uint ty, u16 bgcnt) {
     return n;
 }
 
+#define MIN(a, b) (((a) < (b)) ? (a) : (b))
+
 #define CEILING_TILES_OFFSET 0
 #define SIDE_WALL_TILES_OFFSET 1 * 20 + 1
 #define FLOOR_TILES_OFFSET 2 * 20 + 1
 #define FLOOR_TILES_OFFSET2 3 * 20 + 1
+#define FLOOR_TILES_OFFSET3 4 * 20 + 1
 
 #define TOP_WALL1 (CEILING_TILES_OFFSET)
 #define SIDE_WALL1 (SIDE_WALL_TILES_OFFSET + 2)
 //#define SIDE_WALL2 (SIDE_WALL_TILES_OFFSET + 3)
 //#define SIDE_WALL3 (SIDE_WALL_TILES_OFFSET + 4)
 
-#define SINGLE_TILE_WALL (FLOOR_TILES_OFFSET + 4)
+#define SINGLE_TILE_WALL (FLOOR_TILES_OFFSET3 + 6)
 
 #define BED_LEFT (FLOOR_TILES_OFFSET + 5)
 #define BED_RIGHT (FLOOR_TILES_OFFSET + 6)
@@ -38,6 +41,8 @@ uint se_index_fast(uint tx, uint ty, u16 bgcnt) {
 #define FLOOR5 (FLOOR_TILES_OFFSET2 + 3)
 #define FLOOR6 (FLOOR_TILES_OFFSET2 + 4)
 #define FLOOR7 (FLOOR_TILES_OFFSET + 7)
+#define FLOORGBA (FLOOR_TILES_OFFSET2 + 5)
+#define FLOORSWITCH (FLOOR_TILES_OFFSET2 + 6)
 
 #define FLOOR_HELL_1 (FLOOR_TILES_OFFSET + 10)
 #define FLOOR_HELL_2 (FLOOR_TILES_OFFSET + 11)
@@ -54,9 +59,9 @@ uint randomCeilingTile(u8 currentLevel) {
     uint rand = SimpleRNG_rand() % 32;
     if (rand < 8) {
         return rand;
-    } else if (currentLevel > 14 && rand < 12) {
+    } else if (currentLevel >= 16 && rand < 12) {
         uint rand2 = SimpleRNG_rand() % 25;
-        if (rand2 < currentLevel) {
+        if (rand2 < currentLevel - 16) {
             return rand;
         } else {
             return 0;
@@ -70,7 +75,9 @@ uint randomWallTile(u8 currentLevel) {
     uint32_t rand = SimpleRNG_rand() % 25;
     if (rand < 10) {
         return SIDE_WALL_TILES_OFFSET + rand;
-    } else if (currentLevel > 10 && rand < 12) {
+    } else if (currentLevel > 10 && rand < 11) {
+        return SIDE_WALL_TILES_OFFSET + rand;
+    } else if (currentLevel > 12 && rand < 12) {
         return SIDE_WALL_TILES_OFFSET + rand;
     } else {
         return SIDE_WALL1;
@@ -91,15 +98,19 @@ uint randomFloorTile(u8 currentLevel) {
         return FLOOR4;
     } else if (rand < 17) {
         return FLOOR3;
+    } else if (rand < 18) {
+        return FLOORGBA;
+    /* } else if (rand < 19) { */
+    /*   return FLOORSWITCH; */
     } else if (rand < 25) {
-        return FLOOR2;
-    }
-
-    else if (currentLevel > 5) {
-        if (rand < (10 + 3 * currentLevel)) {
-            return FLOOR_HELL_1;
-        } else if (rand < (15 + 3 * currentLevel)) {
+      return FLOOR2;
+    } else if (currentLevel >= 5) {
+        if (currentLevel >= 7 &&
+            SimpleRNG_rand() % 50 < MIN((currentLevel - 7), 25)) {
             return FLOOR_HELL_2;
+        }
+        if (SimpleRNG_rand() % 30 < MIN((currentLevel - 5), 7)) {
+            return FLOOR_HELL_1;
         }
     }
 
@@ -137,9 +148,12 @@ void pickImgForPlace(Level *level, int x, int y) {
         case Diaper:
             tileImg = DIAPER;
             break;
-    case Saxophone:
-      tileImg = SAXOPHONE;
-      break;
+        case Saxophone:
+            tileImg = SAXOPHONE;
+            break;
+        case Flowers:
+            tileImg = SINGLE_TILE_WALL;
+            break;
         case Empty:
             /* tileImg = FLOOR1 + (SimpleRNG_rand() % 3); */
             tileImg = randomFloorTile(level->currentLevel);

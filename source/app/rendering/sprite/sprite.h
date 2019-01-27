@@ -6,7 +6,7 @@
 
 #define PLAYER_SPRITE_TILE 0
 #define NUM_BLADDER_SPRITES 5
-#define BLADDER_SPRITE_FIRST_TILE 8
+#define BLADDER_SPRITE_FIRST_TILE (3 * 16)
 
 void loadSpriteSheet();
 void initializeSpriteObjectMemory(OBJ_ATTR *spriteObjects, u32 count);

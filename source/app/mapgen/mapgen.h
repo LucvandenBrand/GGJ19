@@ -22,7 +22,8 @@ typedef enum {
     Duckie,
     Alcohol,
     Diaper,
-    Saxophone
+    Saxophone,
+    Flowers
 } GenMapTile;
 
 typedef struct {
