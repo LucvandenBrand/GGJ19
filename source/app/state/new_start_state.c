@@ -11,7 +11,7 @@ State newStartState(const Level *level) {
     State state = {0};
     state.player = initializePlayer(level);
 
-    size_t n_potential_entities = 100;
+    size_t n_potential_entities = SimpleRNG_rand() % 100;
     for (size_t index = 0; index < n_potential_entities; ++index) {
         if (state.n_entities == MAX_ENTITIES) {
             break;
