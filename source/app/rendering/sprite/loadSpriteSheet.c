@@ -8,6 +8,7 @@
 #include "../../../assets/sprites/bladder/bladder05.h"
 #include "../../../assets/sprites/playerSprite.h"
 #include "../../../assets/sprites/playerSpriteInebriated.h"
+#include "../../../assets/sprites/enemies/snake.h"
 
 void loadSpriteSheet() {
     // Player sprite
@@ -17,7 +18,12 @@ void loadSpriteSheet() {
 
     // Player Sprite Inebriated
     memcpy(&tile_mem[4][PLAYER_SPRITE_TILE + 4], playerSpriteInebriatedTiles,
-           playerSpriteTilesLen);
+           playerSpriteInebriatedTilesLen);
+
+    memcpy(&tile_mem[4][PLAYER_SPRITE_TILE + 8], snakeTiles,
+           snakeTilesLen);
+
+
 
     // Bladder sprite
     memcpy(&tile_mem[4][BLADDER_SPRITE_FIRST_TILE], bladder01Tiles,
