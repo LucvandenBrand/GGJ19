@@ -46,7 +46,7 @@ bool playLevel(Level *level,Audio *music) {
                 if (keys || currentState.player.isSliding) {
                     oldState = currentState;
                     currentState =
-                      updateStateFromKeys(currentState, level, &map, music);
+                      updateStateFromKeys(currentState, level, &map);
                     stateMode = TRANSIT;
                     transitionFrame = currentFrame;
                     if(currentState.musicTrack != oldState.musicTrack){

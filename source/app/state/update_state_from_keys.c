@@ -2,7 +2,7 @@
 #include "state.h"
 #include "tonc_input.h"
 
-State updateStateFromKeys(State state, Level *level, Map *map, Audio *music) {
+State updateStateFromKeys(State state, Level *level, Map *map) {
     State newState = state;
     if (!state.player.isSliding) {
         newState.player.bladder += 1;
@@ -29,28 +29,31 @@ State updateStateFromKeys(State state, Level *level, Map *map, Audio *music) {
         state.player.isSliding = false;
         return state;
     }
-    if (tileUnderPlayer(newState, level) == Duckie) {
-        newState.player.isSliding = true;
-        setLevelTile(level, map, newState.player.position.tileX,
-                     newState.player.position.tileY, Empty);
-
-        newState.musicTrack = 1;
+    bool removeTile = true;
+    switch(tileUnderPlayer(newState, level)) {
+    case Duckie:
+      newState.player.isSliding = true;
+      break;
+    case Alcohol:
+      newState.player.inebriationSteps = 20;
+      break;
+    case Crown:
+      newState.musicTrack = 1;
+    case Diaper:
+      if (newState.player.bladder < 50) {
+        newState.player.bladder = 0;
+      } else {
+        newState.player.bladder -= 50;
+      }
+      break;
+    default:
+      removeTile = false;
+      break;
     }
-    if (tileUnderPlayer(newState, level) == Alcohol) {
-        newState.player.inebriationSteps = 20;
-        setLevelTile(level, map, newState.player.position.tileX,
-                     newState.player.position.tileY, Empty);
+    if(removeTile){
+      setLevelTile(level, map, newState.player.position.tileX,
+                   newState.player.position.tileY, Empty);
     }
 
-    if (tileUnderPlayer(newState, level) == Diaper) {
-        if (newState.player.bladder < 50) {
-            newState.player.bladder = 0;
-        } else {
-            newState.player.bladder -= 50;
-        }
-        setLevelTile(level, map, newState.player.position.tileX,
-                     newState.player.position.tileY, Empty);
-
-    }
     return newState;
 }
