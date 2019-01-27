@@ -49,7 +49,7 @@ void renderState(State oldState, State currentState, u32 transitionFrame,
         /* mapPos.y += -deltat*1.1; */
     }
 
-    sprites[0] = playerToSpriteObject(playerFgPos);
+    sprites[0] = playerToSpriteObject(playerFgPos, (bool)currentState.player.inebriationSteps);
     sprites[1] = bladderToSpriteObject(currentState.player.bladder);
 
     shiftMap(*map, mapPos);

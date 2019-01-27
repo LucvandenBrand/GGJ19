@@ -12,11 +12,11 @@ Audio createEmptyAudio() {
 static float audioSpeed = 1.0;
 static float audioTimer = 0;
 
-Audio loadAudio() {
+Audio loadAudio(const char * audioFileName) {
     u32 audioDataSize = 0;
-    const GBFS_FILE* audioFile = find_first_gbfs_file(find_first_gbfs_file);
+    const GBFS_FILE* gbfsPackedFile = find_first_gbfs_file(find_first_gbfs_file);
     const u16* audioData =
-        gbfs_get_obj(audioFile, "GameTheme.bin", &audioDataSize);
+        gbfs_get_obj(gbfsPackedFile, audioFileName, &audioDataSize);
 
     if (audioData == NULL) {
         tte_printf("No GBFS audio found.\n");
