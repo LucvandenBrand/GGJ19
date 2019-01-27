@@ -3,9 +3,8 @@
 #include "state.h"
 
 Entity createEntity(u8 tileX, u8 tileY) {
-  EntityType type = 1 + SimpleRNG_rand() % 2;
-    return (Entity){.type = type,
-                    .position = {.tileX = tileX, .tileY = tileY}};
+    EntityType type = 1 + SimpleRNG_rand() % 2;
+    return (Entity){.type = type, .position = {.tileX = tileX, .tileY = tileY}};
 }
 
 State newStartState(const Level *level) {
