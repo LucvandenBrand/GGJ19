@@ -3,6 +3,7 @@
 #include "state.h"
 #include "stdlib.h"
 #include "tonc_input.h"
+#include "../music/music.h"
 
 State updateStateFromKeys(State state, Level *level, Map *map,
                           u8 currentLevel) {
@@ -95,6 +96,8 @@ State updateStateFromKeys(State state, Level *level, Map *map,
         newState.entities[index].type = NoEntity;
       }
     }
+
+    increaseAudioSpeed(0.02 * (newState.player.bladder - state.player.bladder));
 
     return newState;
 }

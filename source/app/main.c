@@ -74,6 +74,7 @@ void playLevels() {
     /* Audio audio = loadAudio("GameTheme.bin"); */
     /* Audio audio = loadAudio("numberthree.bin"); */
     setCurrentAudio(&music[0]);
+    setAudioSpeed(0.5);
 
     u8 currentLevel = 1;
     while (true) {
@@ -83,7 +84,7 @@ void playLevels() {
         if (!playerBeatLevel) {
             break;
         }
-        increaseAudioSpeed(0.02);
+        setAudioSpeed(0.5 + currentLevel * 0.02);
         ++currentLevel;
     }
     setupGBA();
