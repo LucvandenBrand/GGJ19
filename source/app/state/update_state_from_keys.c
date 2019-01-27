@@ -3,15 +3,20 @@
 #include "state.h"
 #include "stdlib.h"
 #include "tonc_input.h"
+#include "../music/music.h"
 
-State updateStateFromKeys(State state, Level *level, Map *map, u8 currentLevel) {
+State updateStateFromKeys(State state, Level *level, Map *map,
+                          u8 currentLevel) {
     State newState = state;
     if (!state.player.isSliding) {
         newState.player.bladder += 1;
 
         for (size_t index = 0; index < newState.n_entities; ++index) {
             Entity entity = newState.entities[index];
-            switch (SimpleRNG_rand() % 5) {
+            if(entity.type == NoEntity){
+              continue;
+            }
+            switch (SimpleRNG_rand() % 6) {
                 case 0:
                     entity.position.tileX += 1;
                     break;
@@ -56,30 +61,52 @@ State updateStateFromKeys(State state, Level *level, Map *map, u8 currentLevel) 
         return state;
     }
     bool removeTile = true;
-    switch(tileUnderPlayer(newState, level)) {
-    case Duckie:
-      newState.player.isSliding = true;
-      break;
-    case Alcohol:
-      newState.player.inebriationSteps = 20;
-      break;
-    case Saxophone:
-      newState.musicTrack = 1;
-    case Diaper:
-      if (newState.player.bladder < 50) {
-        newState.player.bladder = 0;
-      } else {
-        newState.player.bladder -= 50;
+    switch (tileUnderPlayer(newState, level)) {
+        case Duckie:
+            newState.player.isSliding = true;
+            break;
+        case Alcohol:
+            newState.player.inebriationSteps = 20;
+            break;
+        case Saxophone:
+            newState.musicTrack = 1;
+        case Diaper:
+            if (newState.player.bladder < 50) {
+                newState.player.bladder = 0;
+            } else {
+                newState.player.bladder -= 50;
+            }
+            break;
+        default:
+            removeTile = false;
+            break;
+    }
+    if (removeTile) {
+        setLevelTile(level, map, newState.player.position.tileX,
+                     newState.player.position.tileY, Empty);
+    }
+
+    for(size_t index = 0; index < newState.n_entities; ++index) {
+      Entity *entity = &newState.entities[index];
+      if(entity->type == NoEntity){
+        continue;
       }
-      break;
-    default:
-      removeTile = false;
-      break;
+      if(newState.player.position.tileX == entity->position.tileX
+         && newState.player.position.tileY == entity->position.tileY) {
+        switch(entity->type) {
+        case Snake:
+          newState.player.bladder += 30;
+          break;
+        case Plunger:
+          newState.player.bladder += 30;
+        default:
+          break;
+        }
+        entity->type = NoEntity;
+      }
     }
-    if(removeTile){
-      setLevelTile(level, map, newState.player.position.tileX,
-                   newState.player.position.tileY, Empty);
-    }
+
+    increaseAudioSpeed(0.02 * (newState.player.bladder - state.player.bladder));
 
     return newState;
 }

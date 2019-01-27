@@ -9,10 +9,11 @@
 #include "../../../assets/sprites/playerSprite.h"
 #include "../../../assets/sprites/playerSpriteInebriated.h"
 #include "../../../assets/sprites/enemies/snake.h"
+#include "../../../assets/sprites/enemies/plunger.h"
 
 void loadSpriteSheet() {
     // Player sprite
-    memcpy(MEM_PAL_OBJ, snakePal, snakePalLen);
+  memcpy((void*)MEM_PAL_OBJ, snakePal, snakePalLen);
     memcpy(&tile_mem[4][PLAYER_SPRITE_TILE], playerSpriteTiles,
            playerSpriteTilesLen);
 
@@ -23,6 +24,8 @@ void loadSpriteSheet() {
     // Enemies
     memcpy(&tile_mem[4][PLAYER_SPRITE_TILE + 16], snakeTiles,
            snakeTilesLen);
+    memcpy(&tile_mem[4][PLAYER_SPRITE_TILE + 2 * 16], plungerTiles,
+           plungerTilesLen);
 
     // Bladder sprite
     memcpy(&tile_mem[4][BLADDER_SPRITE_FIRST_TILE], bladder01Tiles,
@@ -35,5 +38,4 @@ void loadSpriteSheet() {
            bladder04TilesLen);
     memcpy(&tile_mem[4][BLADDER_SPRITE_FIRST_TILE + 32], bladder05Tiles,
            bladder05TilesLen);
-
 };

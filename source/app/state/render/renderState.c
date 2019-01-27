@@ -74,10 +74,15 @@ void renderState(State oldState, State currentState, u32 transitionFrame,
         /* mapPos.y += -deltat * 1.1; */
     }
 
-    sprites[0] = playerToSpriteObject(playerFgPos, (bool)currentState.player.inebriationSteps);
+    sprites[0] = playerToSpriteObject(
+        playerFgPos, (bool)currentState.player.inebriationSteps);
     sprites[1] = bladderToSpriteObject(currentState.player.bladder);
 
     for (size_t index = 0; index < currentState.n_entities; ++index) {
+      if(currentState.entities[index].type == NoEntity){
+        setSpriteObjectAttributes(&sprites[index + 2], ATTR0_HIDE, 0, 0);
+        continue;
+      }
         /* TilePosition entityPos = currentState.entities[index].position; */
         /* ObjectPoint entityObjPos; */
         /* entityObjPos.x = entityPos.tileX * 8 - mapPos.x; */
@@ -87,7 +92,9 @@ void renderState(State oldState, State currentState, u32 transitionFrame,
             &currentState.entities[index].position, deltat, stateMode);
         entityObjPos.x -= mapPos.x;
         entityObjPos.y -= mapPos.y;
-        sprites[index + 2] = playerToSpriteObject(entityObjPos, false);
+        entityObjPos.x += 4;
+        entityObjPos.y -= 4;
+        sprites[index + 2] = entityToSpriteObject(entityObjPos, currentState.entities[index].type);
     }
 
     shiftMap(*map, mapPos);
