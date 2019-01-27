@@ -8,7 +8,7 @@ State updateStateFromKeys(State state, Level *level, Map *map) {
         newState.player.bladder += 1;
 
         if (state.player.inebriationSteps) {
-            --state.player.inebriationSteps;
+            --newState.player.inebriationSteps;
             newState.player.velocity.tileX = -key_tri_vert();
             newState.player.velocity.tileY = key_tri_horz();
         } else {
