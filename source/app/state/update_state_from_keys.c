@@ -63,6 +63,9 @@ State updateStateFromKeys(State state, Level *level, Map *map,
     }
     bool removeTile = true;
     switch (tileUnderPlayer(newState, level)) {
+        case Secret:
+            newState.foundSecret = true;
+            break;
         case Duckie:
             newState.player.isSliding = true;
             break;

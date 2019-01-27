@@ -149,14 +149,14 @@ void pickImgForPlace(Level *level, int x, int y) {
             tileImg = SINGLE_TILE_WALL;
             break;
         case Secret: 
-            tileImg = SIDE_WALL1 + 8;
+            tileImg = SIDE_WALL1 + 7;
             break;
         case Empty:
             /* tileImg = FLOOR1 + (SimpleRNG_rand() % 3); */
             tileImg = randomFloorTile(level->currentLevel);
             break;
         case Wall:
-            if (fetchLevelTile(level, x, y + 1) != Wall) {
+            if (fetchLevelTile(level, x, y + 1) != Wall && fetchLevelTile(level, x, y + 1) != Secret) {
                 if (fetchLevelTile(level, x, y - 1) != Wall) {
                     tileImg = SINGLE_TILE_WALL;
                 } else {

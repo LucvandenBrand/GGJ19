@@ -26,7 +26,7 @@ void seedRNGByKeyPress() {
     }
 }
 
-bool playLevel(Level *level, Audio *music, u8 currentLevel) {
+bool playLevel(Level *level, Audio *music, u8 *currentLevel) {
     State currentState = newStartState(level);
     State oldState = currentState;
     StateMode stateMode = IDLE;
@@ -60,6 +60,10 @@ bool playLevel(Level *level, Audio *music, u8 currentLevel) {
                     if (currentState.hasPlayerWon) {
                         return true;
                     }
+                    if (currentState.foundSecret) {
+                        *currentLevel = -1;
+                        return true;
+                    }
                 }
                 break;
         }
@@ -80,7 +84,7 @@ void playLevels() {
     while (true) {
         Level level;
         generateLevel(currentLevel, &level);
-        bool playerBeatLevel = playLevel(&level, music, currentLevel);
+        bool playerBeatLevel = playLevel(&level, music, &currentLevel);
         if (!playerBeatLevel) {
             break;
         }

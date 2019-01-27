@@ -347,8 +347,15 @@ void generateGenMap(GenMap *map, u8 currentLevel) {
                            RAND(20) == 0) {
                     map->ground[pos] = Flowers;
                 }
-            } else if(map->ground[pos] == Wall && map->ground[pos+MAP_WIDTH] != Wall && RAND(1) == 0){
+            } else if(map->ground[pos] == Wall && map->ground[pos+MAP_WIDTH] != Wall && RAND(1000) == 0){
                 map->ground[pos] = Secret;
+            }
+        }
+    }
+    if (currentLevel == 0){
+        for (int x = 0; x < MAP_WIDTH; x++) {
+            for (int y = 0; y < MAP_HEIGHT; y++) {
+                map->ground[INDEX(x, y)] = (x+y)%4==0?Toilet: Empty;
             }
         }
     }

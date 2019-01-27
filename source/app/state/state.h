@@ -38,6 +38,7 @@ typedef struct {
 typedef struct {
     Player player;
     bool hasPlayerWon;
+    bool foundSecret;
     Entity entities[MAX_ENTITIES];
     u8 n_entities;
   u8 musicTrack;
