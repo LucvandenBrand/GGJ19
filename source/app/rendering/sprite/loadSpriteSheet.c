@@ -30,5 +30,4 @@ void loadSpriteSheet() {
            bladder04TilesLen);
     memcpy(&tile_mem[4][BLADDER_SPRITE_FIRST_TILE + 16], bladder05Tiles,
            bladder05TilesLen);
-
 };

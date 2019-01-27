@@ -137,9 +137,9 @@ void pickImgForPlace(Level *level, int x, int y) {
         case Diaper:
             tileImg = DIAPER;
             break;
-    case Saxophone:
-      tileImg = SAXOPHONE;
-      break;
+        case Saxophone:
+            tileImg = SAXOPHONE;
+            break;
         case Empty:
             /* tileImg = FLOOR1 + (SimpleRNG_rand() % 3); */
             tileImg = randomFloorTile(level->currentLevel);

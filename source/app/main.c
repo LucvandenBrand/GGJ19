@@ -26,7 +26,7 @@ void seedRNGByKeyPress() {
     }
 }
 
-bool playLevel(Level *level,Audio *music, u8 currentLevel) {
+bool playLevel(Level *level, Audio *music, u8 currentLevel) {
     State currentState = newStartState(level);
     State oldState = currentState;
     StateMode stateMode = IDLE;
@@ -45,12 +45,12 @@ bool playLevel(Level *level,Audio *music, u8 currentLevel) {
                 KeyState keys = key_curr_state();
                 if (keys || currentState.player.isSliding) {
                     oldState = currentState;
-                    currentState =
-                      updateStateFromKeys(currentState, level, &map, currentLevel);
+                    currentState = updateStateFromKeys(currentState, level,
+                                                       &map, currentLevel);
                     stateMode = TRANSIT;
                     transitionFrame = currentFrame;
-                    if(currentState.musicTrack != oldState.musicTrack){
-                      setCurrentAudio(&music[currentState.musicTrack]);
+                    if (currentState.musicTrack != oldState.musicTrack) {
+                        setCurrentAudio(&music[currentState.musicTrack]);
                     }
                 }
                 break;
@@ -69,9 +69,10 @@ bool playLevel(Level *level,Audio *music, u8 currentLevel) {
 }
 
 void playLevels() {
-  Audio music[3] = {loadAudio("GameTheme.bin"), loadAudio("numberthree.bin"), loadAudio("epichorrorfixedreallyversion47295")};
-  /* Audio audio = loadAudio("GameTheme.bin"); */
-  /* Audio audio = loadAudio("numberthree.bin"); */
+    Audio music[3] = {loadAudio("GameTheme.bin"), loadAudio("numberthree.bin"),
+                      loadAudio("epichorrorfixedreallyversion47295")};
+    /* Audio audio = loadAudio("GameTheme.bin"); */
+    /* Audio audio = loadAudio("numberthree.bin"); */
     setCurrentAudio(&music[0]);
 
     u8 currentLevel = 1;
@@ -94,13 +95,13 @@ void playLevels() {
 int main() {
     setupGBA();
     while (true) {
-/*                  tte_printf( */
-/*  "|__   __|  (_) |    | |  \n" */
-/*   "   | | ___  _| | ___| |_ \n" */
-/*  "   | |/ _ \\| | |/ _ \\ __|\n" */
-/*  "   | | (_) | | |  __/ |_ \n" */
-/*  "   |_|\\___/|_|_|\\___|\\__|\n" */
-/* ); */
+        /*                  tte_printf( */
+        /*  "|__   __|  (_) |    | |  \n" */
+        /*   "   | | ___  _| | ___| |_ \n" */
+        /*  "   | |/ _ \\| | |/ _ \\ __|\n" */
+        /*  "   | | (_) | | |  __/ |_ \n" */
+        /*  "   |_|\\___/|_|_|\\___|\\__|\n" */
+        /* ); */
         tte_printf("Toilet Boy Alpha\n\nPress any key!\n");
         seedRNGByKeyPress();
         tte_printf("#{es}");
