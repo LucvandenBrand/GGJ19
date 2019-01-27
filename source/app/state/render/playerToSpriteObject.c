@@ -1,7 +1,7 @@
 #include "./stateRenderer.h"
 
 OBJ_ATTR playerToSpriteObject(ObjectPoint position, bool isInebriated) {
-  u32 tileID = PLAYER_SPRITE_TILE + 8;//+ (isInebriated ? 4 : 0);
+    u32 tileID = PLAYER_SPRITE_TILE + 16;//+ (isInebriated ? 4 : 0);
     u32 paletteBank = 0;
     OBJ_ATTR spriteObject;
     setSpriteObjectAttributes(&spriteObject, ATTR0_SQUARE, ATTR1_SIZE_16,
