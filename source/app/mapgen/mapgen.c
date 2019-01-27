@@ -355,7 +355,7 @@ void generateGenMap(GenMap *map, u8 currentLevel) {
     if (currentLevel == 0){
         for (int x = 0; x < MAP_WIDTH; x++) {
             for (int y = 0; y < MAP_HEIGHT; y++) {
-                map->ground[INDEX(x, y)] = (x+y)%4==0?Toilet: Empty;
+                map->ground[INDEX(x, y)] = x%2&&y%2?Toilet: Empty;
             }
         }
     }
