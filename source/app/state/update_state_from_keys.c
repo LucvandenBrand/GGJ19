@@ -8,7 +8,6 @@
 State updateStateFromKeys(State state, Level *level, Map *map,
                           u8 currentLevel) {
     if (!state.player.isSliding) {
-
         if (state.player.inebriationSteps) {
             --state.player.inebriationSteps;
             state.player.velocity.tileX = -key_tri_vert();
@@ -23,7 +22,7 @@ State updateStateFromKeys(State state, Level *level, Map *map,
     newState.player.position.tileY += state.player.velocity.tileY;
 
     if (!state.player.isSliding) {
-      newState.player.bladder += 1;
+        newState.player.bladder += 1;
         for (size_t index = 0; index < newState.n_entities; ++index) {
             Entity entity = newState.entities[index];
             if (entity.type == NoEntity) {
@@ -57,7 +56,6 @@ State updateStateFromKeys(State state, Level *level, Map *map,
         newState.musicTrack = (currentLevel >= 10 ? 2 : 0);
         return newState;
     }
-    
 
     if (isPlayerColliding(newState, level)) {
         state.player.isSliding = false;
