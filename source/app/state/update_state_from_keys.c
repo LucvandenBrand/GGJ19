@@ -12,6 +12,9 @@ State updateStateFromKeys(State state, Level *level, Map *map,
 
         for (size_t index = 0; index < newState.n_entities; ++index) {
             Entity entity = newState.entities[index];
+            if(entity.type == NoEntity){
+              continue;
+            }
             switch (SimpleRNG_rand() % 5) {
                 case 0:
                     entity.position.tileX += 1;
@@ -80,6 +83,17 @@ State updateStateFromKeys(State state, Level *level, Map *map,
     if (removeTile) {
         setLevelTile(level, map, newState.player.position.tileX,
                      newState.player.position.tileY, Empty);
+    }
+
+    for(size_t index = 0; index < newState.n_entities; ++index) {
+      if(newState.entities[index].type == NoEntity){
+        continue;
+      }
+      if(newState.player.position.tileX == newState.entities[index].position.tileX
+         && newState.player.position.tileY == newState.entities[index].position.tileY) {
+        newState.player.bladder += 30;
+        newState.entities[index].type = NoEntity;
+      }
     }
 
     return newState;

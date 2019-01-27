@@ -20,7 +20,7 @@ typedef enum {
     TRANSIT
 } StateMode;
 
-typedef enum {Snake} EntityType;
+typedef enum {NoEntity = 0, Snake} EntityType;
 
 typedef struct {
   TilePosition position;
