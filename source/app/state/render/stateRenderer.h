@@ -9,7 +9,7 @@
 #define NUM_SPRITES 128
 OBJ_ATTR sprites[NUM_SPRITES];
 
-OBJ_ATTR playerToSpriteObject(ObjectPoint playerPos);
+OBJ_ATTR playerToSpriteObject(ObjectPoint playerPos, bool isInebriated);
 OBJ_ATTR bladderToSpriteObject(u32 bladder);
 u32 bladderToSpriteTile(u32 bladder);
 void initializeStateRenderer(State state, Map *map, Level *level);
