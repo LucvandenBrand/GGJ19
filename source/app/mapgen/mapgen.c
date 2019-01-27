@@ -346,6 +346,8 @@ void generateGenMap(GenMap *map, u8 currentLevel) {
                 } else if (countTile(map, x-1, y-1, x+2, y+2, Wall) == 0 && RAND(20) == 0){
                     map->ground[pos] = Flowers;
                 }
+            } else if(map->ground[pos] == Wall && map->ground[pos+MAP_WIDTH] != Wall && RAND(1) == 0){
+                map->ground[pos] = Secret;
             }
         }
     }

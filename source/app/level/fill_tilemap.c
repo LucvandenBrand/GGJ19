@@ -72,7 +72,7 @@ uint randomCeilingTile(u8 currentLevel) {
 
 uint randomWallTile(u8 currentLevel) {
     uint32_t rand = SimpleRNG_rand() % 25;
-    if (rand < 10) {
+    if (rand < 9) {
         return SIDE_WALL_TILES_OFFSET + rand;
     } else if (currentLevel > 10 && rand < 11) {
         return SIDE_WALL_TILES_OFFSET + rand;
@@ -145,6 +145,8 @@ void pickImgForPlace(Level *level, int x, int y) {
         case Flowers:
             tileImg = SINGLE_TILE_WALL;
             break;
+        case Secret: 
+            tileImg = SIDE_WALL1 + 8;
     case Saxophone:
       tileImg = SAXOPHONE;
       break;
