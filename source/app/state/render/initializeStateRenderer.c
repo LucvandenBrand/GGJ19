@@ -2,7 +2,6 @@
 
 #include "tonc.h"
 
-
 void initializeStateRenderer(State state, Map *map, Level *level) {
     map->numLayers = 1;
     map->tileMapLayers[0] = level->tilemap;

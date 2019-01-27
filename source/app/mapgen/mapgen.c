@@ -353,8 +353,8 @@ void generateGenMap(GenMap *map, u8 currentLevel) {
                     map->ground[pos] = Alcohol;
                 } else if (currentLevel >= 7 && RAND(60) == 0) {
                     map->ground[pos] = Diaper;
-                } else if( RAND(1000) == 0) {
-                  map->ground[pos] = Saxophone;
+                } else if (RAND(1000) == 0) {
+                    map->ground[pos] = Saxophone;
                 }
             }
         }
