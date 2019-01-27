@@ -2,5 +2,6 @@
 #include "state.h"
 
 bool isPlayerColliding(State state, Level *level) {
-    return tileUnderPlayer(state, level) == Wall;
+    int tile = tileUnderPlayer(state, level);
+    return tile == Wall || tile == Flowers;
 }

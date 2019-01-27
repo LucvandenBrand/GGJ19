@@ -57,6 +57,7 @@ State updateStateFromKeys(State state, Level *level, Map *map,
         newState.musicTrack = (currentLevel >= 10 ? 2 : 0);
         return newState;
     }
+    
 
     if (isPlayerColliding(newState, level)) {
         state.player.isSliding = false;

@@ -110,7 +110,7 @@ void worm(GenMap *map, int pos, int life) {
             }
             continue;
         }
-        int length = 3 + RAND(10);
+        int length = 3 + RAND(7);
         while (length--) {
             int npos = pos + dpos;
             if (IS_EDGE(npos) || map->ground[MOVE(npos, direction)] != Wall ||
@@ -125,7 +125,7 @@ void worm(GenMap *map, int pos, int life) {
         if (RAND(5) == 0) {
             worms[(nworms++) % MAX_WORMS] = pos;
         } else if (RAND(25) == 0) {
-            makeRoom(map, pos, 4, 6);
+            makeRoom(map, pos, 2, 4);
             int p = random_wall_pos(map, 100);
             if (p >= 0) {
                 worms[worm] = p;
@@ -141,31 +141,18 @@ void worm(GenMap *map, int pos, int life) {
         Toilet;
 }
 
-// int isValue(Map *map, x, y, width, height, val){
-//     for (int x = xmin; x < xmax; ++x) {
-//         for (int y = ymin; y < ymax; ++y) {
-//             if (map->ground[INDEX(x, y)] != val){
-//                 return false;
-//             }
-//         }
-//     }
-//     return true;
-// }
+int countTile(GenMap *map, int xmin, int ymin, int xmax, int ymax, int val){
+    int total = 0;
+    for (int x = xmin; x < xmax; ++x) {
+        for (int y = ymin; y < ymax; ++y) {
+            if (GET(map, x, y) == val){
+                ++total;
+            }
+        }
+    }
+    return total;
+}
 
-// void wallFeatures(Map *map, ntries) {
-//     int start = INDEX(MAP_WIDTH / 2, MAP_HEIGHT / 2);
-//     makeRoom(map, start, 4, 10);
-//     for (int i=0; i<ntries; ++i){
-//         int pos = RANDOM_POS();
-//         int builddir = -1;
-//         for (int dir=0; dir<4; ++dir){
-//             if (map->ground[MOVE(pos, dir)] != WALL){
-//                 builddir = (dir + 2) % 4;
-//             }
-//         }
-//         if (builddir < 0){
-//             continue;
-//         }
 
 void bsp(GenMap *map, int xmin, int ymin, int xmax, int ymax, int d) {
     int width = xmax - xmin;
@@ -174,7 +161,7 @@ void bsp(GenMap *map, int xmin, int ymin, int xmax, int ymax, int d) {
     int tosplit = d > 0 && size > 8 + RAND(20) + RAND(20);
     if (tosplit && height >= 5 && width > 2 &&
         (width < 5 ||
-         2 + (height >= width * 2) - (width >= height * 2) > RAND(4))) {
+         2 + (height * 2 >= width * 3) - (width * 2 >= height * 3) > RAND(4))) {
         // horizontal wall
 
         int sepmin = ymin + 1 + RAND(height - 3);
@@ -304,12 +291,12 @@ void addDoors(GenMap *map, int xmin, int ymin, int xmax, int ymax) {
     }
 }
 
-void generateBsp(GenMap *map) {
+void generateBsp(GenMap *map, int recdepth) {
     map->bedPos.tileX = -1;
     map->bedPos.tileY = -1;
     map->toiletPos.tileX = -1;
     map->toiletPos.tileY = -1;
-    bsp(map, map->xmin, map->ymin, map->xmax, map->ymax, 12);
+    bsp(map, map->xmin, map->ymin, map->xmax, map->ymax, recdepth);
     if (map->toiletPos.tileX < 0) {
         map->toiletPos.tileX = map->xmax - 1;
         map->toiletPos.tileY = map->ymax - 1;
@@ -336,7 +323,8 @@ void generateGenMap(GenMap *map, u8 currentLevel) {
                                            : Empty;
         }
     }
-    generateBsp(map);
+    generateBsp(map, currentLevel%8 ? 12: 4);
+//     worm(map, INDEX(MAP_WIDTH/2, MAP_HEIGHT/2), 150);
     map->ground[INDEX(map->bedPos.tileX, map->bedPos.tileY)] = Bed;
     map->ground[INDEX(map->bedPos.tileX - 1, map->bedPos.tileY)] = BedLeft;
     map->ground[INDEX(map->toiletPos.tileX, map->toiletPos.tileY)] = Toilet;
@@ -347,14 +335,16 @@ void generateGenMap(GenMap *map, u8 currentLevel) {
         for (int y = map->ymin; y < map->ymax; ++y) {
             int pos = INDEX(x, y);
             if (map->ground[pos] == Empty) {
-                if (currentLevel >= 3 && RAND(40) == 0) {
+                if (currentLevel >= 3 && RAND(60) == 0) {
                     map->ground[pos] = Duckie;
-                } else if (currentLevel >= 5 && RAND(25) == 0) {
+                } else if (currentLevel >= 5 && RAND(40) == 0) {
                     map->ground[pos] = Alcohol;
-                } else if (currentLevel >= 7 && RAND(60) == 0) {
+                } else if (currentLevel >= 7 && RAND(70) == 0) {
                     map->ground[pos] = Diaper;
-                } else if (RAND(1000) == 0) {
-                    map->ground[pos] = Saxophone;
+                } else if( RAND(2000) == 0) {
+                  map->ground[pos] = Saxophone;
+                } else if (countTile(map, x-1, y-1, x+2, y+2, Wall) == 0 && RAND(20) == 0){
+                    map->ground[pos] = Flowers;
                 }
             }
         }
