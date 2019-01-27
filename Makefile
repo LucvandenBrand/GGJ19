@@ -2,7 +2,7 @@ PATH := $(DEVKITARM)/bin:$(PATH)
 
 #  Project settings
 
-NAME       := GBAProject
+NAME       := ToiletBoy
 SOURCE_DIR := source
 LIB_DIR    := lib
 TOOLS_DIR  := tools
