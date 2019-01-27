@@ -141,16 +141,17 @@ void worm(GenMap *map, int pos, int life) {
         Toilet;
 }
 
-// int isValue(Map *map, x, y, width, height, val){
-//     for (int x = xmin; x < xmax; ++x) {
-//         for (int y = ymin; y < ymax; ++y) {
-//             if (map->ground[INDEX(x, y)] != val){
-//                 return false;
-//             }
-//         }
-//     }
-//     return true;
-// }
+int countTile(Map *map, int x, int y, int width, int height, int val){
+    int total = 0;
+    for (int x = xmin; x < xmax; ++x) {
+        for (int y = ymin; y < ymax; ++y) {
+            if (map->ground[INDEX(x, y)] == val){
+                ++total;
+            }
+        }
+    }
+    return total;
+}
 
 // void wallFeatures(Map *map, ntries) {
 //     int start = INDEX(MAP_WIDTH / 2, MAP_HEIGHT / 2);

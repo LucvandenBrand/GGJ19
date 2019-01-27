@@ -142,6 +142,9 @@ void pickImgForPlace(Level *level, int x, int y) {
         case Diaper:
             tileImg = DIAPER;
             break;
+        case Flowers:
+            tileImg = SINGLE_TILE_WALL;
+            break;
     case Saxophone:
       tileImg = SAXOPHONE;
       break;
