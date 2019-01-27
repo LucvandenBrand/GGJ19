@@ -7,11 +7,16 @@
 #include "../../../assets/sprites/bladder/bladder04.h"
 #include "../../../assets/sprites/bladder/bladder05.h"
 #include "../../../assets/sprites/playerSprite.h"
+#include "../../../assets/sprites/playerSpriteInebriated.h"
 
 void loadSpriteSheet() {
     // Player sprite
     memcpy(MEM_PAL_OBJ, playerSpritePal, playerSpritePalLen);
     memcpy(&tile_mem[4][PLAYER_SPRITE_TILE], playerSpriteTiles,
+           playerSpriteTilesLen);
+
+    // Player Sprite Inebriated
+    memcpy(&tile_mem[4][PLAYER_SPRITE_TILE + 4], playerSpriteInebriatedTiles,
            playerSpriteTilesLen);
 
     // Bladder sprite
@@ -25,4 +30,5 @@ void loadSpriteSheet() {
            bladder04TilesLen);
     memcpy(&tile_mem[4][BLADDER_SPRITE_FIRST_TILE + 16], bladder05Tiles,
            bladder05TilesLen);
+
 };

@@ -21,11 +21,12 @@ typedef enum {
     Toileft,
     Duckie,
     Alcohol,
-    Diaper
+    Diaper,
+    Saxophone
 } GenMapTile;
 
 typedef struct {
-    GenMapTile ground[MAP_SIZE];
+    u8 ground[MAP_SIZE];
     TilePosition bedPos;
     TilePosition toiletPos;
     int xmin;
