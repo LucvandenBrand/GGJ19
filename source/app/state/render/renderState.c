@@ -87,6 +87,8 @@ void renderState(State oldState, State currentState, u32 transitionFrame,
             &currentState.entities[index].position, deltat, stateMode);
         entityObjPos.x -= mapPos.x;
         entityObjPos.y -= mapPos.y;
+        entityObjPos.x += 4;
+        entityObjPos.y -= 4;
         sprites[index + 2] = playerToSpriteObject(entityObjPos, false);
     }
 
