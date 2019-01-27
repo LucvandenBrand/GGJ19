@@ -37,7 +37,7 @@ State updateStateFromKeys(State state, Level *level, Map *map) {
     case Alcohol:
       newState.player.inebriationSteps = 20;
       break;
-    case Crown:
+    case Saxophone:
       newState.musicTrack = 1;
     case Diaper:
       if (newState.player.bladder < 50) {
