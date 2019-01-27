@@ -26,7 +26,7 @@ void seedRNGByKeyPress() {
     }
 }
 
-bool playLevel(Level *level,Audio *music) {
+bool playLevel(Level *level,Audio *music, u8 currentLevel) {
     State currentState = newStartState(level);
     State oldState = currentState;
     StateMode stateMode = IDLE;
@@ -46,7 +46,7 @@ bool playLevel(Level *level,Audio *music) {
                 if (keys || currentState.player.isSliding) {
                     oldState = currentState;
                     currentState =
-                      updateStateFromKeys(currentState, level, &map);
+                      updateStateFromKeys(currentState, level, &map, currentLevel);
                     stateMode = TRANSIT;
                     transitionFrame = currentFrame;
                     if(currentState.musicTrack != oldState.musicTrack){
@@ -69,7 +69,7 @@ bool playLevel(Level *level,Audio *music) {
 }
 
 void playLevels() {
-  Audio music[2] = {loadAudio("GameTheme.bin"), loadAudio("numberthree.bin")};
+  Audio music[3] = {loadAudio("GameTheme.bin"), loadAudio("numberthree.bin"), loadAudio("epichorrorfixedreallyversion47295")};
   /* Audio audio = loadAudio("GameTheme.bin"); */
   /* Audio audio = loadAudio("numberthree.bin"); */
     setCurrentAudio(&music[0]);
@@ -78,11 +78,11 @@ void playLevels() {
     while (true) {
         Level level;
         generateLevel(currentLevel, &level);
-        bool playerBeatLevel = playLevel(&level, music);
+        bool playerBeatLevel = playLevel(&level, music, currentLevel);
         if (!playerBeatLevel) {
             break;
         }
-        increaseAudioSpeed(0.05);
+        increaseAudioSpeed(0.02);
         ++currentLevel;
     }
     setupGBA();

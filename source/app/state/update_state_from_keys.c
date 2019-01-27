@@ -2,7 +2,7 @@
 #include "state.h"
 #include "tonc_input.h"
 
-State updateStateFromKeys(State state, Level *level, Map *map) {
+State updateStateFromKeys(State state, Level *level, Map *map, u8 currentLevel) {
     State newState = state;
     if (!state.player.isSliding) {
         newState.player.bladder += 1;
@@ -21,7 +21,7 @@ State updateStateFromKeys(State state, Level *level, Map *map) {
 
     if (isPlayerOnToilet(newState, level)) {
         newState.hasPlayerWon = true;
-        newState.musicTrack = 0;
+        newState.musicTrack = (currentLevel >= 10 ? 2 : 0);
         return newState;
     }
 
