@@ -2,7 +2,7 @@ PATH := $(DEVKITARM)/bin:$(PATH)
 
 #  Project settings
 
-NAME       := GBAProject
+NAME       := ToiletBoy
 SOURCE_DIR := source
 LIB_DIR    := lib
 TOOLS_DIR  := tools
@@ -137,11 +137,11 @@ $(MIDI2GBA_PLAYER_LIB): $(MIDI2GBA_PLAYER_LIB)/lib
 $(MIDI2GBA_PLAYER_LIB)/lib:
 	cd $(MIDI2GBA_PLAYER_LIB) && make
 
-$(SPRITE_OBJECTS): $(SPRITE_SOURCES)
+$(SPRITE_OBJECTS): %.o : %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(SPRITE_SOURCES): %.c : %.bmp
-	$(DEVKITPRO)/tools/bin/grit $< -gB4 -Mw 2 -Mh 2 -ftcd -o $@
+	$(DEVKITPRO)/tools/bin/grit $< -gB8 -Mw 2 -Mh 2 -ftcd -o $@
 
 $(LIB_DIR)/libtonc: $(LIB_DIR)/libtonc/lib
 
