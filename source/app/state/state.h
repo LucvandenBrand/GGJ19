@@ -6,6 +6,7 @@
 #include "../level/level.h"
 #include "../mapgen/mapgen.h"
 #include "map.h"
+#include "../music/music.h"
 
 #define INITIAL_BLADDER_FILLED_AMOUNT 0
 #define MAX_BLADDER 100
@@ -31,6 +32,7 @@ typedef struct {
 typedef struct {
     Player player;
     bool hasPlayerWon;
+  u8 musicTrack;
 } State;
 
 Player initializePlayer(const Level *level);
@@ -39,7 +41,7 @@ bool isPlayerColliding();
 bool isPlayerOnToilet(State state, const Level *level);
 
 State newStartState(const Level *level);
-State updateStateFromKeys(State state, Level *level, Map *map);
+State updateStateFromKeys(State state, Level *level, Map *map, Audio *music);
 bool isTransitionFinished(TimeInFrames transitionFrame, TimeInFrames currentFrame);
 
 #endif

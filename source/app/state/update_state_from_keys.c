@@ -2,7 +2,7 @@
 #include "state.h"
 #include "tonc_input.h"
 
-State updateStateFromKeys(State state, Level *level, Map *map) {
+State updateStateFromKeys(State state, Level *level, Map *map, Audio *music) {
     State newState = state;
     if (!state.player.isSliding) {
         newState.player.bladder += 1;
@@ -21,6 +21,7 @@ State updateStateFromKeys(State state, Level *level, Map *map) {
 
     if (isPlayerOnToilet(newState, level)) {
         newState.hasPlayerWon = true;
+        newState.musicTrack = 0;
         return newState;
     }
 
@@ -32,6 +33,8 @@ State updateStateFromKeys(State state, Level *level, Map *map) {
         newState.player.isSliding = true;
         setLevelTile(level, map, newState.player.position.tileX,
                      newState.player.position.tileY, Empty);
+
+        newState.musicTrack = 1;
     }
     if (tileUnderPlayer(newState, level) == Alcohol) {
         newState.player.inebriationSteps = 20;
@@ -47,6 +50,7 @@ State updateStateFromKeys(State state, Level *level, Map *map) {
         }
         setLevelTile(level, map, newState.player.position.tileX,
                      newState.player.position.tileY, Empty);
+
     }
     return newState;
 }
