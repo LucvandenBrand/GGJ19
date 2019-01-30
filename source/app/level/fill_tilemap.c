@@ -100,10 +100,10 @@ uint randomFloorTile(u8 currentLevel) {
         return FLOOR3;
     } else if (rand < 18) {
         return FLOORGBA;
-    /* } else if (rand < 19) { */
-    /*   return FLOORSWITCH; */
+        /* } else if (rand < 19) { */
+        /*   return FLOORSWITCH; */
     } else if (rand < 25) {
-      return FLOOR2;
+        return FLOOR2;
     } else if (currentLevel >= 5) {
         if (currentLevel >= 7 &&
             SimpleRNG_rand() % 50 < MIN((currentLevel - 7), 25)) {
