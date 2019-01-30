@@ -41,6 +41,8 @@ uint se_index_fast(uint tx, uint ty, u16 bgcnt) {
 #define FLOOR5 (FLOOR_TILES_OFFSET2 + 3)
 #define FLOOR6 (FLOOR_TILES_OFFSET2 + 4)
 #define FLOOR7 (FLOOR_TILES_OFFSET + 7)
+#define FLOORGBA (FLOOR_TILES_OFFSET2 + 5)
+#define FLOORSWITCH (FLOOR_TILES_OFFSET2 + 6)
 
 #define FLOOR_HELL_1 (FLOOR_TILES_OFFSET + 10)
 #define FLOOR_HELL_2 (FLOOR_TILES_OFFSET + 11)
@@ -96,8 +98,12 @@ uint randomFloorTile(u8 currentLevel) {
         return FLOOR4;
     } else if (rand < 17) {
         return FLOOR3;
+    } else if (rand < 18) {
+        return FLOORGBA;
+    /* } else if (rand < 19) { */
+    /*   return FLOORSWITCH; */
     } else if (rand < 25) {
-        return FLOOR2;
+      return FLOOR2;
     } else if (currentLevel >= 5) {
         if (currentLevel >= 7 &&
             SimpleRNG_rand() % 50 < MIN((currentLevel - 7), 25)) {
