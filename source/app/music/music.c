@@ -37,7 +37,4 @@ void tickAudioSystemSpeedy() {
         tickAudioSystem();
         audioTimer -= 1;
     }
-    /* for(int index = 0; index < audioSpeed; ++index) { */
-    /*   tickAudioSystem(); */
-    /* } */
 }

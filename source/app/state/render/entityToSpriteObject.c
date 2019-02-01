@@ -1,7 +1,6 @@
 #include "./stateRenderer.h"
 
 OBJ_ATTR entityToSpriteObject(ObjectPoint position, EntityType type) {
-    /* u32 tileID = PLAYER_SPRITE_TILE + (isInebriated ? 8 : 0); */
     u32 tileID;
     switch (type) {
         case Snake:

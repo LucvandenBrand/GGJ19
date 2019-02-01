@@ -23,10 +23,6 @@ State newStartState(const Level *level) {
             ++state.n_entities;
         }
     }
-    /* return (State){ */
-    /*     .player = initializePlayer(level), */
-    /*     .n_entities = 1, */
-    /*     .entities = {(Entity){.type = RubberDuck, */
-    /*                           .position = {.tileX = 10, .tileY = 10}}}}; */
+
     return state;
 }

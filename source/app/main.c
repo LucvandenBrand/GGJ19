@@ -71,8 +71,6 @@ bool playLevel(Level *level, Audio *music, u8 currentLevel) {
 void playLevels() {
     Audio music[3] = {loadAudio("GameTheme.bin"), loadAudio("numberthree.bin"),
                       loadAudio("epichorrorfixedreallyversion47295")};
-    /* Audio audio = loadAudio("GameTheme.bin"); */
-    /* Audio audio = loadAudio("numberthree.bin"); */
     setCurrentAudio(&music[0]);
     setAudioSpeed(0.5);
 
@@ -96,13 +94,6 @@ void playLevels() {
 int main() {
     setupGBA();
     while (true) {
-        /*                  tte_printf( */
-        /*  "|__   __|  (_) |    | |  \n" */
-        /*   "   | | ___  _| | ___| |_ \n" */
-        /*  "   | |/ _ \\| | |/ _ \\ __|\n" */
-        /*  "   | | (_) | | |  __/ |_ \n" */
-        /*  "   |_|\\___/|_|_|\\___|\\__|\n" */
-        /* ); */
         tte_printf("Toilet Boy Alpha\n\nPress any key!\n");
         seedRNGByKeyPress();
         tte_printf("#{es}");

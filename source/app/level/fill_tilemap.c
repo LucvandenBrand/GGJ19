@@ -20,8 +20,6 @@ uint se_index_fast(uint tx, uint ty, u16 bgcnt) {
 
 #define TOP_WALL1 (CEILING_TILES_OFFSET)
 #define SIDE_WALL1 (SIDE_WALL_TILES_OFFSET + 2)
-//#define SIDE_WALL2 (SIDE_WALL_TILES_OFFSET + 3)
-//#define SIDE_WALL3 (SIDE_WALL_TILES_OFFSET + 4)
 
 #define SINGLE_TILE_WALL (FLOOR_TILES_OFFSET3 + 6)
 
@@ -46,7 +44,6 @@ uint se_index_fast(uint tx, uint ty, u16 bgcnt) {
 
 #define FLOOR_HELL_1 (FLOOR_TILES_OFFSET + 10)
 #define FLOOR_HELL_2 (FLOOR_TILES_OFFSET + 11)
-/* #define FLOOR_3 (FLOOR_TILES_OFFSET + 2) */
 
 GenMapTile fetchLevelTile(const Level *level, int x, int y) {
     if (x < 0 || x > 63) return Wall;
@@ -55,7 +52,6 @@ GenMapTile fetchLevelTile(const Level *level, int x, int y) {
 }
 
 uint randomCeilingTile(u8 currentLevel) {
-    /* uint32_t rand = SimpleRNG_rand() % 100; */
     uint rand = SimpleRNG_rand() % 32;
     if (rand < 8) {
         return rand;
@@ -100,10 +96,8 @@ uint randomFloorTile(u8 currentLevel) {
         return FLOOR3;
     } else if (rand < 18) {
         return FLOORGBA;
-    /* } else if (rand < 19) { */
-    /*   return FLOORSWITCH; */
     } else if (rand < 25) {
-      return FLOOR2;
+        return FLOOR2;
     } else if (currentLevel >= 5) {
         if (currentLevel >= 7 &&
             SimpleRNG_rand() % 50 < MIN((currentLevel - 7), 25)) {
@@ -122,19 +116,12 @@ void pickImgForPlace(Level *level, int x, int y) {
     switch (getLevelTile(level, x, y)) {
         case Bed:
             tileImg = BED_RIGHT;
-            //                     (*tilemap)[se_index_fast(x - 1, y,
-            //                     REG_BG0CNT)] = BED_LEFT;
             break;
         case BedLeft:
             tileImg = BED_LEFT;
-            //                     (*tilemap)[se_index_fast(x - 1, y,
-            //                     REG_BG0CNT)] = BED_LEFT;
             break;
         case Toilet:
             tileImg = TOILET_RIGHT;
-            //                     (*tilemap)[se_index_fast(x - 1, y,
-            //                     REG_BG0CNT)] =
-            //                         TOILET_LEFT;
             break;
         case Toileft:
             tileImg = TOILET_LEFT;
@@ -155,7 +142,6 @@ void pickImgForPlace(Level *level, int x, int y) {
             tileImg = SINGLE_TILE_WALL;
             break;
         case Empty:
-            /* tileImg = FLOOR1 + (SimpleRNG_rand() % 3); */
             tileImg = randomFloorTile(level->currentLevel);
             break;
         case Wall:
@@ -163,7 +149,6 @@ void pickImgForPlace(Level *level, int x, int y) {
                 if (fetchLevelTile(level, x, y - 1) != Wall) {
                     tileImg = SINGLE_TILE_WALL;
                 } else {
-                    /* tileImg = SIDE_WALL1 + (SimpleRNG_rand() % 3); */
                     tileImg = randomWallTile(level->currentLevel);
                 }
             } else {
