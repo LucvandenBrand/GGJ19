@@ -1,5 +1,5 @@
 # Global Game Jam 2019 - Toilet Boy for the Game Boy Advance
-This repository contains the sources for a GBA game about finding your toilet in the middle of the night.
+This repository contains the sources for a GBA game about finding your toilet in the middle of the night. It was made in a weekend for the [Global Game Jam of 2019](https://globalgamejam.org/).
 
 ## Project structure
 The actual content of the GBA application is stored in `source`:
