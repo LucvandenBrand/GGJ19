@@ -1,4 +1,4 @@
-# GG19 - GBA Game
+# Global Game Jam 2019 - Toilet Boy for the Game Boy Advance
 This repository contains the sources for a GBA game about finding your toilet in the middle of the night.
 
 ## Project structure
@@ -28,7 +28,7 @@ Once the project has been setup properly, the only thing a developer needs to do
 
 ## Authors
 - [Timo Strating](https://github.com/timostrating)
-- [Luc van den Brand](LucvandenBrand.com)
+- [Luc van den Brand](ttps://LucvandenBrand.com)
 - [Wiebe-Marten Wijnja](https://wmcode.nl/)
 - [Michiel de Jong](https://troido.nl)
 - [Marco Breemhaar](https://github.com/mbreemhaar)
